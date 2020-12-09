@@ -126,12 +126,12 @@ void ExecuteList::changeCurrent(Crontab *cron, TCommand *cmnd)
     int sel = 0;
     if (crontabs->count() > 1 && cron != nullptr)
         foreach(Execute *e, executes)
-            if ((uintptr_t)e->tCommands->parent == (uintptr_t(cron)))
+            if (reinterpret_cast<uintptr_t>(e->tCommands->parent) == reinterpret_cast<uintptr_t>(cron))
                 e->sel = 1;
 
     if (cmnd != nullptr)
         foreach(Execute *e, executes)
-            if ((uintptr_t)e->tCommands == (uintptr_t)cmnd) {
+            if (reinterpret_cast<uintptr_t>(e->tCommands) == reinterpret_cast<uintptr_t>(cmnd)) {
                 e->sel = 2;
                 sel++;
             }

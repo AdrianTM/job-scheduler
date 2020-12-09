@@ -51,12 +51,12 @@ void ExecuteView::scrollTo(const QModelIndex &idx, ScrollHint)
     QRect area = viewport()->rect();
     QRect rect = visualRect(idx);
     if (rect.height() == 0) return;
-    double step = (double)verticalStepsPerItem() / rect.height();
+    double step = static_cast<double>(verticalStepsPerItem()) / rect.height();
     if (rect.top() < 0)
         verticalScrollBar()->setValue(
-                    verticalScrollBar()->value() + (int)(rect.top() * step) );
+                    verticalScrollBar()->value() + static_cast<int>(rect.top() * step) );
     else if (rect.bottom() > area.bottom())
         verticalScrollBar()->setValue(
                     verticalScrollBar()->value() +
-                    (int)((rect.bottom() - area.bottom()) * step) + 5);
+                    static_cast<int>((rect.bottom() - area.bottom()) * step) + 5);
 }

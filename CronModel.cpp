@@ -35,7 +35,6 @@ QVariant CronModel::data(const QModelIndex &idx, int role) const
     }
 
     return QVariant();
-
 }
 
 QModelIndex CronModel::parent(const QModelIndex &index) const
