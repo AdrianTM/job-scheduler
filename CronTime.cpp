@@ -11,24 +11,20 @@
 
 #include "CronTime.h"
 
-static const char * const WeekNames[] =
-{ "sun", "mon", "tue", "wed", "thu", "fri", "sat", "sun", nullptr };
-
-static const char * const MonthNames[] =
-{ "jan", "feb", "mar", "apr", "may", "jun",
-  "jul", "aug", "sep", "oct", "nov", "dec", nullptr };
+static const QStringList WeekNames = { "sun", "mon", "tue", "wed", "thu", "fri", "sat", "sun" };
+static const QStringList MonthNames = { "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
 
 
-inline QString upcaseHead( const char *str )
+inline QString upcaseHead( const QString &str )
 {
-    return QChar(*str+'A'-'a') + QString(str+1);
+    return str.at(0).toUpper() + str.mid(1);
 }
 
-QString toNumeric(const QString &str, const char * const names[], int start)
+QString toNumeric(const QString &str, const QStringList &names, int start)
 {
     QString ret = str;
-    for (int i=0; names[i] != nullptr; i++)
-        ret = ret.replace(names[i], QString::number(i+start) );
+    for (int i = 0; i < names.size(); i++)
+        ret = ret.replace( names.at(i), QString::number(i+start) );
     return ret;
 }
 
@@ -286,7 +282,7 @@ QString CronTime::toWeekLiteral(const QString &str)
             if ((ep = ret.indexOf(QRegularExpression("[,-]"),sp)) == -1)
                 ep = ret.length();
             int n = ret.mid(sp, ep-sp).toInt();
-            ret = ret.replace(sp, ep-sp, upcaseHead(WeekNames[n]) );
+            ret = ret.replace(sp, ep-sp, upcaseHead(WeekNames.at(n)) );
         }
     }
     return ret;
@@ -304,7 +300,7 @@ QString CronTime::toMonthLiteral(const QString &str)
                 ep = ret.length();
 
             int n = ret.mid(sp, ep-sp).toInt() - 1;
-            ret = ret.replace(sp, ep-sp, upcaseHead(MonthNames[n]) );
+            ret = ret.replace(sp, ep-sp, upcaseHead(MonthNames.at(n)) );
         }
     }
     return ret;
