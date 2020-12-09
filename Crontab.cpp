@@ -75,14 +75,14 @@ QString Crontab::writeTempFile(const QString &text, const QString &tmp)
     if (!QFileInfo(fdir).exists()) {
         if (!QDir(fdir).mkdir(fdir)) {
             estr = "can't create directory " + fdir;
-            return "";
+            return QString();
         }
     }
     QTemporaryFile f(fdir+"/"+tmp);
     f.setAutoRemove(false);
     if (!f.open()) {
         estr = "can't open temporary file\n\n" + f.errorString();
-        return "";
+        return QString();
     }
     QTextStream t(&f);
     t << text;
@@ -93,7 +93,7 @@ QString Crontab::writeTempFile(const QString &text, const QString &tmp)
 bool Crontab::putCrontab(const QString &text)
 {
     estr = "";
-    if (cronOwner =="/etc/crontab") {
+    if (cronOwner == "/etc/crontab") {
         QString saveFile = writeTempFile(text, "etccron");
         QFile f(cronOwner);
         if (!f.open(QIODevice::WriteOnly)) {
@@ -126,7 +126,7 @@ bool Crontab::putCrontab(const QString &text)
         }
 
         QString err = QString::fromUtf8(p.readAllStandardError());
-        if (p.exitCode() || err != "") {
+        if (p.exitCode() || !err.isEmpty()) {
             estr = "crontab update error\n\n" + err;
             return false;
         }
@@ -140,21 +140,21 @@ QString Crontab::cronText()
 {
     QString ret;
 
-    if (comment != "") {
-        QString s=comment;
+    if (!comment.isEmpty()) {
+        QString s = comment;
         ret += "# " + s.replace('\n',"\n# ") + "\n\n";
     }
 
-    foreach(Variable *v, variables) {
-        if (v->comment != "")
+    for (Variable *v : variables) {
+        if (!v->comment.isEmpty())
             ret += "# " + v->comment.replace('\n', "\n# ") + '\n';
 
         ret += v->name + "=" + v->value + '\n';
     }
 
     ret += "\n";
-    foreach(TCommand *c, tCommands) {
-        if (c->comment != "")
+    for (TCommand *c : tCommands) {
+        if (!c->comment.isEmpty())
             ret += "# " + c->comment.replace('\n', "\n# ") + '\n';
 
         if (cronOwner == "/etc/crontab")
@@ -183,9 +183,9 @@ void Crontab::setup(const QString &str)
     QStringList cmnt;
     QStringList head;
     int headflag = 0;
-    foreach(QString s, slist) {
+    for (QString s : slist) {
         s = s.simplified();
-        if (s == "") {
+        if (s.isEmpty()) {
             if (headflag == 0) {
                 if (head.count() > 0) head << s;
                 head << cmnt;
@@ -193,13 +193,13 @@ void Crontab::setup(const QString &str)
             }else{
                 cmnt << s;
             }
-        } else if (s[0] == '#') {
-            if (s[1] == ' ')
+        } else if (s.at(0) == '#') {
+            if (s.at(1) == ' ')
                 cmnt << s.mid(2);
             else
                 cmnt << s.mid(1);
 
-        }else{
+        } else {
             if (headflag == 0) {
                 headflag = 1;
                 //				if (head.count() == 0)
@@ -217,7 +217,7 @@ void Crontab::setup(const QString &str)
                 // Command
                 QRegularExpression sep("\\s+");
                 int n;
-                if (s[0] == '@')
+                if (s.at(0) == '@')
                     n = 0;
                 else
                     n = 4;
