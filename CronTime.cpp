@@ -122,7 +122,7 @@ QString CronTime::toString(bool literal)
 }
 QBitArray CronTime::toBit(int start, int num, const QString &str)
 {
-    QRegExp reg("^\\d+$");
+    QRegularExpression reg("^\\d+$");
     QBitArray ret(num);
     QBitArray NG(0);
     int fp, ep;
@@ -278,12 +278,12 @@ QDateTime CronTime::getNextTime(const QDateTime &chk)
 QString CronTime::toWeekLiteral(const QString &str)
 {
     QString ret = str;
-    if (!str.contains(QRegExp( "[/*]"))) {
+    if (!str.contains(QRegularExpression( "[/*]"))) {
         int sp, ep;
         while(true) {
-            if ((sp = ret.indexOf(QRegExp("[0-9]"))) == -1)
+            if ((sp = ret.indexOf(QRegularExpression("[0-9]"))) == -1)
                 break;
-            if ((ep = ret.indexOf(QRegExp("[,-]"),sp)) == -1)
+            if ((ep = ret.indexOf(QRegularExpression("[,-]"),sp)) == -1)
                 ep = ret.length();
             int n = ret.mid(sp, ep-sp).toInt();
             ret = ret.replace(sp, ep-sp, upcaseHead(WeekNames[n]) );
@@ -295,12 +295,12 @@ QString CronTime::toWeekLiteral(const QString &str)
 QString CronTime::toMonthLiteral(const QString &str)
 {
     QString ret = str;
-    if (!str.contains(QRegExp( "[/*]"))) {
+    if (!str.contains(QRegularExpression( "[/*]"))) {
         int sp, ep;
         while(true) {
-            if ((sp = ret.indexOf(QRegExp("[0-9]"))) == -1)
+            if ((sp = ret.indexOf(QRegularExpression("[0-9]"))) == -1)
                 break;
-            if ((ep = ret.indexOf(QRegExp("[,-]"),sp)) == -1)
+            if ((ep = ret.indexOf(QRegularExpression("[,-]"),sp)) == -1)
                 ep = ret.length();
 
             int n = ret.mid(sp, ep-sp).toInt() - 1;
