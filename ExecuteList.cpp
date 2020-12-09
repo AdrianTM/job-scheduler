@@ -54,9 +54,9 @@ ExecuteList::ExecuteList(int maxN, int maxD, QList<Crontab*> *cron)
     dateSpinBox->setValue(maxDate);
     countLabel->setFrameStyle(QFrame::Panel | QFrame::Sunken);
 
-    connect(resetButton, SIGNAL(clicked()), this, SLOT(dataChanged()));
-    connect(numSpinBox, SIGNAL(valueChanged(int)), this, SLOT(numChanged(int)));
-    connect(dateSpinBox, SIGNAL(valueChanged(int)), this, SLOT(dateChanged(int)));
+    connect(resetButton, &QPushButton::clicked, this, &ExecuteList::dataChanged);
+    connect(numSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this, &ExecuteList::numChanged);
+    connect(dateSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this, &ExecuteList::dateChanged);
 
     curCrontab = nullptr;
     curTCommand = nullptr;
@@ -72,13 +72,13 @@ void ExecuteList::dataChanged()
     QDateTime stopTime = QDateTime::currentDateTime().addDays(maxDate);
 
     executeView->clearSelection();
-    foreach (Execute *e, executes) delete e;
+    for (Execute *e : executes) delete e;
     executes.clear();
     QList<TCommand*> cmnd;
     QList<QDateTime> date;
-    foreach(Crontab *cron, *crontabs) {
+    for (Crontab *cron : *crontabs) {
 
-        foreach(TCommand *cc, cron->tCommands) {
+        for (TCommand *cc : cron->tCommands) {
             CronTime ct(cc->time);
             if (ct.isValid()){
                 cmnd << cc;
@@ -89,13 +89,13 @@ void ExecuteList::dataChanged()
         }
     }
     itemCount = 0;
-    if (cmnd.count() > 0){
-        for (int i=0; i < maxNum; i++) {
+    if (cmnd.count() > 0) {
+        for (int i = 0; i < maxNum; i++) {
             int p = 0;
-            QDateTime cur = date[0];
+            QDateTime cur = date.at(0);
             for (int j=1; j < cmnd.count(); j++) {
-                if (cur > date[j]) {
-                    cur = date[j];
+                if (cur > date.at(j)) {
+                    cur = date.at(j);
                     p = j;
                 }
             }
@@ -120,17 +120,17 @@ void ExecuteList::changeCurrent(Crontab *cron, TCommand *cmnd)
     if (!isVisible())
         return;
 
-    foreach(Execute *e, executes)
+    for (Execute *e : executes)
         e->sel = 0;
 
     int sel = 0;
     if (crontabs->count() > 1 && cron != nullptr)
-        foreach(Execute *e, executes)
+        for (Execute *e : executes)
             if (reinterpret_cast<uintptr_t>(e->tCommands->parent) == reinterpret_cast<uintptr_t>(cron))
                 e->sel = 1;
 
     if (cmnd != nullptr)
-        foreach(Execute *e, executes)
+        for (Execute *e : executes)
             if (reinterpret_cast<uintptr_t>(e->tCommands) == reinterpret_cast<uintptr_t>(cmnd)) {
                 e->sel = 2;
                 sel++;
