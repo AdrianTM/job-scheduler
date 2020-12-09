@@ -35,7 +35,6 @@ signals:
 private:
     void scrollTo(const QModelIndex &, ScrollHint);
 
-
     ExecuteModel *executeModel;
 };
 

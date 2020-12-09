@@ -51,4 +51,4 @@ SOURCES += CronModel.cpp \
            VariableModel.cpp \
            VariableView.cpp
 RESOURCES += application.qrc
-TRANSLATIONS += qroneko_ja.ts
+TRANSLATIONS += translations/qroneko_ja.ts

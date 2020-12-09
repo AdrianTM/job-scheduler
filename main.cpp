@@ -21,9 +21,10 @@ int main(int argc, char *argv[])
 
     QString locale = QLocale::system().name();
 
-    QTranslator translator;
-    translator.load(QString("qroneko_") + locale);
-    app.installTranslator(&translator);
+    QTranslator appTran;
+    appTran.load(QCoreApplication::applicationName() + "_" + locale,
+                 "/usr/share/" + QCoreApplication::applicationName() + "/locale");
+    app.installTranslator(&appTran);
 
     MainWindow window;
     window.show();
