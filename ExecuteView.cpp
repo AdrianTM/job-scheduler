@@ -20,7 +20,8 @@ ExecuteView::ExecuteView(ExecuteModel *model)
     setModel(executeModel);
 
     header()->setSortIndicatorShown(true);
-    //header()->setClickable(true);
+    header()->setSectionsClickable(true);
+
     setRootIsDecorated(false);
 
     connect(selectionModel(), &QItemSelectionModel::currentChanged, this, &ExecuteView::selectChanged);
