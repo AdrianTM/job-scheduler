@@ -316,6 +316,5 @@ void MainWindow::closeEvent(QCloseEvent *event)
 void MainWindow::aboutQroneko()
 {
     QMessageBox::about(this, tr("About qroneko"),
-                       tr("<b>qroneko</b> - cron utility for Qt4<br>version ") +
-                       VERSION );
+                       "<b>qroneko</b> - " + tr("Qt cron utility") + "<br>" + tr("Version %1").arg(VERSION));
 }

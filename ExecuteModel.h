@@ -21,11 +21,9 @@ class ExecuteModel : public QAbstractItemModel
 public:
     ExecuteModel(QList<Execute*>*exe, QObject *parent = nullptr)
         : QAbstractItemModel(parent), executes(exe),
-          sortColumn(0), sortOrder(Qt::AscendingOrder)
-    {}
+          sortColumn(0), sortOrder(Qt::AscendingOrder) {}
 
-    ~ExecuteModel()
-    {}
+    ~ExecuteModel() {}
 
     Execute *getExecute(const QModelIndex &idx);
     void doSort();

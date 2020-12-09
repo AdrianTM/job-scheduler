@@ -19,12 +19,11 @@
 class Clib
 {
 public:
-    inline static uid_t uId()	{ return getuid(); }
+    inline static uid_t uId() { return getuid(); }
     inline static QString uName() { return getpwuid(uId())->pw_name; }
     inline static QString uHome() { return getpwuid(uId())->pw_dir; }
     inline static QString uShell() { return getpwuid(uId())->pw_shell; }
-    inline static QString getEnv(const char *name)
-    { return getenv(name); }
+    inline static QString getEnv(const char *name) { return getenv(name); }
     inline static QStringList allUsers() {
         QStringList ulist;
         struct passwd *pw;

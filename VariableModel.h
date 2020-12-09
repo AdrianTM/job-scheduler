@@ -24,29 +24,20 @@ public:
     VariableModel(QObject *parent = nullptr)
         : QAbstractItemModel(parent)
     { variables = &dummy; }
-    ~VariableModel()
-    {}
 
-    Qt::ItemFlags flags(const QModelIndex &) const
-    { return Qt::ItemIsSelectable | Qt::ItemIsEnabled; }
-    QModelIndex parent(const QModelIndex &) const
-    { return QModelIndex(); }
-    QModelIndex index(int row, int column,
-                      const QModelIndex &) const
-    { return createIndex(row, column, (*variables)[row]); }
-    int columnCount(const QModelIndex &) const
-    { return 3; }
-    void resetData(QList<Variable*>*var)
-    { variables = var; }
-    int rowCount(const QModelIndex &parent) const
-    { return (parent.isValid() ? 0 : variables->count()); }
+    ~VariableModel() {}
 
-    void varDataChanged(const QModelIndex &index);
+    Qt::ItemFlags flags(const QModelIndex &) const { return Qt::ItemIsSelectable | Qt::ItemIsEnabled; }
+    QModelIndex parent(const QModelIndex &) const { return QModelIndex(); }
+    QModelIndex index(int row, int column, const QModelIndex &) const { return createIndex(row, column, (*variables)[row]); }
+    int columnCount(const QModelIndex &) const { return 3; }
+    void resetData(QList<Variable*>*var) { variables = var; }
+    int rowCount(const QModelIndex &parent) const { return (parent.isValid() ? 0 : variables->count()); }
+
+    void varDataChanged(const QModelIndex &idx);
     Variable *getVariable(const QModelIndex &idx);
     bool removeVariable(int row);
     bool insertVariable(int row, Variable *var);
-
-
 
     QList<Variable*> *variables;
     QList<Variable*> dummy;
@@ -54,7 +45,7 @@ public:
 private:
     QVariant headerData(int section, Qt::Orientation orientation,
                         int role) const;
-    QVariant data(const QModelIndex &index, int role) const;
+    QVariant data(const QModelIndex &idx, int role) const;
 
 };
 

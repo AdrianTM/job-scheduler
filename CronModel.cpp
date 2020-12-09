@@ -7,8 +7,6 @@
    as published by the Free Software Foundation; either version 2
    of the License, or (at your option) any later version.
 */
-#include <QtGui>
-
 #include "Crontab.h"
 #include "CronModel.h"
 
@@ -31,7 +29,7 @@ QVariant CronModel::data(const QModelIndex &idx, int role) const
         }
     } else {
         if (idx.column() == 0)
-            return  getCrontab(idx)->cronOwner;
+            return getCrontab(idx)->cronOwner;
     }
 
     return QVariant();

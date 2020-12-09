@@ -18,7 +18,7 @@ class Crontab;
 class CronType
 {
 public:
-    enum DataType { CRON=0, COMMAND=1 };
+    enum DataType { CRON, COMMAND };
     CronType() {}
     CronType(const int t)
         : type(t) {}
@@ -64,8 +64,7 @@ public:
 
     QString getCrontab(const QString &user);
     bool putCrontab(const QString &text);
-    bool putCrontab()
-    { return putCrontab(cronText()); }
+    bool putCrontab() { return putCrontab(cronText()); }
 
     void setup(const QString &str);
     QString writeTempFile(const QString &test, const QString &temp);

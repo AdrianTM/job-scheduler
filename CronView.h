@@ -25,8 +25,7 @@ public:
     CronView(CronModel *model);
 
     void resetView();
-    void hideUser(bool flag=true)
-    { setColumnHidden(1, flag); }
+    void hideUser(bool flag=true) { setColumnHidden(1, flag); }
     Crontab *getCurrentCrontab();
     TCommand *getCurrentTCommand();
 

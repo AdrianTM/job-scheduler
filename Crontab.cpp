@@ -16,23 +16,18 @@
 Crontab::Crontab(const QString &user)
     : CronType(CronType::CRON), cronOwner(user), changed(false)
 {
-
     QString str = getCrontab(user);
-    if ( str != "" ) setup(str);
-
+    if ( !str.isEmpty() ) setup(str);
 }
 
 Crontab::~Crontab()
 {
-
     foreach (TCommand *c, tCommands) delete c;
     foreach (Variable *v, variables) delete v;
-
 }
 
 QString Crontab::getCrontab(const QString &user)
 {
-
     QString ret;
     estr = "";
     if (user == "/etc/crontab") {
@@ -72,7 +67,6 @@ QString Crontab::getCrontab(const QString &user)
 
     }
     return ret;
-
 }
 
 QString Crontab::writeTempFile(const QString &text, const QString &tmp)
@@ -98,7 +92,6 @@ QString Crontab::writeTempFile(const QString &text, const QString &tmp)
 
 bool Crontab::putCrontab(const QString &text)
 {
-
     estr = "";
     if (cronOwner =="/etc/crontab") {
         QString saveFile = writeTempFile(text, "etccron");
@@ -141,12 +134,10 @@ bool Crontab::putCrontab(const QString &text)
     }
 
     return true;
-
 }
 
 QString Crontab::cronText()
 {
-
     QString ret;
 
     if (comment != "") {
@@ -174,11 +165,10 @@ QString Crontab::cronText()
     }
 
     return ret;
-
 }
+
 void Crontab::setup(const QString &str)
 {
-
     QStringList slist = str.split('\n');
 
     if (cronOwner != "/etc/crontab") {
@@ -217,15 +207,15 @@ void Crontab::setup(const QString &str)
 
                 comment = list2String(head);
             }
-            if (s.contains(QRegExp("^\\S+\\s*=\\s*\\S*$"))) {
+            if (s.contains(QRegularExpression("^\\S+\\s*=\\s*\\S*$"))) {
                 // Variable
-                QRegExp sep("\\s*=\\s*");
+                QRegularExpression sep("\\s*=\\s*");
                 QString name = s.section( sep, 0, 0 );
                 QString val = s.section( sep, 1, 1 );
                 variables << new Variable(name, val, list2String(cmnt));
             } else {
                 // Command
-                QRegExp sep("\\s+");
+                QRegularExpression sep("\\s+");
                 int n;
                 if (s[0] == '@')
                     n = 0;
@@ -251,16 +241,14 @@ void Crontab::setup(const QString &str)
 
 QString Crontab::list2String(QStringList list) const
 {
-
     QString ret("");
     bool flag = false;
 
-    foreach(QString s, list) {
+    for(const QString &s : list) {
         if (flag) ret += '\n';
         ret += s;
         flag = true;
     }
 
-    return ret.replace(QRegExp("^\\n\\n"),"\n");
-
+    return ret.replace(QRegularExpression("^\\n\\n"),"\n");
 }

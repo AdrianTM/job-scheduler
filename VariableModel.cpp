@@ -12,11 +12,11 @@
 #include "Crontab.h"
 #include "VariableModel.h"
 
-QVariant VariableModel::data(const QModelIndex &index, int role) const
+QVariant VariableModel::data(const QModelIndex &idx, int role) const
 {
-    if (index.isValid() && role == Qt::DisplayRole) {
-        Variable *v = static_cast<Variable*>(index.internalPointer());
-        switch (index.column()) {
+    if (idx.isValid() && role == Qt::DisplayRole) {
+        Variable *v = static_cast<Variable*>(idx.internalPointer());
+        switch (idx.column()) {
         case 0:
             return v->name;
         case 1:
@@ -25,7 +25,6 @@ QVariant VariableModel::data(const QModelIndex &index, int role) const
     }
 
     return QVariant();
-
 }
 
 QVariant VariableModel::headerData(int section, Qt::Orientation orientation,
