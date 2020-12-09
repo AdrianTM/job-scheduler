@@ -135,7 +135,7 @@ void ExecuteModel::doSort()
             return;
         }
     }
-    qSort( executes->begin(), executes->end(), cmp);
+    std::sort(executes->begin(), executes->end(), cmp);
 
     emit layoutChanged();
 }
