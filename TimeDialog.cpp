@@ -52,19 +52,10 @@ void TimeButton::buttonToggled(bool chk)
     }
 }
 
-const char *MonthName[] =
-{	" January ", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December",
-    nullptr
-};
-const char *WeekName[] =
-{	"Sunday", "Monday", "Tesday", "Wednesday", "Thursday", "Friday", "Saturday",
-    nullptr
-};
-const char *SimpleName[] =
-{	"@hourly", "@daily", "@weekly", "@monthly", "@yearly", "@reboot",
-    nullptr
-};
+const QStringList MonthName = { " January ", "February", "March", "April", "May", "June",
+                                "July", "August", "September", "October", "November", "December" };
+const QStringList WeekName = { "Sunday", "Monday", "Tesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+const QStringList SimpleName = { "@hourly", "@daily", "@weekly", "@monthly", "@yearly", "@reboot" };
 
 
 TimeDialog::TimeDialog(const QString &time, QWidget *parent)
@@ -141,7 +132,7 @@ TimeDialog::TimeDialog(const QString &time, QWidget *parent)
                 g->setColumnMinimumWidth(0,120);
                 g->setColumnMinimumWidth(1,120);
                 for(int i=0; i<12; i++){
-                    QString str = QString("%1(%2)").arg(MonthName[i]).arg(i+1);
+                    QString str = QString("%1(%2)").arg(MonthName.at(i)).arg(i+1);
                     QPushButton *btn = new TimeButton(str);
                     g->addWidget(btn, i%6, i/6);
                     monthBGroup->addButton(btn);
@@ -153,7 +144,7 @@ TimeDialog::TimeDialog(const QString &time, QWidget *parent)
             weekBGroup->setExclusive(false);
             {
                 for(int i=0; i<7; i++){
-                    QString str = QString("%1(%2)").arg(WeekName[i]).arg(i);
+                    QString str = QString("%1(%2)").arg(WeekName.at(i)).arg(i);
                     QPushButton *btn = new TimeButton(str);
                     v->addWidget(btn);
                     weekBGroup->addButton(btn);
@@ -165,7 +156,7 @@ TimeDialog::TimeDialog(const QString &time, QWidget *parent)
             simpleBGroup->setExclusive(false);
             {
                 for(int i=0; i<6; i++){
-                    QPushButton *btn = new TimeButton(SimpleName[i]);
+                    QPushButton *btn = new TimeButton(SimpleName.at(i));
                     v->addWidget(btn);
                     simpleBGroup->addButton(btn);
                 }
