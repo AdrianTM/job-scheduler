@@ -43,7 +43,7 @@ private:
     QVariant headerData(int section, Qt::Orientation orientation,
                         int role) const;
     QVariant data(const QModelIndex &index, int role) const;
-    void sort(int column, Qt::SortOrder order=Qt::AscendingOrder);
+    void sort(int column, Qt::SortOrder order = Qt::AscendingOrder);
 
     QList<Execute*>*executes;
     int sortColumn;

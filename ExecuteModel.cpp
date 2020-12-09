@@ -22,9 +22,9 @@ QVariant ExecuteModel::data(const QModelIndex &index, int role) const
             case 0:
                 return e->exeTime;
             case 1:
-                return  e->tCommands->time;
+                return e->tCommands->time;
             case 2:
-                return  e->tCommands->user;
+                return e->tCommands->user;
             case 3:
                 return e->tCommands->command;
             }

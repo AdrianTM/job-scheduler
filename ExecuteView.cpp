@@ -23,9 +23,7 @@ ExecuteView::ExecuteView(ExecuteModel *model)
     //header()->setClickable(true);
     setRootIsDecorated(false);
 
-    connect(selectionModel(),
-            SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)),
-            this, SLOT(selectChanged(const QModelIndex&, const QModelIndex&)));
+    connect(selectionModel(), &QItemSelectionModel::currentChanged, this, &ExecuteView::selectChanged);
 }
 
 void ExecuteView::resetView()
