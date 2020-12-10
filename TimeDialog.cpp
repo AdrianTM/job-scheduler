@@ -50,9 +50,9 @@ void TimeButton::buttonToggled(bool chk)
     }
 }
 
-const QStringList MonthName = { " January ", "February", "March", "April", "May", "June",
+const QStringList MonthName = { "January", "February", "March", "April", "May", "June",
                                 "July", "August", "September", "October", "November", "December" };
-const QStringList WeekName = { "Sunday", "Monday", "Tesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+const QStringList WeekName = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
 const QStringList SimpleName = { "@hourly", "@daily", "@weekly", "@monthly", "@yearly", "@reboot" };
 
 
