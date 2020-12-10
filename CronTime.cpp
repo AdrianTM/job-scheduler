@@ -123,7 +123,7 @@ QBitArray CronTime::toBit(int start, int num, const QString &str)
     QBitArray ret(num);
     QBitArray NG(0);
     int fp, ep;
-    for (QString s : str.split(',')) {
+    for (auto& s : str.split(',')) {
         int deg = 1;
 
         if (s.contains('/')) {

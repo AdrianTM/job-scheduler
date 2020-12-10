@@ -158,7 +158,7 @@ void MainWindow::createActions()
 
 void MainWindow::initCron()
 {
-    for (Crontab *d : crontabs) delete d;
+    for (auto& d : crontabs) delete d;
     crontabs.clear();
 
     QString user = Clib::uName();
@@ -174,7 +174,7 @@ void MainWindow::initCron()
     if (Clib::uId() == 0) {
         cron = new Crontab( "/etc/crontab" );
         crontabs << cron;
-        for (const QString &s : Clib::allUsers()) {
+        for (const auto& s : Clib::allUsers()) {
             if (s == user)
                 continue;
 
@@ -213,7 +213,7 @@ void MainWindow::saveCron()
     bool saved = false;
     bool notSaved =false;
 
-    for (Crontab *cron : crontabs) {
+    for (const auto& cron : crontabs) {
         if (cron->changed) {
             SaveDialog dialog(cron->cronOwner, cron->cronText());
             if (dialog.exec()==QDialog::Accepted) {
@@ -286,7 +286,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
 
     int changed = false;
-    for (Crontab *cron : crontabs) {
+    for (const auto& cron : crontabs) {
         if (cron->changed) {
             changed = true;
             break;

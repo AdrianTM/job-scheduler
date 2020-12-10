@@ -217,7 +217,7 @@ void VariableEdit::setMailVar(int mailFlag)
     // 0 = On, 1 = Off, 2 = To, -1 = User activated
     int curFlag = 0;
     Variable *v = nullptr;
-    for (Variable *var : crontab->variables) {
+    for (auto& var : crontab->variables) {
         if (var->name == "MAILTO") {
             curFlag = (var->value == "\"\"") ? 1 : 2;
             v = var;
@@ -268,7 +268,7 @@ void VariableEdit::setMailVar(int mailFlag)
 void VariableEdit::setMailCombo(const QList<Variable*> &var)
 {
     bool mvar = false;
-    for (Variable *v : var) {
+    for (const auto& v : var) {
         if (v->name == "MAILTO") {
             mvar = true;
             if (v->value == "\"\"") {

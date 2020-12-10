@@ -72,18 +72,17 @@ void ExecuteList::dataChanged()
     QDateTime stopTime = QDateTime::currentDateTime().addDays(maxDate);
 
     executeView->clearSelection();
-    for (Execute *e : executes) delete e;
+    for (auto& e : executes) delete e;
     executes.clear();
     QList<TCommand*> cmnd;
     QList<QDateTime> date;
-    for (Crontab *cron : *crontabs) {
-
-        for (TCommand *cc : cron->tCommands) {
+    for (const auto& cron : *crontabs) {
+        for (const auto& cc : cron->tCommands) {
             CronTime ct(cc->time);
             if (ct.isValid()) {
                 cmnd << cc;
                 date << ct.getNextTime(QDateTime::currentDateTime());
-            }else{
+            } else {
                 executes << new Execute(cc, "Time Format Error", -1);
             }
         }
@@ -120,17 +119,17 @@ void ExecuteList::changeCurrent(Crontab *cron, TCommand *cmnd)
     if (!isVisible())
         return;
 
-    for (Execute *e : executes)
+    for (auto& e : executes)
         e->sel = 0;
 
     int sel = 0;
     if (crontabs->count() > 1 && cron != nullptr)
-        for (Execute *e : executes)
+        for (auto& e : executes)
             if (reinterpret_cast<uintptr_t>(e->tCommands->parent) == reinterpret_cast<uintptr_t>(cron))
                 e->sel = 1;
 
     if (cmnd != nullptr)
-        for (Execute *e : executes)
+        for (auto& e : executes)
             if (reinterpret_cast<uintptr_t>(e->tCommands) == reinterpret_cast<uintptr_t>(cmnd)) {
                 e->sel = 2;
                 sel++;

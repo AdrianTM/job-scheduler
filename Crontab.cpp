@@ -22,8 +22,8 @@ Crontab::Crontab(const QString &user)
 
 Crontab::~Crontab()
 {
-    for (TCommand *c : tCommands) delete c;
-    for (Variable *v : variables) delete v;
+    for (auto& c : tCommands) delete c;
+    for (auto& v : variables) delete v;
 }
 
 QString Crontab::getCrontab(const QString &user)
