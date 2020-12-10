@@ -175,12 +175,13 @@ void TCommandEdit::userChanged(int index)
 
     tCommand->user = userCombo->itemText(index);
     emit dataChanged();
-
 }
+
 void TCommandEdit::resetExeTime()
 {
     setExecuteList(timeEdit->text());
 }
+
 void TCommandEdit::doTimeDialog()
 {
     TimeDialog dialog(timeEdit->text(), this);

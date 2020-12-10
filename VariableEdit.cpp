@@ -214,12 +214,13 @@ void VariableEdit::userActivated(int)
 
 void VariableEdit::setMailVar(int mailFlag)
 {
+    // 0 = On, 1 = Off, 2 = To, -1 = User activated
     int curFlag = 0;
     Variable *v = nullptr;
-    for (Variable *v : crontab->variables) {
-        if (v->name == "MAILTO") {
-            if (v->value == "\"\"") curFlag = 1;
-            else curFlag = 2;
+    for (Variable *var : crontab->variables) {
+        if (var->name == "MAILTO") {
+            curFlag = (var->value == "\"\"") ? 1 : 2;
+            v = var;
             break;
         }
     }

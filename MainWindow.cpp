@@ -167,8 +167,8 @@ void MainWindow::initCron()
             cron->variables.count() == 0) {
         cron->comment = "";
         cron->variables << new Variable("HOME", Clib::uHome(), "Home");
-        cron->variables << new Variable( "PATH", Clib::getEnv("PATH"), "Path");
-        cron->variables << new Variable( "SHELL", Clib::uShell(), "Shell");
+        cron->variables << new Variable("PATH", Clib::getEnv("PATH"), "Path");
+        cron->variables << new Variable("SHELL", Clib::uShell(), "Shell");
     }
     crontabs << cron;
     if (Clib::uId() == 0) {
@@ -252,12 +252,7 @@ void MainWindow::dataChanged()
 
 void MainWindow::changeCurrent(Crontab *, TCommand *cmnd)
 {
-    bool flg;
-    if (cmnd == nullptr)
-        flg = false;
-    else
-        flg = true;
-
+    bool flg = (cmnd != nullptr);
     cutAction->setEnabled(flg);
     copyAction->setEnabled(flg);
     deleteAction->setEnabled(flg);

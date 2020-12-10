@@ -116,6 +116,7 @@ QString CronTime::toString(bool literal)
 
     return ret;
 }
+
 QBitArray CronTime::toBit(int start, int num, const QString &str)
 {
     QRegularExpression reg("^\\d+$");
@@ -166,6 +167,7 @@ QBitArray CronTime::toBit(int start, int num, const QString &str)
     }
     return ret;
 }
+
 QString CronTime::toTimeString(int start, int cnt, int interval)
 {
 
