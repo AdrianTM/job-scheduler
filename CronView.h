@@ -32,16 +32,17 @@ public:
 protected:
     void startDrag(Qt::DropActions supportedActions);
 
-
-private slots:
-    void removeTCommand();
-    void insertTCommand(TCommand *cmnd);
-    void tCommandChanged();
+public slots:
+    void changeCurrent(TCommand *cmnd);
     void copyTCommand();
     void cutTCommand();
-    void pasteTCommand();
     void newTCommand();
-    void changeCurrent(TCommand *cmnd);
+    void pasteTCommand();
+    void removeTCommand();
+    void tCommandChanged();
+
+private slots:
+    void insertTCommand(TCommand *cmnd);
     void TCommandMoved(TCommand *cmnd);
     void selectChanged(const QModelIndex &cur, const QModelIndex &prev);
 

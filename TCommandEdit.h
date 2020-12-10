@@ -26,8 +26,10 @@ class TCommandEdit : public QWidget
 public:
     TCommandEdit(QWidget *parent = nullptr);
 
-private slots:
+public slots:
     void changeCurrent(Crontab *cron, TCommand *cmnd);
+
+private slots:
     void commandEdited(const QString &str);
     void timeEdited(const QString &str);
     void userChanged(int index);

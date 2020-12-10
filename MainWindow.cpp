@@ -58,37 +58,32 @@ MainWindow::MainWindow()
         spl->addWidget(tab);
     }
 
+    connect(cronView, &CronView::viewSelected, this, &MainWindow::changeCurrent);
+    connect(cronView, &CronView::viewSelected, tCommandEdit, &TCommandEdit::changeCurrent);
+    connect(cronView, &CronView::viewSelected, variableEdit, &VariableEdit::changeCurrent);
+    connect(cronView, &CronView::viewSelected, executeList, &ExecuteList::changeCurrent);
+    connect(executeList->executeView, &ExecuteView::viewSelected, cronView, &CronView::changeCurrent);
 
-    connect(cronView, SIGNAL(viewSelected(Crontab*, TCommand*)),
-            this, SLOT(changeCurrent(Crontab*, TCommand*)));
-    connect(cronView, SIGNAL(viewSelected(Crontab*, TCommand*)),
-            tCommandEdit, SLOT(changeCurrent(Crontab*, TCommand*)));
-    connect(cronView, SIGNAL(viewSelected(Crontab*,  TCommand*)),
-            variableEdit, SLOT(changeCurrent(Crontab*, TCommand*)));
-    connect(cronView, SIGNAL(viewSelected(Crontab*,  TCommand*)),
-            executeList, SLOT(changeCurrent(Crontab*, TCommand*)));
-    connect(executeList->executeView, SIGNAL(viewSelected(TCommand*)),
-            cronView, SLOT(changeCurrent(TCommand*)));
+    connect(cronView, &CronView::dataChanged, this, &MainWindow::dataChanged);
+    connect(cronView, &CronView::dataChanged, executeList, &ExecuteList::dataChanged);
+    connect(tCommandEdit, &TCommandEdit::dataChanged, this, &MainWindow::dataChanged);
+    connect(tCommandEdit, &TCommandEdit::dataChanged, executeList, &ExecuteList::dataChanged);
+    connect(tCommandEdit, &TCommandEdit::dataChanged, cronView, &CronView::tCommandChanged);
+    connect(variableEdit, &VariableEdit::dataChanged, this, &MainWindow::dataChanged);
 
-    connect(cronView, SIGNAL(dataChanged()), this, SLOT(dataChanged()));
-    connect(cronView, SIGNAL(dataChanged()), executeList, SLOT(dataChanged()));
-    connect(tCommandEdit, SIGNAL(dataChanged()), this, SLOT(dataChanged()));
-    connect(tCommandEdit, SIGNAL(dataChanged()), executeList, SLOT(dataChanged()));
-    connect(tCommandEdit, SIGNAL(dataChanged()), cronView, SLOT(tCommandChanged()));
-    connect(variableEdit, SIGNAL(dataChanged()), this, SLOT(dataChanged()));
+    connect(deleteAction, &QAction::triggered, cronView, &CronView::removeTCommand);
+    connect(copyAction, &QAction::triggered, cronView, &CronView::copyTCommand);
+    connect(cutAction, &QAction::triggered, cronView, &CronView::cutTCommand);
+    connect(pasteAction, &QAction::triggered, cronView, &CronView::pasteTCommand);
+    connect(newAction, &QAction::triggered, cronView, &CronView::newTCommand);
 
-    connect(deleteAction, SIGNAL(triggered()), cronView, SLOT(removeTCommand()));
-    connect(copyAction, SIGNAL(triggered()), cronView, SLOT(copyTCommand()));
-    connect(cutAction, SIGNAL(triggered()), cronView, SLOT(cutTCommand()));
-    connect(pasteAction, SIGNAL(triggered()), cronView, SLOT(pasteTCommand()));
-    connect(newAction, SIGNAL(triggered()), cronView, SLOT(newTCommand()));
-    connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
-    connect(saveAction, SIGNAL(triggered()), this, SLOT(saveCron()));
-    connect(reloadAction, SIGNAL(triggered()), this, SLOT(reloadCron()));
-    connect(aboutAction, SIGNAL(triggered()), this, SLOT(aboutQroneko()));
-    connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+    connect(quitAction, &QAction::triggered, this, &MainWindow::close);
+    connect(saveAction, &QAction::triggered, this, &MainWindow::saveCron);
+    connect(reloadAction, &QAction::triggered, this, &MainWindow::reloadCron);
+    connect(aboutAction, &QAction::triggered, this, &MainWindow::aboutQroneko);
+    connect(aboutQtAction, &QAction::triggered, qApp, QApplication::aboutQt);
 
-    connect(cronView, SIGNAL(pasted(bool)), pasteAction, SLOT(setEnabled(bool)));
+    connect(cronView, &CronView::pasted, pasteAction, &QAction::setEnabled);
 
     initCron();
 

@@ -35,9 +35,7 @@ TimeButton::TimeButton(int label, QWidget *parent)
 void TimeButton::init()
 {
     setCheckable(true);
-    connect(this, SIGNAL(toggled(bool)),
-            this, SLOT(buttonToggled(bool)));
-
+    connect(this, &TimeButton::toggled, this, &TimeButton::buttonToggled);
 }
 
 void TimeButton::buttonToggled(bool chk)

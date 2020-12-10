@@ -41,12 +41,8 @@ CronView::CronView(CronModel *model)
 
     //	setDropIndicatorShown(true);
 
-    connect(selectionModel(),
-            SIGNAL(currentChanged(const QModelIndex&, const QModelIndex&)),
-            this, SLOT(selectChanged(const QModelIndex&, const QModelIndex&)));
-    connect(cronModel, SIGNAL(moveTCommand(TCommand*)),
-            this, SLOT(TCommandMoved(TCommand*)));
-
+    connect(selectionModel(), &QItemSelectionModel::currentChanged, this, &CronView::selectChanged);
+    connect(cronModel, &CronModel::moveTCommand, this, &CronView::TCommandMoved);
 }
 
 void CronView::resetView()
