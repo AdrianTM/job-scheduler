@@ -387,8 +387,9 @@ void TimeDialog::simpleButtonClicked(QAbstractButton *b)
 }
 void TimeDialog::litCheckBoxChanged(int state)
 {
-    useLiteral = (state == Qt::Checked) ? true : false;
-    resetClicked();
+    useLiteral = (state == Qt::Checked);
+    outTime = CronTime(outTime).toString(useLiteral);
+    timeEdit->setText(outTime);
 }
 void TimeDialog::resetClicked()
 {
