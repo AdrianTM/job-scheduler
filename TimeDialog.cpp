@@ -388,6 +388,7 @@ void TimeDialog::simpleButtonClicked(QAbstractButton *b)
 void TimeDialog::litCheckBoxChanged(int state)
 {
     useLiteral = (state == Qt::Checked) ? true : false;
+    resetClicked();
 }
 void TimeDialog::resetClicked()
 {
