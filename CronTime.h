@@ -20,7 +20,7 @@ public:
 
     QDateTime getNextTime(const QDateTime &dtime);
     bool isValid();
-    QString toString(bool literal=false);
+    QString toString(bool literal = false);
 
     QBitArray minute;
     QBitArray hour;

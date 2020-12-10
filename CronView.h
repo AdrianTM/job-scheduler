@@ -25,7 +25,7 @@ public:
     CronView(CronModel *model);
 
     void resetView();
-    void hideUser(bool flag=true) { setColumnHidden(1, flag); }
+    void hideUser(bool flag = true) { setColumnHidden(1, flag); }
     Crontab *getCurrentCrontab();
     TCommand *getCurrentTCommand();
 
@@ -48,7 +48,7 @@ private slots:
 
 signals:
     void viewSelected(Crontab*, TCommand*);
-    void pasted(bool flg=true);
+    void pasted(bool flg = true);
     void dataChanged();
 
 private:

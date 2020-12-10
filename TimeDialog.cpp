@@ -141,7 +141,7 @@ TimeDialog::TimeDialog(const QString &time, QWidget *parent)
             weekBGroup = new QButtonGroup();
             weekBGroup->setExclusive(false);
             {
-                for (int i = 0; i < 6; ++i) {
+                for (int i = 0; i < 7; ++i) {
                     QString str = QString("%1(%2)").arg(WeekName.at(i)).arg(i);
                     QPushButton *btn = new TimeButton(str);
                     v->addWidget(btn);
