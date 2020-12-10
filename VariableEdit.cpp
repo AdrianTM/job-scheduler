@@ -61,11 +61,11 @@ VariableEdit::VariableEdit(QWidget *parent)
                 {
                     h2->addStretch();
                     h2->addWidget((newButton =
-                            new QPushButton(QIcon(":/images/filenew.png"),
-                                            tr("New"))));
+                            new QPushButton(QIcon::fromTheme("filenew", QIcon(":/images/filenew.png")),
+                                            tr("&New"))));
                     h2->addWidget((deleteButton =
-                            new QPushButton(QIcon(":/images/editdelete.png"),
-                                            tr("Delete"))));
+                            new QPushButton(QIcon::fromTheme("edit-delete", QIcon(":/images/editdelete.png")),
+                                            tr("&Delete"))));
                 }
             }
 

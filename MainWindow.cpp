@@ -44,12 +44,12 @@ MainWindow::MainWindow()
 
     QTabWidget *tab = new QTabWidget;
     {
-        tab->addTab(tCommandEdit, QIcon(":/images/edit_small.png"),
-                    tr("Edit Command"));
-        tab->addTab(variableEdit, QIcon(":/images/edit_small.png"),
-                    tr("Edit Variable"));
-        tab->addTab(executeList, QIcon(":/images/view_text.png"),
-                    tr("Execute List"));
+        tab->addTab(tCommandEdit, QIcon::fromTheme("xfce-edit", QIcon(":/images/edit_small.png")),
+                    tr("Edit &Command"));
+        tab->addTab(variableEdit, QIcon::fromTheme("xfce-edit", QIcon(":/images/edit_small.png")),
+                    tr("Edit &Variable"));
+        tab->addTab(executeList, QIcon::fromTheme("view-list-symbolic", QIcon(":/images/view_text.png")),
+                    tr("E&xecute List"));
     }
 
     QSplitter *spl = new QSplitter;
@@ -103,20 +103,20 @@ void MainWindow::createActions()
     QToolBar *fileToolBar = addToolBar(tr("File"));
 
     newAction = fileMenu->addAction(
-                QIcon(":/images/filenew.png"), tr("&New Item"));
+                QIcon::fromTheme("filenew", QIcon(":/images/filenew.png")), tr("&New Item"));
     newAction->setShortcut(QKeySequence(tr("Ctrl+N")));
     fileMenu->addSeparator();
     reloadAction = fileMenu->addAction(
-                QIcon(":/images/reload.png"), tr("&Reload"));
+                QIcon::fromTheme("reload", QIcon(":/images/reload.png")), tr("&Reload"));
     reloadAction->setShortcut(QKeySequence(tr("Ctrl+R")));
     saveAction = fileMenu->addAction(
-                QIcon(":/images/filesave.png"), tr("&Save"));
+                QIcon::fromTheme("filesave", QIcon(":/images/filesave.png")), tr("&Save"));
     saveAction->setShortcut(QKeySequence(tr("Ctrl+S")));
     fileMenu->addSeparator();
 
     quitAction = fileMenu->addAction(
-                QIcon(":images/exit.png"), tr("E&xit"));
-    quitAction->setShortcut(QKeySequence(tr("Ctrl+X")));
+                 QIcon::fromTheme("exit", QIcon(":images/exit.png")), tr("E&xit"));
+    quitAction->setShortcut(QKeySequence(tr("Ctrl+Q")));
 
     fileToolBar->addAction(saveAction);
     fileToolBar->addAction(reloadAction);
@@ -126,14 +126,18 @@ void MainWindow::createActions()
     QMenu *editMenu = new QMenu(tr("&Edit"), this);
     QToolBar *editToolBar = addToolBar(tr("Edit"));
     cutAction = editMenu->addAction(
-                QIcon(":/images/editcut.png"), tr("Cut"));
+                QIcon::fromTheme("edit-cut", QIcon(":/images/editcut.png")), tr("Cut"));
+    cutAction->setShortcut(QKeySequence(tr("Ctrl+X")));
     copyAction = editMenu->addAction(
-                QIcon(":/images/editcopy.png"), tr("Copy"));
+                QIcon::fromTheme("edit-copy", QIcon(":/images/editcopy.png")), tr("Copy"));
+    copyAction->setShortcut(QKeySequence(tr("Ctrl+C")));
     pasteAction = editMenu->addAction(
-                QIcon(":/images/editpaste.png"), tr("Paste"));
+                QIcon::fromTheme("edit-paste", QIcon(":/images/editpaste.png")), tr("Paste"));
+    pasteAction->setShortcut(QKeySequence(tr("Ctrl+V")));
     editMenu->addSeparator();
     deleteAction = editMenu->addAction(
-                QIcon(":/images/editdelete.png"), tr("Delete"));
+                QIcon::fromTheme("edit-delete", QIcon(":/images/editdelete.png")), tr("Delete"));
+    deleteAction->setShortcut(QKeySequence(tr("Del")));
     editToolBar->addAction(cutAction);
     editToolBar->addAction(copyAction);
     editToolBar->addAction(pasteAction);

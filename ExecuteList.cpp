@@ -40,8 +40,8 @@ ExecuteList::ExecuteList(int maxN, int maxD, QList<Crontab*> *cron)
             h->addWidget(new QLabel(tr("Select")));
             h->addWidget(countLabel=new QLabel(""));
             h->addStretch();
-            h->addWidget((resetButton =
-                    new QPushButton(QIcon(":/images/undo_small.png"), tr("Reset"))));
+            h->addWidget(resetButton =
+                    new QPushButton(QIcon::fromTheme("undo", QIcon(":/images/undo_small.png")), tr("&Reset")));
         }
     }
     //	mainLayout->setMargin(0);
