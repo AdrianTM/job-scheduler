@@ -164,9 +164,9 @@ TimeDialog::TimeDialog(const QString &time, QWidget *parent)
                 v->addStretch();
                 v->addWidget((litCheckBox =new QCheckBox(tr("Enable Literal"))));
                 v->addStretch();
-                v->addWidget((resetButton = new QPushButton(tr("Reset"))));
-                v->addWidget((cancelButton = new QPushButton(tr("Cancel"))));
-                v->addWidget((okButton = new QPushButton(tr("Ok"))));
+                v->addWidget((resetButton = new QPushButton(tr("&Reset"))));
+                v->addWidget((cancelButton = new QPushButton(tr("&Cancel"))));
+                v->addWidget((okButton = new QPushButton(tr("&Ok"))));
             }
         }
     }

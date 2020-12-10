@@ -17,7 +17,7 @@ class TCommand;
 class Execute
 {
 public:
-    Execute(TCommand *cd, const QString &dt, int fl=0, int sl=0)
+    Execute(TCommand *cd, const QString &dt, int fl = 0, int sl = 0)
         : tCommands(cd), exeTime(dt), flag(fl), sel(sl) {}
 
     ~Execute() {}
