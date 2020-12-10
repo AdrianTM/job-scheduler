@@ -38,4 +38,4 @@ Makefile*
 
 # Exclude debian folder and binary
 debian/
-qroneko
+job-scheduler

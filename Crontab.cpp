@@ -71,7 +71,7 @@ QString Crontab::getCrontab(const QString &user)
 
 QString Crontab::writeTempFile(const QString &text, const QString &tmp)
 {
-    QString fdir = QDir::tempPath() + "/qroneko-" + Clib::uName();
+    QString fdir = QDir::tempPath() + "/job-scheduler-" + Clib::uName();
     if (!QFileInfo(fdir).exists()) {
         if (!QDir(fdir).mkdir(fdir)) {
             estr = "can't create directory " + fdir;

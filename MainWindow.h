@@ -33,7 +33,7 @@ private slots:
     void dataChanged();
     void changeCurrent(Crontab *cron, TCommand *cmnd);
 
-    void aboutQroneko();
+    void AboutJobScheduler();
 
 signals:
 

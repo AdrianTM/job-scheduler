@@ -4,7 +4,7 @@ CONFIG   += c++11
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TEMPLATE = app
-TARGET = qroneko
+TARGET = job-scheduler
 
 # The following define makes your compiler warn you if you use any
 # feature of Qt which has been marked as deprecated (the exact warnings
@@ -51,4 +51,4 @@ SOURCES += CronModel.cpp \
            VariableModel.cpp \
            VariableView.cpp
 RESOURCES += application.qrc
-TRANSLATIONS += translations/qroneko_ja.ts
+TRANSLATIONS += translations/job-scheduler_ja.ts

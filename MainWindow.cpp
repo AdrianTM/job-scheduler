@@ -80,7 +80,7 @@ MainWindow::MainWindow()
     connect(quitAction, &QAction::triggered, this, &MainWindow::close);
     connect(saveAction, &QAction::triggered, this, &MainWindow::saveCron);
     connect(reloadAction, &QAction::triggered, this, &MainWindow::reloadCron);
-    connect(aboutAction, &QAction::triggered, this, &MainWindow::aboutQroneko);
+    connect(aboutAction, &QAction::triggered, this, &MainWindow::AboutJobScheduler);
     connect(aboutQtAction, &QAction::triggered, qApp, QApplication::aboutQt);
 
     connect(cronView, &CronView::pasted, pasteAction, &QAction::setEnabled);
@@ -91,7 +91,7 @@ MainWindow::MainWindow()
     cronView->resize(viewSize);
 
     setWindowTitle(Clib::uName() + " - qroneko");
-    setWindowIcon(QIcon(":/images/qroneko.png"));
+    setWindowIcon(QIcon(":/images/job-scheduler.png"));
 
     setCentralWidget(spl);
 }
@@ -147,7 +147,7 @@ void MainWindow::createActions()
 
     QMenu *helpMenu = new QMenu(tr("&Help"), this);
     aboutAction = helpMenu->addAction(
-                QIcon(":/images/qroneko.png"), tr("&About"));
+                QIcon(":/images/job-scheduler.png"), tr("&About"));
     aboutQtAction = helpMenu->addAction(tr("About &Qt"));
     menuBar()->addMenu(helpMenu);
 
@@ -260,7 +260,7 @@ void MainWindow::changeCurrent(Crontab *, TCommand *cmnd)
 
 void MainWindow::readSettings()
 {
-    QSettings settings("MX-Linux", "qroneko");
+    QSettings settings("MX-Linux", "job-scheduler");
 
     settings.beginGroup("Main");
     exeMaxNum = settings.value("MaxListNum", 100 ).toInt();
@@ -272,7 +272,7 @@ void MainWindow::readSettings()
 
 void MainWindow::writeSettings()
 {
-    QSettings settings("MX-Linux", "qroneko");
+    QSettings settings("MX-Linux", "job-scheduler");
 
     settings.beginGroup("Main");
     settings.setValue("MaxListNum", executeList->maxNum);
@@ -305,8 +305,11 @@ void MainWindow::closeEvent(QCloseEvent *event)
     event->accept();
 }
 
-void MainWindow::aboutQroneko()
+void MainWindow::AboutJobScheduler()
 {
-    QMessageBox::about(this, tr("About qroneko"),
-                       "<b>qroneko</b> - " + tr("Qt cron utility") + "<br>" + tr("Version %1").arg(VERSION));
+    QMessageBox::about(this, tr("About Job Scheduler"),
+                       tr("<b>Job Scheduler</b>") + " - " + tr("Version: %1").arg(VERSION) + "<p>" +
+                       tr("Job Scheduler is based upon qroneko 0.5.4, released in 2005 by korewaisai (<a href=\"mailto:korewaisai@yahoo.co.jp\">korewaisai@yahoo.co.jp</a>)") + "<p>" +
+                       tr("Original project page: %1").arg("<a href=\"https://qroneko.sourceforge.net\">https://qroneko.sourceforge.net</a>") + "<p>" +
+                       tr("MX project page: %1").arg("<a href=\"https://github.com/mx-linux/job-scheduler\">https://github.com/mx-linux/job-scheduler</a>"));
 }
