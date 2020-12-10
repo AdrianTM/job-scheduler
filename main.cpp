@@ -19,10 +19,8 @@ int main(int argc, char *argv[])
 
     QApplication app(argc, argv);
 
-    QString locale = QLocale::system().name();
-
     QTranslator appTran;
-    appTran.load(QCoreApplication::applicationName() + "_" + locale,
+    appTran.load(QCoreApplication::applicationName() + "_" +  QLocale::system().name(),
                  "/usr/share/" + QCoreApplication::applicationName() + "/locale");
     app.installTranslator(&appTran);
 

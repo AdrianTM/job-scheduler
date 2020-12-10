@@ -123,7 +123,6 @@ void TCommandEdit::changeCurrent(Crontab *cron, TCommand *cmnd)
         commandEdit->setCursorPosition(0);
         commentEdit->setPlainText(tCommand->comment);
         setExecuteList(tCommand->time);
-
     }
     viewChanging = false;
 }

@@ -16,7 +16,6 @@
 #include <QSplitter>
 #include <QToolBar>
 
-
 #include "MainWindow.h"
 #include "Crontab.h"
 #include "CronModel.h"
@@ -226,7 +225,7 @@ void MainWindow::saveCron()
                 } else {
                     Crontab *newCron = new Crontab(cron->cronOwner);
                     int p = crontabs.indexOf(cron);
-                    crontabs.replace(p,newCron);
+                    crontabs.replace(p, newCron);
                     delete cron;
                     saved = true;
                 }
@@ -249,6 +248,7 @@ void MainWindow::dataChanged()
     Crontab *cron = cronView->getCurrentCrontab();
     cron->changed = true;
     saveAction->setEnabled(true);
+    cronView->resizeColumnToContents(0);
 }
 
 void MainWindow::changeCurrent(Crontab *, TCommand *cmnd)

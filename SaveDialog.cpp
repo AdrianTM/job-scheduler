@@ -30,12 +30,12 @@ SaveDialog::SaveDialog(const QString &user, const QString &text)
             h->addWidget((userLabel = new QLabel(label)));
             h->addStretch();
         }
-        mainLayout->addWidget(cronText=new QTextEdit());
+        mainLayout->addWidget(cronText = new QTextEdit());
         mainLayout->addLayout((h = new QHBoxLayout));
         {
             h->addStretch();
-            h->addWidget((okButton = new QPushButton(tr("OK"))));
-            h->addWidget((cancelButton = new QPushButton(tr("Cancel"))));
+            h->addWidget((okButton = new QPushButton(tr("&OK"))));
+            h->addWidget((cancelButton = new QPushButton(tr("&Cancel"))));
         }
     }
     userLabel->setFrameStyle(QFrame::Panel | QFrame::Sunken);
@@ -44,9 +44,8 @@ SaveDialog::SaveDialog(const QString &user, const QString &text)
 
     setLayout(mainLayout);
 
-    connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
-    connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+    connect(okButton, &QPushButton::clicked, this, &SaveDialog::accept);
+    connect(cancelButton, &QPushButton::clicked, this, &SaveDialog::reject);
 
     resize(410, 500);
-
 }
