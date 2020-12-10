@@ -126,17 +126,17 @@ void MainWindow::createActions()
     QMenu *editMenu = new QMenu(tr("&Edit"), this);
     QToolBar *editToolBar = addToolBar(tr("Edit"));
     cutAction = editMenu->addAction(
-                QIcon::fromTheme("edit-cut", QIcon(":/images/editcut.png")), tr("Cut"));
+                QIcon::fromTheme("edit-cut", QIcon(":/images/editcut.png")), tr("Cu&t"));
     cutAction->setShortcut(QKeySequence(tr("Ctrl+X")));
     copyAction = editMenu->addAction(
-                QIcon::fromTheme("edit-copy", QIcon(":/images/editcopy.png")), tr("Copy"));
+                QIcon::fromTheme("edit-copy", QIcon(":/images/editcopy.png")), tr("&Copy"));
     copyAction->setShortcut(QKeySequence(tr("Ctrl+C")));
     pasteAction = editMenu->addAction(
-                QIcon::fromTheme("edit-paste", QIcon(":/images/editpaste.png")), tr("Paste"));
+                QIcon::fromTheme("edit-paste", QIcon(":/images/editpaste.png")), tr("&Paste"));
     pasteAction->setShortcut(QKeySequence(tr("Ctrl+V")));
     editMenu->addSeparator();
     deleteAction = editMenu->addAction(
-                QIcon::fromTheme("edit-delete", QIcon(":/images/editdelete.png")), tr("Delete"));
+                QIcon::fromTheme("edit-delete", QIcon(":/images/editdelete.png")), tr("&Delete"));
     deleteAction->setShortcut(QKeySequence(tr("Del")));
     editToolBar->addAction(cutAction);
     editToolBar->addAction(copyAction);
@@ -147,8 +147,8 @@ void MainWindow::createActions()
 
     QMenu *helpMenu = new QMenu(tr("&Help"), this);
     aboutAction = helpMenu->addAction(
-                QIcon(":/images/qroneko.png"), tr("About"));
-    aboutQtAction = helpMenu->addAction(tr("About Qt"));
+                QIcon(":/images/qroneko.png"), tr("&About"));
+    aboutQtAction = helpMenu->addAction(tr("About &Qt"));
     menuBar()->addMenu(helpMenu);
 
     saveAction->setEnabled(false);
