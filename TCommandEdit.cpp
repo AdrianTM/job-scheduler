@@ -86,18 +86,12 @@ TCommandEdit::TCommandEdit(QWidget *parent)
 
     viewChanging = true;
 
-    connect(commandEdit, SIGNAL(textEdited(const QString&)), this,
-            SLOT(commandEdited(const QString&)));
-    connect(timeEdit, SIGNAL(textEdited(const QString&)), this,
-            SLOT(timeEdited(const QString&)));
-    connect(commentEdit, SIGNAL(textChanged()), this,
-            SLOT(commentEdited()));
-    connect(userCombo, SIGNAL(activated(int)), this,
-            SLOT(userChanged(int)));
-    connect(exeButton, SIGNAL(clicked()),this,
-            SLOT(resetExeTime()));
-    connect(timeButton, SIGNAL(clicked()),this,
-            SLOT(doTimeDialog()));
+    connect(commandEdit, &QLineEdit::textEdited, this, &TCommandEdit::commandEdited);
+    connect(timeEdit, &QLineEdit::textEdited, this, &TCommandEdit::timeEdited);
+    connect(commentEdit, &QTextEdit::textChanged, this, &TCommandEdit::commentEdited);
+    connect(userCombo, QOverload<int>::of(&QComboBox::activated), this, &TCommandEdit::userChanged);
+    connect(exeButton, &QPushButton::clicked, this, &TCommandEdit::resetExeTime);
+    connect(timeButton, &QPushButton::clicked, this, &TCommandEdit::doTimeDialog);
 }
 
 void TCommandEdit::changeCurrent(Crontab *cron, TCommand *cmnd)
@@ -115,7 +109,7 @@ void TCommandEdit::changeCurrent(Crontab *cron, TCommand *cmnd)
             userCombo->show();
             userLabel->hide();
         } else {
-            userLabel->setText("  "+cron->cronOwner+"  ");
+            userLabel->setText("  " + cron->cronOwner + "  ");
             userCombo->hide();
             userLabel->show();
         }
@@ -132,7 +126,7 @@ void TCommandEdit::setExecuteList(const QString &time)
 
     CronTime cronTime(time);
     if (!cronTime.isValid()) {
-        exeLabel->setText("\n\n   Time Format Error\n\n\n");
+        exeLabel->setText("\n\n   " + tr("Time Format Error") + "\n\n\n");
         return;
     }
     QDate today = QDate::currentDate();
@@ -140,22 +134,21 @@ void TCommandEdit::setExecuteList(const QString &time)
     QDateTime cur(QDateTime::currentDateTime());
     QDateTime dt = cur;
     QString str;
-    for (int i=0; i<5; i++) {
+    for (int i = 0; i < 5; i++) {
         if (str != "" ) str += '\n';
         dt = cronTime.getNextTime(dt);
-        int sec = cur.secsTo(dt);
+        qint64 sec = cur.secsTo(dt);
         str += QString( "%1 - %2:%3:%4 later" )
                 .arg(dt.toString("yyyy-MM-dd(ddd) hh:mm"))
-                .arg(sec/(60*60))
-                .arg((sec/60)%60,2,10,QChar('0'))
-                .arg(sec%60,2,10,QChar('0'));
+                .arg(sec / (60 * 60))
+                .arg((sec / 60) % 60 , 2, 10, QChar('0'))
+                .arg(sec % 60, 2, 10, QChar('0'));
         if (dt.date() == today)
             str += " - Today";
         else if (dt.date() == tommorow)
             str += " - Tomorrow";
     }
     exeLabel->setText(str);
-
 }
 
 void TCommandEdit::commandEdited(const QString &str)
@@ -203,5 +196,4 @@ void TCommandEdit::doTimeDialog()
             emit dataChanged();
         }
     }
-
 }

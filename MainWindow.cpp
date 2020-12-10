@@ -266,8 +266,7 @@ void MainWindow::changeCurrent(Crontab *, TCommand *cmnd)
 
 void MainWindow::readSettings()
 {
-    QSettings settings("Korewaisai", "qroneko");
-
+    QSettings settings("MX-Linux", "qroneko");
 
     settings.beginGroup("Main");
     exeMaxNum = settings.value("MaxListNum", 100 ).toInt();
@@ -279,7 +278,7 @@ void MainWindow::readSettings()
 
 void MainWindow::writeSettings()
 {
-    QSettings settings("Korewaisai", "qroneko");
+    QSettings settings("MX-Linux", "qroneko");
 
     settings.beginGroup("Main");
     settings.setValue("MaxListNum", executeList->maxNum);
@@ -301,7 +300,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
     }
     if (changed) {
         if (QMessageBox::question(this,
-                                  tr("qroneko"),
+                                  "qroneko",
                                   tr("Not saved since last change.\nAre you OK to exit?"),
                                   tr("&Ok"), tr("&Cancel"), QString(), 0, 1)) {
             event->ignore();
@@ -310,7 +309,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
     }
     writeSettings();
     event->accept();
-
 }
 
 void MainWindow::aboutQroneko()
