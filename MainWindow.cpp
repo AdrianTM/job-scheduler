@@ -90,7 +90,7 @@ MainWindow::MainWindow()
     resize(winSize);
     cronView->resize(viewSize);
 
-    setWindowTitle(Clib::uName() + " - qroneko");
+    setWindowTitle(Clib::uName() + " - " + tr("Job Scheduler"));
     setWindowIcon(QIcon(":/images/job-scheduler.png"));
 
     setCentralWidget(spl);
