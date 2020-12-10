@@ -76,7 +76,7 @@ void CronView::selectChanged(const QModelIndex &cur, const QModelIndex &)
 void CronView::tCommandChanged()
 {
     cronModel->tCommandChanged(currentIndex());
-    //	for (int i = 0; i<cronModel->columnCount(QModelIndex()); ++i)
+    //	for (int i = 0; i < cronModel->columnCount(QModelIndex()); ++i)
     //		resizeColumnToContents(i);
 }
 

@@ -133,7 +133,7 @@ void TCommandEdit::setExecuteList(const QString &time)
     QDateTime dt = cur;
     QString str;
     for (int i = 0; i < 5; ++i) {
-        if (str != "" ) str += '\n';
+        if (!str.isEmpty()) str += '\n';
         dt = cronTime.getNextTime(dt);
         qint64 sec = cur.secsTo(dt);
         str += QString( "%1 - %2:%3:%4 later" )
@@ -142,9 +142,9 @@ void TCommandEdit::setExecuteList(const QString &time)
                 .arg((sec / 60) % 60 , 2, 10, QChar('0'))
                 .arg(sec % 60, 2, 10, QChar('0'));
         if (dt.date() == today)
-            str += " - Today";
+            str += " - " + tr("Today");
         else if (dt.date() == tommorow)
-            str += " - Tomorrow";
+            str += " - " + tr("Tomorrow");
     }
     exeLabel->setText(str);
 }
