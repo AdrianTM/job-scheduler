@@ -44,9 +44,9 @@ MainWindow::MainWindow()
 
     QTabWidget *tab = new QTabWidget;
     {
-        tab->addTab(tCommandEdit, QIcon::fromTheme("xfce-edit", QIcon(":/images/edit_small.png")),
+        tab->addTab(tCommandEdit, QIcon::fromTheme("edit-symbolic", QIcon(":/images/edit_small.png")),
                     tr("Edit &Command"));
-        tab->addTab(variableEdit, QIcon::fromTheme("xfce-edit", QIcon(":/images/edit_small.png")),
+        tab->addTab(variableEdit, QIcon::fromTheme("edit-tag-symbolic", QIcon(":/images/edit_small.png")),
                     tr("Edit &Variable"));
         tab->addTab(executeList, QIcon::fromTheme("view-list-symbolic", QIcon(":/images/view_text.png")),
                     tr("E&xecute List"));

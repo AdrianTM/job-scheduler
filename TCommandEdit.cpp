@@ -46,7 +46,7 @@ TCommandEdit::TCommandEdit(QWidget *parent)
             h->addWidget(new QLabel(tr("Time:")));
             h->addWidget((timeEdit = new QLineEdit()));
             h->addWidget((timeButton =
-                    new QPushButton(QIcon::fromTheme("xfce-edit", QIcon(":/images/edit_small.png")), tr("E&dit"))));
+                    new QPushButton(QIcon::fromTheme("edit-symbolic", QIcon(":/images/edit_small.png")), tr("E&dit"))));
         }
         mainLayout->addWidget(new QLabel(tr("Command:")));
         mainLayout->addLayout((h = new QHBoxLayout));
