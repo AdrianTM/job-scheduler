@@ -122,7 +122,7 @@ QBitArray CronTime::toBit(int start, int num, const QString &str)
     QBitArray ret(num);
     QBitArray NG(0);
     int fp, ep;
-    foreach (QString s, str.split(',')) {
+    for (QString s : str.split(',')) {
         int deg = 1;
 
         if (s.contains('/')) {
@@ -195,11 +195,11 @@ QString CronTime::toString(const QBitArray &bit, int start)
     int space_cnt = 0;
     int interval_cnt = 0;
     int first_pnt = 0;
-    for (int i = 0; i < size; i++){
-        if (bit[i]){
+    for (int i = 0; i < size; i++) {
+        if (bit[i]) {
             if (cnt == 0)
                 first_pnt = i;
-            else if(cnt == 1)
+            else if (cnt == 1)
                 interval_cnt = space_cnt;
             else if (space_cnt != interval_cnt) {
                 lst << toTimeString(first_pnt + start, cnt, interval_cnt+1);
@@ -219,7 +219,7 @@ QString CronTime::toString(const QBitArray &bit, int start)
         lst << toTimeString(first_pnt + start, cnt, interval_cnt + 1);
 
     QString ret;
-    foreach (QString s, lst) {
+    for (const QString &s : lst) {
         if (!ret.isEmpty())
             ret += ',';
         ret += s;

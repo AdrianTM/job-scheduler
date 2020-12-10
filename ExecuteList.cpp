@@ -80,7 +80,7 @@ void ExecuteList::dataChanged()
 
         for (TCommand *cc : cron->tCommands) {
             CronTime ct(cc->time);
-            if (ct.isValid()){
+            if (ct.isValid()) {
                 cmnd << cc;
                 date << ct.getNextTime(QDateTime::currentDateTime());
             }else{

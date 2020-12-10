@@ -45,7 +45,7 @@ QVariant VariableModel::headerData(int section, Qt::Orientation orientation,
 
 bool VariableModel::removeVariable(int row)
 {
-    beginRemoveRows(QModelIndex(), row, row );
+    beginRemoveRows(QModelIndex(), row, row);
 
     delete variables->at(row);
     variables->removeAt(row);
@@ -56,7 +56,7 @@ bool VariableModel::removeVariable(int row)
 
 bool VariableModel::insertVariable(int row, Variable *var)
 {
-    beginInsertRows(QModelIndex(), row, row );
+    beginInsertRows(QModelIndex(), row, row);
 
     if (variables->count() > 0 )
         variables->insert(row,var);
@@ -66,12 +66,14 @@ bool VariableModel::insertVariable(int row, Variable *var)
     endInsertRows();
     return true;
 }
+
 void VariableModel::varDataChanged(const QModelIndex &idx)
 {
     QModelIndex first = index(idx.row(), 0, QModelIndex());
     QModelIndex end = index(idx.row(), 1, QModelIndex());
     emit dataChanged(first, end);
 }
+
 Variable *VariableModel::getVariable(const QModelIndex &idx)
 {
     return static_cast<Variable*>(idx.internalPointer());

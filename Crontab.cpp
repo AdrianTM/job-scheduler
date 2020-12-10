@@ -22,8 +22,8 @@ Crontab::Crontab(const QString &user)
 
 Crontab::~Crontab()
 {
-    foreach (TCommand *c, tCommands) delete c;
-    foreach (Variable *v, variables) delete v;
+    for (TCommand *c : tCommands) delete c;
+    for (Variable *v : variables) delete v;
 }
 
 QString Crontab::getCrontab(const QString &user)
@@ -244,7 +244,7 @@ QString Crontab::list2String(QStringList list) const
     QString ret("");
     bool flag = false;
 
-    for(const QString &s : list) {
+    for (const QString &s : list) {
         if (flag) ret += '\n';
         ret += s;
         flag = true;

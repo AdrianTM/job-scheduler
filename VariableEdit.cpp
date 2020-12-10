@@ -93,29 +93,17 @@ VariableEdit::VariableEdit(QWidget *parent)
     sepFrame->setFrameShape( QFrame::HLine );
     sepFrame->setFrameShadow( QFrame::Sunken );
 
-    connect(variableView, SIGNAL(changeVar(Variable *)),
-            this, SLOT(varViewSelected(Variable *)));
-
-    connect(commentEdit, SIGNAL(textChanged()),
-            this, SLOT(commentChanged()));
-    connect(nameEdit, SIGNAL(textEdited(const QString&)),
-            this, SLOT(varEdited(const QString&)));
-    connect(valueEdit, SIGNAL(textEdited(const QString&)),
-            this, SLOT(valEdited(const QString&)));
-    connect(varCommentEdit, SIGNAL(textChanged()),
-            this, SLOT(varCommentChanged()));
-    connect(deleteButton, SIGNAL(clicked()),
-            this, SLOT(deleteClicked()));
-    connect(newButton, SIGNAL(clicked()),
-            this, SLOT(newClicked()));
-    connect(mailOnRadio, SIGNAL(toggled(bool)),
-            this, SLOT(mailOnClicked(bool)));
-    connect(mailOffRadio, SIGNAL(toggled(bool)),
-            this, SLOT(mailOffClicked(bool)));
-    connect(mailToRadio, SIGNAL(toggled(bool)),
-            this, SLOT(mailToClicked(bool)));
-    connect(userCombo, SIGNAL(activated(int)),
-            this, SLOT(userActivated(int)));
+    connect(variableView, &VariableView::changeVar, this , &VariableEdit::varViewSelected);
+    connect(commentEdit, &QTextEdit::textChanged, this, &VariableEdit::commentChanged);
+    connect(nameEdit, &QLineEdit::textEdited, this, &VariableEdit::varEdited);
+    connect(valueEdit, &QLineEdit::textEdited, this, &VariableEdit::valEdited);
+    connect(varCommentEdit, &QTextEdit::textChanged, this, &VariableEdit::varCommentChanged);
+    connect(deleteButton, &QPushButton::clicked, this, &VariableEdit::deleteClicked);
+    connect(newButton, &QPushButton::clicked, this, &VariableEdit::newClicked);
+    connect(mailOnRadio, &QRadioButton::toggled, this, &VariableEdit::mailOnClicked);
+    connect(mailOffRadio, &QRadioButton::toggled, this, &VariableEdit::mailOffClicked);
+    connect(mailToRadio, &QRadioButton::toggled, this, &VariableEdit::mailToClicked);
+    connect(userCombo, QOverload<int>::of(&QComboBox::activated), this, &VariableEdit::userActivated);
 
     viewChanging = true;
     varViewChanging = true;
@@ -207,19 +195,17 @@ void VariableEdit::mailOnClicked(bool state)
 {
     if ( state )
         setMailVar(0);
-
 }
+
 void VariableEdit::mailOffClicked(bool state)
 {
     if ( state )
         setMailVar(1);
-
 }
 void VariableEdit::mailToClicked(bool state)
 {
     if ( state )
         setMailVar(2);
-
 }
 void VariableEdit::userActivated(int)
 {
@@ -230,7 +216,7 @@ void VariableEdit::setMailVar(int mailFlag)
 {
     int curFlag = 0;
     Variable *v = nullptr;
-    foreach(v, crontab->variables) {
+    for (Variable *v : crontab->variables) {
         if (v->name == "MAILTO") {
             if (v->value == "\"\"") curFlag = 1;
             else curFlag = 2;
@@ -240,12 +226,12 @@ void VariableEdit::setMailVar(int mailFlag)
     if ( mailFlag != -1 ) {
         if (curFlag == mailFlag)
             return;
-    }else{
+    } else {
         if (curFlag != 2)
             return;
         mailFlag = 2;
     }
-    if (mailFlag == 0){
+    if (mailFlag == 0) {
         if (curFlag == 1 || curFlag == 2) {
             int i = crontab->variables.indexOf(v);
             crontab->variables.removeAt(i);
@@ -253,7 +239,7 @@ void VariableEdit::setMailVar(int mailFlag)
     } else if (mailFlag == 1) {
         if (curFlag == 0) {
             crontab->variables << new Variable("MAILTO","\"\"","Don't send mail to anyone");
-        } else if(curFlag == 2) {
+        } else if (curFlag == 2) {
             v->value = "\"\"";
             v->comment = "Don't send mail to anyone";
         }
@@ -261,27 +247,27 @@ void VariableEdit::setMailVar(int mailFlag)
         QString u = userCombo->currentText();
         if (curFlag == 0) {
             QString c = "Send mail to \"" + u + "\"";
-            crontab->variables << new Variable("MAILTO",u,c);
-        } else if(curFlag == 1) {
+            crontab->variables << new Variable("MAILTO", u, c);
+        } else if (curFlag == 1) {
             v->value = u;
             v->comment = "Send mail to \""+u+"\"";
-        } else if(curFlag == 2) {
+        } else if (curFlag == 2) {
             if ( v->value != u ) {
                 v->value = u;
                 v->comment = "Send mail to \""+u+"\"";
-            }else{
+            } else {
                 return;
             }
         }
     }
     variableView->resetView();
     emit dataChanged();
-
 }
+
 void VariableEdit::setMailCombo(const QList<Variable*> &var)
 {
     bool mvar = false;
-    foreach (Variable *v, var) {
+    for (Variable *v : var) {
         if (v->name == "MAILTO") {
             mvar = true;
             if (v->value == "\"\"") {

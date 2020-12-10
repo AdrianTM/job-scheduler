@@ -240,13 +240,13 @@ QModelIndex CronModel::searchTCommand(TCommand *cmnd) const
 {
 
     if (isOneUser()) {
-        for(int i=0; i<rowCount(QModelIndex()); i++) {
+        for (int i=0; i<rowCount(QModelIndex()); i++) {
             QModelIndex idx = index(i, 0, QModelIndex());
             if (reinterpret_cast<uintptr_t>(getTCommand(idx)) == reinterpret_cast<uintptr_t>(cmnd))
                 return idx;
         }
     } else {
-        for (int i=0; i<rowCount(QModelIndex()); i++){
+        for (int i=0; i<rowCount(QModelIndex()); i++) {
             QModelIndex pidx = index(i, 0, QModelIndex());
             for (int j=0; j<rowCount(pidx); j++) {
                 QModelIndex idx = index(j, 0, pidx);

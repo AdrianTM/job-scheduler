@@ -15,7 +15,7 @@
 
 QVariant ExecuteModel::data(const QModelIndex &index, int role) const
 {
-    if (index.isValid()){
+    if (index.isValid()) {
         if (role == Qt::DisplayRole) {
             Execute *e = static_cast<Execute*>(index.internalPointer());
             switch (index.column()) {

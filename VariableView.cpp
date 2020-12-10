@@ -18,24 +18,21 @@ VariableView::VariableView(VariableModel *model)
 {
     variableModel = model;
     setModel(variableModel);
-    resizeColumnToContents( 0 );
-    resizeColumnToContents( 1 );
+    resizeColumnToContents(0);
+    resizeColumnToContents(1);
     setRootIsDecorated(false);
 
-    connect(selectionModel(),
-            SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)),
-            this, SLOT(varSelected(const QModelIndex &, const QModelIndex &)));
-
+    connect(selectionModel(), &QItemSelectionModel::currentChanged, this, &VariableView::varSelected);
 }
 
 void VariableView::resetView()
 {
     clearSelection();
     reset();
-    resizeColumnToContents( 0 );
-    resizeColumnToContents( 1 );
+    resizeColumnToContents(0);
+    resizeColumnToContents(1);
     if (variableModel->rowCount(QModelIndex()) > 0)
-        setCurrentIndex(variableModel->index(0,0,QModelIndex()));
+        setCurrentIndex(variableModel->index(0, 0, QModelIndex()));
     else
         emit changeVar(nullptr);
 }
@@ -65,7 +62,7 @@ void VariableView::insertVariable()
     else
         pos = 0;
     variableModel->insertVariable(pos, v);
-    setCurrentIndex(variableModel->index(pos,0,QModelIndex()));
+    setCurrentIndex(variableModel->index(pos, 0, QModelIndex()));
 }
 
 void VariableView::removeVariable()
@@ -74,7 +71,7 @@ void VariableView::removeVariable()
     if (index.isValid()) {
         variableModel->removeVariable(index.row());
         if (variableModel->rowCount(QModelIndex()) > 0)
-            setCurrentIndex(variableModel->index(0,0,QModelIndex()));
+            setCurrentIndex(variableModel->index(0, 0, QModelIndex()));
         else
             emit changeVar(nullptr);
     }
