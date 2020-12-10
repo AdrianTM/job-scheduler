@@ -90,7 +90,7 @@ void ExecuteList::dataChanged()
     }
     itemCount = 0;
     if (cmnd.count() > 0) {
-        for (int i = 0; i < maxNum; i++) {
+        for (int i = 0; i < maxNum; ++i) {
             int p = 0;
             QDateTime cur = date.at(0);
             for (int j=1; j < cmnd.count(); j++) {

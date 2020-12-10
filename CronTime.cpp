@@ -23,7 +23,7 @@ inline QString upcaseHead( const QString &str )
 QString toNumeric(const QString &str, const QStringList &names, int start)
 {
     QString ret = str;
-    for (int i = 0; i < names.size(); i++)
+    for (int i = 0; i < names.size(); ++i)
         ret = ret.replace(names.at(i), QString::number(i+start));
     return ret;
 }

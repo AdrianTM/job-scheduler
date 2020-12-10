@@ -132,7 +132,7 @@ void TCommandEdit::setExecuteList(const QString &time)
     QDateTime cur(QDateTime::currentDateTime());
     QDateTime dt = cur;
     QString str;
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 5; ++i) {
         if (str != "" ) str += '\n';
         dt = cronTime.getNextTime(dt);
         qint64 sec = cur.secsTo(dt);

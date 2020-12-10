@@ -53,10 +53,10 @@ void CronView::resetView()
 
     setRootIsDecorated(!cronModel->isOneUser());
 
-    for (int i = 0; i < cronModel->rowCount(QModelIndex()); i++)
+    for (int i = 0; i < cronModel->rowCount(QModelIndex()); ++i)
         setExpanded(cronModel->index(i, 0), true);
 
-    for (int i = 0; i < cronModel->columnCount(QModelIndex()); i++)
+    for (int i = 0; i < cronModel->columnCount(QModelIndex()); ++i)
         resizeColumnToContents(i);
 
     QModelIndex idx = cronModel->index(0,0);
@@ -76,7 +76,7 @@ void CronView::selectChanged(const QModelIndex &cur, const QModelIndex &)
 void CronView::tCommandChanged()
 {
     cronModel->tCommandChanged(currentIndex());
-    //	for (int i = 0; i<cronModel->columnCount(QModelIndex()); i++)
+    //	for (int i = 0; i<cronModel->columnCount(QModelIndex()); ++i)
     //		resizeColumnToContents(i);
 }
 
@@ -91,7 +91,7 @@ void CronView::removeTCommand()
     else
         emit viewSelected(getCurrentCrontab(), nullptr);
 
-    for (int i = 0; i<cronModel->columnCount(QModelIndex()); i++)
+    for (int i = 0; i < cronModel->columnCount(QModelIndex()); ++i)
         resizeColumnToContents(i);
 
     emit dataChanged();
@@ -106,7 +106,7 @@ void CronView::insertTCommand(TCommand *cmnd)
     //	dumpIndex(next, "insert next");
     setCurrentIndex(next);
 
-    for (int i = 0; i<cronModel->columnCount(QModelIndex()); i++)
+    for (int i = 0; i < cronModel->columnCount(QModelIndex()); ++i)
         resizeColumnToContents(i);
 
     emit dataChanged();

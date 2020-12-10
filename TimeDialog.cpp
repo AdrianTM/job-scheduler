@@ -82,7 +82,7 @@ TimeDialog::TimeDialog(const QString &time, QWidget *parent)
             minuteBGroup->setExclusive(false);
             {
                 g->setSpacing(0);
-                for (int i = 0; i < 60; i++) {
+                for (int i = 0; i < 60; ++i) {
                     QPushButton *btn = new TimeButton(i);
                     g->addWidget(btn, i/10, i%10, 1, 1);
                     minuteBGroup->addButton(btn);
@@ -95,13 +95,13 @@ TimeDialog::TimeDialog(const QString &time, QWidget *parent)
             {
                 g->setSpacing(0);
                 g->addWidget(new QLabel(tr("AM ")), 0, 0, 1, 6, Qt::AlignRight);
-                for (int i = 0; i < 12; i++) {
+                for (int i = 0; i < 12; ++i) {
                     QPushButton *btn = new TimeButton(i);
                     g->addWidget(btn, i/6+1, i%6, 1, 1);
                     hourBGroup->addButton(btn);
                 }
                 g->addWidget(new QLabel(tr("PM ")), 3, 0, 1, 6, Qt::AlignRight);
-                for (int i = 12; i < 24; i++) {
+                for (int i = 12; i < 24; ++i) {
                     QPushButton *btn = new TimeButton(i);
                     g->addWidget(btn, i/6+2, i%6, 1, 1);
                     hourBGroup->addButton(btn);
@@ -113,7 +113,7 @@ TimeDialog::TimeDialog(const QString &time, QWidget *parent)
             dayBGroup->setExclusive(false);
             {
                 g->setSpacing(0);
-                for (int i = 0; i < 31; i++) {
+                for (int i = 0; i < 31; ++i) {
                     QPushButton *btn = new TimeButton(i+1);
                     g->addWidget(btn, i/7, i%7, 1, 1);
                     dayBGroup->addButton(btn);
@@ -129,7 +129,7 @@ TimeDialog::TimeDialog(const QString &time, QWidget *parent)
             {
                 g->setColumnMinimumWidth(0,120);
                 g->setColumnMinimumWidth(1,120);
-                for (int i = 0; i < 12; i++) {
+                for (int i = 0; i < 12; ++i) {
                     QString str = QString("%1(%2)").arg(MonthName.at(i)).arg(i+1);
                     QPushButton *btn = new TimeButton(str);
                     g->addWidget(btn, i%6, i/6);
@@ -141,7 +141,7 @@ TimeDialog::TimeDialog(const QString &time, QWidget *parent)
             weekBGroup = new QButtonGroup();
             weekBGroup->setExclusive(false);
             {
-                for (int i = 0; i < 7; i++) {
+                for (int i = 0; i < 6; ++i) {
                     QString str = QString("%1(%2)").arg(WeekName.at(i)).arg(i);
                     QPushButton *btn = new TimeButton(str);
                     v->addWidget(btn);
@@ -153,7 +153,7 @@ TimeDialog::TimeDialog(const QString &time, QWidget *parent)
             simpleBGroup = new QButtonGroup();
             simpleBGroup->setExclusive(false);
             {
-                for (int i = 0; i < 6; i++) {
+                for (int i = 0; i < 6; ++i) {
                     QPushButton *btn = new TimeButton(SimpleName.at(i));
                     v->addWidget(btn);
                     simpleBGroup->addButton(btn);
@@ -202,42 +202,42 @@ void TimeDialog::initButtons(const QString &time)
     QList<QAbstractButton *> btn;
     btn = minuteBGroup->buttons();
     if (CronTime::isFill(ctime.minute))
-        for (int i = 0; i < 60; i++)
+        for (int i = 0; i < btn.size(); ++i)
             btn[i]->setChecked(false);
     else
-        for (int i = 0; i < 60; i++)
+        for (int i = 0; i < btn.size(); ++i)
             btn[i]->setChecked(ctime.minute[i]);
 
     btn = hourBGroup->buttons();
     if (CronTime::isFill(ctime.hour))
-        for (int i = 0; i < 24; i++)
+        for (int i = 0; i < btn.size(); ++i)
             btn[i]->setChecked(false);
     else
-        for (int i = 0; i < 24; i++)
+        for (int i = 0; i < btn.size(); ++i)
             btn[i]->setChecked(ctime.hour[i]);
 
     btn = dayBGroup->buttons();
     if (CronTime::isFill(ctime.day))
-        for (int i = 0; i < 31; i++)
+        for (int i = 0; i < btn.size(); ++i)
             btn[i]->setChecked(false);
     else
-        for (int i = 0; i < 31; i++)
+        for (int i = 0; i < btn.size(); ++i)
             btn[i]->setChecked(ctime.day[i]);
 
     btn = monthBGroup->buttons();
     if (CronTime::isFill(ctime.month))
-        for (int i = 0; i < 12; i++)
+        for (int i = 0; i < btn.size(); ++i)
             btn[i]->setChecked(false);
     else
-        for (int i = 0; i < 12; i++)
+        for (int i = 0; i < btn.size(); ++i)
             btn[i]->setChecked(ctime.month[i]);
 
     btn = weekBGroup->buttons();
     if (CronTime::isFill(ctime.week))
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < btn.size(); ++i)
             btn[i]->setChecked(false);
     else
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < btn.size(); ++i)
             btn[i]->setChecked(ctime.week[i]);
 }
 
@@ -246,10 +246,10 @@ void TimeDialog::minuteButtonClicked(QAbstractButton *)
     CronTime ctime(outTime);
     QList<QAbstractButton *> btn = minuteBGroup->buttons();
     int cnt = 0;
-    for (int i = 0; i < 60; i++)
+    for (int i = 0; i < btn.size(); ++i)
         if (btn[i]->isChecked())
             cnt++;
-    for (int i = 0; i < 60; i++) {
+    for (int i = 0; i < btn.size(); ++i) {
         if (cnt == 0)
             ctime.minute[i] = true;
         else
@@ -257,9 +257,8 @@ void TimeDialog::minuteButtonClicked(QAbstractButton *)
     }
 
     btn = simpleBGroup->buttons();
-    for (int i = 0; i < 6; i++)
-        if (btn[i]->isChecked())
-            btn[i]->setChecked(false);
+    for (int i = 0; i < btn.size(); ++i)
+        btn[i]->setChecked(false);
 
     outTime = ctime.toString(useLiteral);
     timeEdit->setText(outTime);
@@ -269,10 +268,10 @@ void TimeDialog::hourButtonClicked(QAbstractButton *)
     CronTime ctime(outTime);
     QList<QAbstractButton *> btn = hourBGroup->buttons();
     int cnt = 0;
-    for (int i = 0; i < 24; i++)
+    for (int i = 0; i < btn.size(); ++i)
         if (btn[i]->isChecked())
             cnt++;
-    for (int i = 0; i < 24; i++)
+    for (int i = 0; i < btn.size(); ++i)
         if (cnt == 0)
             ctime.hour[i] = true;
         else
@@ -280,7 +279,7 @@ void TimeDialog::hourButtonClicked(QAbstractButton *)
 
 
     btn = simpleBGroup->buttons();
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < btn.size(); ++i)
         if (btn[i]->isChecked())
             btn[i]->setChecked(false);
 
@@ -292,10 +291,10 @@ void TimeDialog::dayButtonClicked(QAbstractButton *)
     CronTime ctime(outTime);
     QList<QAbstractButton *> btn = dayBGroup->buttons();
     int cnt = 0;
-    for (int i = 0; i < 31; i++)
+    for (int i = 0; i < btn.size(); ++i)
         if (btn[i]->isChecked())
             cnt++;
-    for (int i = 0; i < 31; i++)
+    for (int i = 0; i < btn.size(); ++i)
         if (cnt == 0)
             ctime.day[i] = true;
         else
@@ -303,7 +302,7 @@ void TimeDialog::dayButtonClicked(QAbstractButton *)
 
 
     btn = simpleBGroup->buttons();
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < btn.size(); ++i)
         if (btn[i]->isChecked())
             btn[i]->setChecked(false);
 
@@ -315,17 +314,17 @@ void TimeDialog::monthButtonClicked(QAbstractButton *)
     CronTime ctime(outTime);
     QList<QAbstractButton *> btn = monthBGroup->buttons();
     int cnt = 0;
-    for (int i = 0; i < 12; i++)
+    for (int i = 0; i < btn.size(); ++i)
         if ( btn[i]->isChecked() )
             cnt++;
-    for (int i = 0; i < 12; i++)
+    for (int i = 0; i < btn.size(); ++i)
         if (cnt == 0)
             ctime.month[i] = true;
         else
             ctime.month[i] = btn[i]->isChecked();
 
     btn = simpleBGroup->buttons();
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < btn.size(); ++i)
         if (btn[i]->isChecked())
             btn[i]->setChecked(false);
 
@@ -337,10 +336,10 @@ void TimeDialog::weekButtonClicked(QAbstractButton *)
     CronTime ctime(outTime);
     QList<QAbstractButton *> btn = weekBGroup->buttons();
     int cnt = 0;
-    for (int i = 0; i < 7; i++)
+    for (int i = 0; i < btn.size(); ++i)
         if (btn[i]->isChecked())
             cnt++;
-    for (int i = 0; i < 7; i++)
+    for (int i = 0; i < btn.size(); ++i)
         if (cnt == 0)
             ctime.week[i] = true;
         else
@@ -349,7 +348,7 @@ void TimeDialog::weekButtonClicked(QAbstractButton *)
     if (ctime.week[0]) ctime.week[7] = true;
 
     btn = simpleBGroup->buttons();
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < btn.size(); ++i)
         if (btn[i]->isChecked())
             btn[i]->setChecked(false);
 
@@ -360,7 +359,7 @@ void TimeDialog::weekButtonClicked(QAbstractButton *)
 void TimeDialog::simpleButtonClicked(QAbstractButton *b)
 {
     QList<QAbstractButton *> btn = simpleBGroup->buttons();
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < btn.size(); ++i)
         if (btn[i] == b)
             outTime = btn[i]->text();
         else
@@ -396,4 +395,9 @@ void TimeDialog::resetClicked()
     outTime = inTime;
     timeEdit->setText(outTime);
     initButtons(outTime);
+
+    QList<QAbstractButton *> btn;
+    btn = simpleBGroup->buttons();
+        for (int i = 0; i < btn.size(); ++i)
+            btn[i]->setChecked(false);
 }
