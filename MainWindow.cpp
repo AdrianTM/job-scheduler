@@ -158,7 +158,7 @@ void MainWindow::createActions()
 
 void MainWindow::initCron()
 {
-    for (auto& d : crontabs) delete d;
+    for (auto d : crontabs) delete d;
     crontabs.clear();
 
     QString user = Clib::uName();
@@ -198,7 +198,7 @@ void MainWindow::reloadCron()
 
     if (saveAction->isEnabled()) {
         if (!QMessageBox::question(this,
-                                   tr("qroneko"),
+                                   tr("Job Scheduler"),
                                    tr("Not saved since last change.\nAre you OK to reload?"),
                                    tr("&Ok"), tr("&Cancel"), QString(), 0, 1)) {
             initCron();
@@ -213,13 +213,13 @@ void MainWindow::saveCron()
     bool saved = false;
     bool notSaved =false;
 
-    for (const auto& cron : crontabs) {
+    for (auto cron : crontabs) {
         if (cron->changed) {
             SaveDialog dialog(cron->cronOwner, cron->cronText());
             if (dialog.exec()==QDialog::Accepted) {
                 bool ret = cron->putCrontab(dialog.getText());
                 if (!ret) {
-                    QMessageBox::critical(this, "qroneko", cron->estr);
+                    QMessageBox::critical(this, tr("Job Scheduler"), cron->estr);
                     notSaved = true;
                 } else {
                     Crontab *newCron = new Crontab(cron->cronOwner);
@@ -294,7 +294,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
     }
     if (changed) {
         if (QMessageBox::question(this,
-                                  "qroneko",
+                                  tr("Job Scheduler"),
                                   tr("Not saved since last change.\nAre you OK to exit?"),
                                   tr("&Ok"), tr("&Cancel"), QString(), 0, 1)) {
             event->ignore();
