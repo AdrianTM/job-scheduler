@@ -184,12 +184,12 @@ TimeDialog::TimeDialog(const QString &time, QWidget *parent)
     litCheckBox->setChecked(useLiteral);
     initButtons(outTime);
 
-    connect(minuteBGroup, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked), this, &TimeDialog::minuteButtonClicked);
-    connect(hourBGroup, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked), this, &TimeDialog::hourButtonClicked);
-    connect(dayBGroup, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked), this, &TimeDialog::dayButtonClicked);
-    connect(monthBGroup, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked), this, &TimeDialog::monthButtonClicked);
-    connect(weekBGroup, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked), this, &TimeDialog::weekButtonClicked);
-    connect(simpleBGroup, QOverload<QAbstractButton*>::of(&QButtonGroup::buttonClicked), this, &TimeDialog::simpleButtonClicked);
+    connect(minuteBGroup, qOverload<QAbstractButton*>(&QButtonGroup::buttonClicked), this, &TimeDialog::minuteButtonClicked);
+    connect(hourBGroup, qOverload<QAbstractButton*>(&QButtonGroup::buttonClicked), this, &TimeDialog::hourButtonClicked);
+    connect(dayBGroup, qOverload<QAbstractButton*>(&QButtonGroup::buttonClicked), this, &TimeDialog::dayButtonClicked);
+    connect(monthBGroup, qOverload<QAbstractButton*>(&QButtonGroup::buttonClicked), this, &TimeDialog::monthButtonClicked);
+    connect(weekBGroup, qOverload<QAbstractButton*>(&QButtonGroup::buttonClicked), this, &TimeDialog::weekButtonClicked);
+    connect(simpleBGroup, qOverload<QAbstractButton*>(&QButtonGroup::buttonClicked), this, &TimeDialog::simpleButtonClicked);
     connect(litCheckBox, &QCheckBox::stateChanged, this, &TimeDialog::litCheckBoxChanged);
     connect(resetButton, &QPushButton::clicked, this, &TimeDialog::resetClicked);
     connect(okButton, &QPushButton::clicked, this, &TimeDialog::accept);

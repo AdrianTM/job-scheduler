@@ -87,7 +87,7 @@ TCommandEdit::TCommandEdit(QWidget *parent)
     connect(commandEdit, &QLineEdit::textEdited, this, &TCommandEdit::commandEdited);
     connect(timeEdit, &QLineEdit::textEdited, this, &TCommandEdit::timeEdited);
     connect(commentEdit, &QTextEdit::textChanged, this, &TCommandEdit::commentEdited);
-    connect(userCombo, QOverload<int>::of(&QComboBox::activated), this, &TCommandEdit::userChanged);
+    connect(userCombo, qOverload<int>(&QComboBox::activated), this, &TCommandEdit::userChanged);
     connect(exeButton, &QPushButton::clicked, this, &TCommandEdit::resetExeTime);
     connect(timeButton, &QPushButton::clicked, this, &TCommandEdit::doTimeDialog);
 }
