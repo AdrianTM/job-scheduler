@@ -1,0 +1,49 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Thu, 10 Dec 2020 21:45:10 -0500
+Source: job-scheduler
+Binary: job-scheduler job-scheduler-dbgsym
+Architecture: source amd64
+Version: 0.20.12
+Distribution: UNRELEASED
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ job-scheduler - job-scheduler
+Changes:
+ job-scheduler (0.20.12) UNRELEASED; urgency=medium
+ .
+   * Initial release
+Checksums-Sha1:
+ 13e56558ab0a09671ecaf77aa3bfcffb8587afb6 1139 job-scheduler_0.20.12.dsc
+ 701a64e092abfb471b454758a5f34ac35310d372 49416 job-scheduler_0.20.12.tar.xz
+ e29dba9b19881953d1182a6e8f2aef8c0f52bc1a 3796436 job-scheduler-dbgsym_0.20.12_amd64.deb
+ 41ec1e0193de814e8226dfe70267e998e51d6c7a 10947 job-scheduler_0.20.12_amd64.buildinfo
+ 77a2ec4e612c4248990dfc54512ac3045441560f 94336 job-scheduler_0.20.12_amd64.deb
+Checksums-Sha256:
+ b4ba99067b4594143b91326338e9360b6bff23aa872daad5c2164fe4ee7fe74d 1139 job-scheduler_0.20.12.dsc
+ 8ce177b7eae62166d2b7db8939a13835275479a639844c74587d8f7c192c93b9 49416 job-scheduler_0.20.12.tar.xz
+ 258bde96585a248f93b04e74ae13a69d0bfed5061f4cbd20e63c87742b6bebfd 3796436 job-scheduler-dbgsym_0.20.12_amd64.deb
+ 102ea3d81d0e09b1b416a7b5cd819ae541f84e7792e4ea9409f7db7d5a1c87d8 10947 job-scheduler_0.20.12_amd64.buildinfo
+ c9d769685d17f078887e8929a021b6d5639f649e990bdaf88c847fab592a71e6 94336 job-scheduler_0.20.12_amd64.deb
+Files:
+ 526e2f6aa48acfd91d0a4494c1102428 1139 admin optional job-scheduler_0.20.12.dsc
+ 6d4d5c7c69f3c6c0d749741cd9b1f72e 49416 admin optional job-scheduler_0.20.12.tar.xz
+ 97cbf64d3cd4941e2ac148c5242dd51f 3796436 debug optional job-scheduler-dbgsym_0.20.12_amd64.deb
+ a60325575372d10d8845e4750306b1c2 10947 admin optional job-scheduler_0.20.12_amd64.buildinfo
+ e8e29ff87e4f0e1490f8e8a256a07b76 94336 admin optional job-scheduler_0.20.12_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAl/S5sETHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumKYHB/99YbB3moMRMbzLd7IzICvqB/o0GuRH
+zQpsT4gWQarwcQ8tMKHuLnI3QZ5c6g0CYM0KPSAVtZaJvVzGZG38Xg7F2AU/FrKR
+GNDWS74KqDpsZ4mE24fQpsuPErVipoL2RRxTf3DVoAB3/85+DINzapXoI0Ue588n
+JHvkn+zeCjjYYM/fBFjdpBgeUe+vSy/LkWHPNafW2ZCo0pmY34Cg3HQodSw+QP4L
+QuqeSJi55T5NT3SPPUHeQxCGFNqDPlmjlWV19fs1D99c667ubrZLqEwefbue/ELw
+KWkSKLcd4DuOJgwKcLxi4UgSekiqj0wVHCA09Wuuf8EdDDSIME9zXJ8Z
+=k2ta
+-----END PGP SIGNATURE-----

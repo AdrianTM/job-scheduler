@@ -55,8 +55,8 @@ ExecuteList::ExecuteList(int maxN, int maxD, QList<Crontab*> *cron)
     countLabel->setFrameStyle(QFrame::Panel | QFrame::Sunken);
 
     connect(resetButton, &QPushButton::clicked, this, &ExecuteList::dataChanged);
-    connect(numSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this, &ExecuteList::numChanged);
-    connect(dateSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this, &ExecuteList::dateChanged);
+    connect(numSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &ExecuteList::numChanged);
+    connect(dateSpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &ExecuteList::dateChanged);
 
     curCrontab = nullptr;
     curTCommand = nullptr;

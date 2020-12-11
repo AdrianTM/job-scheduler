@@ -103,7 +103,7 @@ VariableEdit::VariableEdit(QWidget *parent)
     connect(mailOnRadio, &QRadioButton::toggled, this, &VariableEdit::mailOnClicked);
     connect(mailOffRadio, &QRadioButton::toggled, this, &VariableEdit::mailOffClicked);
     connect(mailToRadio, &QRadioButton::toggled, this, &VariableEdit::mailToClicked);
-    connect(userCombo, QOverload<int>::of(&QComboBox::activated), this, &VariableEdit::userActivated);
+    connect(userCombo, qOverload<int>(&QComboBox::activated), this, &VariableEdit::userActivated);
 
     viewChanging = true;
     varViewChanging = true;
