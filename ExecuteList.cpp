@@ -72,7 +72,7 @@ void ExecuteList::dataChanged()
     QDateTime stopTime = QDateTime::currentDateTime().addDays(maxDate);
 
     executeView->clearSelection();
-    for (auto& e : executes) delete e;
+    for (auto e : executes) delete e;
     executes.clear();
     QList<TCommand*> cmnd;
     QList<QDateTime> date;

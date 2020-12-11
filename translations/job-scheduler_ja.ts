@@ -84,6 +84,9 @@
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="93"/>
+        <location filename="../MainWindow.cpp" line="201"/>
+        <location filename="../MainWindow.cpp" line="222"/>
+        <location filename="../MainWindow.cpp" line="297"/>
         <source>Job Scheduler</source>
         <translation type="unfinished"></translation>
     </message>
@@ -200,11 +203,6 @@
     <message>
         <location filename="../MainWindow.cpp" line="151"/>
         <source>About &amp;Qt</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../MainWindow.cpp" line="201"/>
-        <source>qroneko</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
