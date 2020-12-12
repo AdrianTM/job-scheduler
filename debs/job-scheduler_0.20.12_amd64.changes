@@ -18,32 +18,32 @@ Changes:
  .
    * Initial release
 Checksums-Sha1:
- b1d4edc2e2c4e448bf8092a38d0c8f2916297e4c 1139 job-scheduler_0.20.12.dsc
- 93f29f569798280c45c6d8ce7a6297a67e255b69 70360 job-scheduler_0.20.12.tar.xz
- 2aac4c7f26f8e0d303e6c8171f9861dcd33f82b9 3796224 job-scheduler-dbgsym_0.20.12_amd64.deb
- 00fa804c0f622c415fffc3ec8af6219ed01a7618 10950 job-scheduler_0.20.12_amd64.buildinfo
- f67a9c71c8461d12124b34f2f2786f6d64ab31fc 115256 job-scheduler_0.20.12_amd64.deb
+ 157baaf4614a291197437b9b4d47cd0267b47eb1 1139 job-scheduler_0.20.12.dsc
+ 9c12a7844d72347f438f7a0861eec11cb905cd22 53492 job-scheduler_0.20.12.tar.xz
+ 74f5fead09eb0702ddf525b7e89c0919537e844b 3797248 job-scheduler-dbgsym_0.20.12_amd64.deb
+ e793134e6144191ca7ae5dc57e72ea1334635e80 10947 job-scheduler_0.20.12_amd64.buildinfo
+ b5f2547ff7582a2f38d7ede6b40c900d6ec6f737 98472 job-scheduler_0.20.12_amd64.deb
 Checksums-Sha256:
- 5c749cee44d25adef79b4bf143d7f7053f183d8dc88058c5d336aa3b9fcadcff 1139 job-scheduler_0.20.12.dsc
- fed695084e7c85aa15d8f7bfded30d6a41f4d3b0e3f1dee954b6f80bb74abee4 70360 job-scheduler_0.20.12.tar.xz
- aedb077f3a300d231601434861959ab4da9f045d6183a1f0f849297cf359640e 3796224 job-scheduler-dbgsym_0.20.12_amd64.deb
- 56ba05ac410c5de462d95720818bb1a4740b75d88d4cd85cdfda33940461d680 10950 job-scheduler_0.20.12_amd64.buildinfo
- cebc9791a3d445001e8bc49f0c18320cd5b7394810508cb6b3454388ad1e2ab8 115256 job-scheduler_0.20.12_amd64.deb
+ 6603789586876f69c0c278aee0c456e48408c4ecb780b6d2806e48166836e7ee 1139 job-scheduler_0.20.12.dsc
+ f0a977ff1773ffd8c2a2031aff2a45b0246a1b09812e60d862a265085f30ce2e 53492 job-scheduler_0.20.12.tar.xz
+ a884308196253823372b6b9ea4b92954319fa04eb8dc7d33a423d6492eeccda1 3797248 job-scheduler-dbgsym_0.20.12_amd64.deb
+ 864e7917c0ec65f3d90e867cc0c3e206ea5751a501b0bcaf99fb6b33fafc5f34 10947 job-scheduler_0.20.12_amd64.buildinfo
+ 6348ed4bddafb04ee7b2f58f1c5c213b349af8f8eacae352d820f8601daedbe1 98472 job-scheduler_0.20.12_amd64.deb
 Files:
- ce3aa1efda2d5f6bdc500ffd531c55e0 1139 admin optional job-scheduler_0.20.12.dsc
- fbead383ee519a6cc87126084ae09d00 70360 admin optional job-scheduler_0.20.12.tar.xz
- 7eec6fc4d9b714cc6168be97549f879f 3796224 debug optional job-scheduler-dbgsym_0.20.12_amd64.deb
- 72fd357897de31e4df2c624b8cf1e686 10950 admin optional job-scheduler_0.20.12_amd64.buildinfo
- c1aa239a465ca88460c2e37ed326031a 115256 admin optional job-scheduler_0.20.12_amd64.deb
+ ceb8c0df5fe299ee0f55b4db70e11011 1139 admin optional job-scheduler_0.20.12.dsc
+ a3f10f2809ca1c894e51ea926fbab827 53492 admin optional job-scheduler_0.20.12.tar.xz
+ da5fd4a6517a05601f5b942c01d024ba 3797248 debug optional job-scheduler-dbgsym_0.20.12_amd64.deb
+ 03b4385a84df247e48c675c6d8d3c1d0 10947 admin optional job-scheduler_0.20.12_amd64.buildinfo
+ 577a6f9dcc17c95b1788f4fcd2c0fd29 98472 admin optional job-scheduler_0.20.12_amd64.deb
 
 -----BEGIN PGP SIGNATURE-----
 
-iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAl/T+uUTHGFkcmlhbkBt
-eGxpbnV4Lm9yZwAKCRBwk4x4BnnumO0RB/9zxYJhcb6pFba8XAst6Z6ZByaxB3Kj
-rOj6wgmU1YwAUYyCSjo8KyWsCA2h7t1tWnN1PazlDqJ5EFlyNz5XonUX0IsmtLFI
-sTAfE1uXc6KXKpsjaUqKRRztpqPZ6GJ5Ycmb9xy+IIV1rrkpwiSU2lYoyTSXDo+E
-lSC7ZVjFTYzlfXWuKscbMmHxHZ6taHaOyo99xMqV5IfNnnznL9T4NQ9Qye+A/vqk
-aEW+r/8wJDs/q5V4YN9Gmo8qtw988ojDNQP7XQCWhT1eALXAl/3vAOVV9+0sFYrl
-CyCx8Bo5XZU6DiuJwZ38D+CKUE9OVPEoAOyfYxbVBj9OHTw0DteM6JtK
-=5ogf
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAl/VM8cTHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumLt1B/4snxHDjLCHMC7395Yt+EDAtQ7DfIWp
+a/ZdwkUy46yRsm4bWDvTS/orkchcxsIDpod4hnKSsrE5zT26UA3d2kW8oLFAbwZ2
++nGkMvtUqwIHB+Aggfi9vVJuO/guIK+6noxRWcpkT1/KH5m8D5+MukFTDUJhJOZ4
+yopICBQFMmvDKjpOKPlKE/6bnzDDvG7b+osrY0q9UfE8RNyt4EkfxcRJKzJG7uWx
+wrbobwNA9caDgENRT7dIFn0DtXXyFmkl8cNnnyAqMmM3AqWT7bup3gvItPE66pcd
+VPFuOgzxsIiWYz8ytw0E6X9sjyR1x4i0HaF2wkh0zRy0YlrGOwUxisxe
+=8aKZ
 -----END PGP SIGNATURE-----
