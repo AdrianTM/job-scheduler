@@ -263,17 +263,22 @@ Are you OK to exit?</source>
 <context>
     <name>SaveDialog</name>
     <message>
-        <location filename="../SaveDialog.cpp" line="29"/>
+        <location filename="../SaveDialog.cpp" line="19"/>
+        <source>Save New Schedule</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../SaveDialog.cpp" line="32"/>
         <source>User:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SaveDialog.cpp" line="37"/>
+        <location filename="../SaveDialog.cpp" line="40"/>
         <source>&amp;OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../SaveDialog.cpp" line="38"/>
+        <location filename="../SaveDialog.cpp" line="41"/>
         <source>&amp;Cancel</source>
         <translation type="unfinished"></translation>
     </message>
