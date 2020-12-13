@@ -194,7 +194,7 @@ void Crontab::setup(const QString &str)
                 cmnt << s;
             }
         } else if (s.at(0) == '#') {
-            if (s.at(1) == ' ')
+            if (s.size() > 1 && s.at(1) == ' ')
                 cmnt << s.mid(2);
             else
                 cmnt << s.mid(1);
