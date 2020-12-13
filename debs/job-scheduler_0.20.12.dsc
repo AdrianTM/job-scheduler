@@ -12,20 +12,20 @@ Build-Depends: debhelper (>= 9.2), qtbase5-dev, qttools5-dev-tools
 Package-List:
  job-scheduler deb admin optional arch=any
 Checksums-Sha1:
- 9c12a7844d72347f438f7a0861eec11cb905cd22 53492 job-scheduler_0.20.12.tar.xz
+ 5c3f3afc75ea6ff47c899233317469e944930b09 53484 job-scheduler_0.20.12.tar.xz
 Checksums-Sha256:
- f0a977ff1773ffd8c2a2031aff2a45b0246a1b09812e60d862a265085f30ce2e 53492 job-scheduler_0.20.12.tar.xz
+ 2f40e146b03991289c000e6fd37cba67e427e6c4e75794380b72035a253e5347 53484 job-scheduler_0.20.12.tar.xz
 Files:
- a3f10f2809ca1c894e51ea926fbab827 53492 job-scheduler_0.20.12.tar.xz
+ a1ca700abdda717e50448e9fdf5dcbef 53484 job-scheduler_0.20.12.tar.xz
 
 -----BEGIN PGP SIGNATURE-----
 
-iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAl/VM8YTHGFkcmlhbkBt
-eGxpbnV4Lm9yZwAKCRBwk4x4BnnumFc3CAC3dyvKB+T0lkKZdBp/R5Z7teAT+4LB
-+5O6tPVAFY98q6LRH90pbjdXDa+JZUDbYcmGOwVvlMNdbT/8O/8NN4jZ3/1Cs2TM
-Jyqn/PUSz2TpJZm99npCIlbz1YQ27FUBmULzMx659R67nFKKRYpPYcPagQ26kdxF
-VquG8LsjjggWxPpX6Bc62D9WGiXgVUHUlmr2PR5mDFKnK7eE6IxmY7gvN/gMcui7
-GrG1kgDBVHWjPhTsZJ5G47LCm9PlsoMUItKuSqlMdBsMckLDS40Xupb1OJydcKKT
-D40R/sWerPxxgIakvpz4+NB9CUzPRFHC7oRdl418uysWyi7S1k+hKOby
-=pdh0
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAl/WjBUTHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumDzdB/4sBzCqOVgSNLG2jbBtpdPwQyqBg+RZ
+R2xgGUGSD+wzX88eAzB5JPy82O9HgvcwLahmW6yFlNzJsjAvfA+BqZ/h/Gber3jf
+yXNOjfYCzJ7QvkA6IHOTJ8Luim99fsICofLYyVlyQnZZ2KIvmKPJ1zJcHbwXMBOo
+f8VyOC1N6nzuR+nBKRR1xok34pzrSG8m6nTze0H3JIhicen6y24/XiGHymrwV4+8
+BNb2vTNv5cGPYxWeb6ADFDj6oT7Tf51j7j5psuGuUEbWYueQwpV8qZ8TQ4okZPrE
+X9nshni3eqCiA030+QZt+9Jhsf3UvHonOoEVIN998/Jdyz6y52hmNFpb
+=wW5G
 -----END PGP SIGNATURE-----
