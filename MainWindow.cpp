@@ -9,6 +9,7 @@
 */
 
 #include <QApplication>
+#include <QFileInfo>
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
@@ -81,6 +82,7 @@ MainWindow::MainWindow()
     connect(saveAction, &QAction::triggered, this, &MainWindow::saveCron);
     connect(reloadAction, &QAction::triggered, this, &MainWindow::reloadCron);
     connect(aboutAction, &QAction::triggered, this, &MainWindow::AboutJobScheduler);
+    connect(helpAction, &QAction::triggered, this, &MainWindow::displayHelp);
     connect(aboutQtAction, &QAction::triggered, qApp, QApplication::aboutQt);
 
     connect(cronView, &CronView::pasted, pasteAction, &QAction::setEnabled);
@@ -148,12 +150,33 @@ void MainWindow::createActions()
     QMenu *helpMenu = new QMenu(tr("&Help"), this);
     aboutAction = helpMenu->addAction(
                 QIcon(":/images/job-scheduler.png"), tr("&About"));
+    helpAction = helpMenu->addAction(QIcon::fromTheme("help"), tr("&Help"));
+    helpAction->setShortcut(QKeySequence("F1"));
     aboutQtAction = helpMenu->addAction(tr("About &Qt"));
     menuBar()->addMenu(helpMenu);
 
     saveAction->setEnabled(false);
     pasteAction->setEnabled(false);
 
+}
+
+void MainWindow::displayHelp()
+{
+    QString url = "file:///usr/share/doc/job-scheduler/help/help.html";
+    QString runasuser = "runuser -l $(logname) -c ";
+
+    QString cmd;
+    if (QFileInfo::exists("/usr/bin/mx-viewer")) {
+        cmd = QString("mx-viewer %1 '%2' &").arg(url).arg(tr("Job Scheduler"));
+    }
+    else if (QFileInfo::exists("/usr/bin/antix-viewer")) {
+        cmd = QString("antix-viewer %1 '%2' &").arg(url).arg(tr("Job Scheduler"));
+    }
+    else {
+        cmd = QString(runasuser + "\"DISPLAY=$DISPLAY xdg-open %1\" &").arg(url);
+    }
+
+    system(cmd.toUtf8());
 }
 
 void MainWindow::initCron()

@@ -41,6 +41,7 @@ private:
     void createActions();
     void createMenus();
     void createToolBar();
+    void displayHelp();
     void initCron();
 
     void readSettings();
@@ -58,6 +59,7 @@ private:
     QAction *reloadAction;
     QAction *aboutAction;
     QAction *aboutQtAction;
+    QAction *helpAction;
 
     CronView *cronView;
     ExecuteList *executeList;
