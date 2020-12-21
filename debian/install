@@ -1,0 +1,5 @@
+help			usr/share/doc/job-scheduler/help
+job-scheduler		usr/bin
+job-scheduler.desktop	usr/share/applications
+images/job-scheduler.png	usr/share/icons/hicolor/96x96/apps
+translations/*.qm	usr/share/job-schduler/locale
