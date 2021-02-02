@@ -57,13 +57,13 @@ TCommandEdit::TCommandEdit(QWidget *parent)
         }
         mainLayout->addWidget(new QLabel(tr("Comment:")));
         mainLayout->addWidget((commentEdit = new QTextEdit()));
-        mainLayout->addWidget((exeBox = new QGroupBox(tr("Execute"))));
+        mainLayout->addWidget((exeBox = new QGroupBox(tr("Execute list:"))));
         {
             exeBox->setLayout((h = new QHBoxLayout));
             {
                 h->addWidget((exeLabel = new QLabel("\n\n\n\n\n")));
                 h->addWidget((exeButton =
-                        new QPushButton(QIcon::fromTheme("undo", QIcon(":/images/undo_small.png")), tr("&Reset"))));
+                        new QPushButton(QIcon::fromTheme("undo", QIcon(":/images/undo_small.png")), tr("&Update"))));
             }
         }
     }
