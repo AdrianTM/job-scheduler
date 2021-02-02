@@ -1,6 +1,5 @@
-job-scheduler (0.20.12) UNRELEASED; urgency=medium
+job-scheduler (0.21.2) mx; urgency=medium
 
   * Initial release 
 
- -- Adrian <adrian@mxlinux.org>  Thu, 10 Dec 2020 21:45:10 -0500
-
+ -- Adrian <adrian@mxlinux.org>  Tue, 02 Feb 2021 10:53:04 -0500
