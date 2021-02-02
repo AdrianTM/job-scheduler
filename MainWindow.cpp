@@ -32,7 +32,6 @@
 MainWindow::MainWindow()
 {
     readSettings();
-
     createActions();
 
     //	statusBar();
@@ -83,13 +82,13 @@ MainWindow::MainWindow()
     connect(reloadAction, &QAction::triggered, this, &MainWindow::reloadCron);
     connect(aboutAction, &QAction::triggered, this, &MainWindow::AboutJobScheduler);
     connect(helpAction, &QAction::triggered, this, &MainWindow::displayHelp);
-    connect(aboutQtAction, &QAction::triggered, qApp, QApplication::aboutQt);
+    // connect(aboutQtAction, &QAction::triggered, qApp, QApplication::aboutQt);
 
     connect(cronView, &CronView::pasted, pasteAction, &QAction::setEnabled);
 
     initCron();
 
-    resize(winSize);
+    if (this->isMaximized()) this->resize(QSize(670,480)); // reset size if started maximized
     cronView->resize(viewSize);
 
     setWindowTitle(Clib::uName() + " - " + tr("Job Scheduler"));
@@ -152,7 +151,7 @@ void MainWindow::createActions()
                 QIcon(":/images/job-scheduler.png"), tr("&About"));
     helpAction = helpMenu->addAction(QIcon::fromTheme("help"), tr("&Help"));
     helpAction->setShortcut(QKeySequence("F1"));
-    aboutQtAction = helpMenu->addAction(tr("About &Qt"));
+    // aboutQtAction = helpMenu->addAction(tr("About &Qt"));
     menuBar()->addMenu(helpMenu);
 
     saveAction->setEnabled(false);
@@ -288,8 +287,9 @@ void MainWindow::readSettings()
     settings.beginGroup("Main");
     exeMaxNum = settings.value("MaxListNum", 100 ).toInt();
     exeMaxDate = settings.value("MaxListDate", 1 ).toInt();
-    winSize = settings.value("WindowSize", QSize(670,480)).toSize();
+    //winSize = settings.value("WindowSize", QSize(670,480)).toSize();
     viewSize = settings.value("ViewSize", QSize(200,460)).toSize();
+    restoreGeometry(settings.value("Geometry").toByteArray());
     settings.endGroup();
 }
 
@@ -300,7 +300,7 @@ void MainWindow::writeSettings()
     settings.beginGroup("Main");
     settings.setValue("MaxListNum", executeList->maxNum);
     settings.setValue("MaxListDate", executeList->maxDate);
-    settings.setValue("WindowSize", size());
+    settings.setValue("Geometry", saveGeometry());
     settings.setValue("ViewSize", cronView->size());
     settings.endGroup();
 }
