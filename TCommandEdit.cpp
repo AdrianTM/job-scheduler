@@ -27,8 +27,6 @@ TCommandEdit::TCommandEdit(QWidget *parent)
 {
 
     QPushButton *timeButton;
-    QPushButton *exeButton;
-    //	QPushButton *commandButton;
     QGroupBox *exeBox;
     QHBoxLayout *h;
 
@@ -52,8 +50,6 @@ TCommandEdit::TCommandEdit(QWidget *parent)
         mainLayout->addLayout((h = new QHBoxLayout));
         {
             h->addWidget((commandEdit = new QLineEdit()));
-            //			h->addWidget((commandButton =
-            //					new QPushButton(QIcon(":/images/open_small.png"), "")));
         }
         mainLayout->addWidget(new QLabel(tr("Comment:")));
         mainLayout->addWidget((commentEdit = new QTextEdit()));
@@ -62,8 +58,6 @@ TCommandEdit::TCommandEdit(QWidget *parent)
             exeBox->setLayout((h = new QHBoxLayout));
             {
                 h->addWidget((exeLabel = new QLabel("\n\n\n\n\n")));
-                h->addWidget((exeButton =
-                        new QPushButton(QIcon::fromTheme("undo", QIcon(":/images/undo_small.png")), tr("&Update"))));
             }
         }
     }
@@ -78,17 +72,14 @@ TCommandEdit::TCommandEdit(QWidget *parent)
 
     commentEdit->setAutoFormatting(QTextEdit::AutoNone);
 
-    QSizePolicy sp = exeButton->sizePolicy();
-    sp.setHorizontalPolicy(QSizePolicy::Fixed);
-    exeButton->setSizePolicy(sp);
-
     viewChanging = true;
 
     connect(commandEdit, &QLineEdit::textEdited, this, &TCommandEdit::commandEdited);
     connect(timeEdit, &QLineEdit::textEdited, this, &TCommandEdit::timeEdited);
     connect(commentEdit, &QTextEdit::textChanged, this, &TCommandEdit::commentEdited);
     connect(userCombo, qOverload<int>(&QComboBox::activated), this, &TCommandEdit::userChanged);
-    connect(exeButton, &QPushButton::clicked, this, &TCommandEdit::resetExeTime);
+    timer.start(60000);
+    connect(&timer, &QTimer::timeout, this, &TCommandEdit::resetExeTime);
     connect(timeButton, &QPushButton::clicked, this, &TCommandEdit::doTimeDialog);
 }
 
@@ -136,11 +127,10 @@ void TCommandEdit::setExecuteList(const QString &time)
         if (!str.isEmpty()) str += '\n';
         dt = cronTime.getNextTime(dt);
         qint64 sec = cur.secsTo(dt);
-        str += QString( "%1 - %2:%3:%4 later" )
+        str += QString( "%1 - %2:%3 later" )
                 .arg(dt.toString("yyyy-MM-dd(ddd) hh:mm"))
                 .arg(sec / (60 * 60))
-                .arg((sec / 60) % 60 , 2, 10, QChar('0'))
-                .arg(sec % 60, 2, 10, QChar('0'));
+                .arg((sec / 60) % 60 , 2, 10, QChar('0'));
         if (dt.date() == today)
             str += " - " + tr("Today");
         else if (dt.date() == tommorow)
@@ -179,6 +169,7 @@ void TCommandEdit::userChanged(int index)
 
 void TCommandEdit::resetExeTime()
 {
+    if (timeEdit->text().isEmpty()) return;
     setExecuteList(timeEdit->text());
 }
 

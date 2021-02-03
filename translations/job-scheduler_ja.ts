@@ -314,22 +314,17 @@ Are you OK to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../TCommandEdit.cpp" line="66"/>
-        <source>&amp;Update</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../TCommandEdit.cpp" line="127"/>
+        <location filename="../TCommandEdit.cpp" line="129"/>
         <source>Time Format Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../TCommandEdit.cpp" line="145"/>
+        <location filename="../TCommandEdit.cpp" line="147"/>
         <source>Today</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../TCommandEdit.cpp" line="147"/>
+        <location filename="../TCommandEdit.cpp" line="149"/>
         <source>Tomorrow</source>
         <translation type="unfinished"></translation>
     </message>
