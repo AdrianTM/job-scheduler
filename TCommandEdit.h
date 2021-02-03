@@ -11,6 +11,7 @@
 #define CCOMMANDEDIT_H
 
 #include <QWidget>
+#include <QTimer>
 
 class QLineEdit;
 class QTextEdit;
@@ -51,6 +52,7 @@ private:
     bool viewChanging;
 
     TCommand *tCommand;
+    QTimer timer;
 
 };
 
