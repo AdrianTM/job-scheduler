@@ -39,6 +39,7 @@ TCommandEdit::TCommandEdit(QWidget *parent)
             h->addWidget((userLabel = new QLabel("")));
             h->addStretch();
         }
+        mainLayout->addSpacing(5);
         mainLayout->addLayout((h = new QHBoxLayout));
         {
             h->addWidget(new QLabel(tr("Time:")));
@@ -47,18 +48,21 @@ TCommandEdit::TCommandEdit(QWidget *parent)
                     new QPushButton(QIcon::fromTheme("edit-symbolic", QIcon(":/images/edit_small.png")), tr("E&dit"))));
             timeButton->setMinimumSize(QSize(150, timeButton->maximumHeight()));
         }
+        mainLayout->addSpacing(5);
         mainLayout->addWidget(new QLabel(tr("Command:")));
         mainLayout->addLayout((h = new QHBoxLayout));
         {
             h->addWidget((commandEdit = new QLineEdit()));
         }
+        mainLayout->addSpacing(5);
         mainLayout->addWidget(new QLabel(tr("Comment:")));
         mainLayout->addWidget((commentEdit = new QTextEdit()));
+        mainLayout->addSpacing(5);
         mainLayout->addWidget((exeBox = new QGroupBox(tr("Execute list:"))));
         {
             exeBox->setLayout((h = new QHBoxLayout));
             {
-                h->addWidget((exeLabel = new QLabel("\n\n\n\n\n")));
+                h->addWidget((exeLabel = new QLabel("\n\n\n\n\n\n\n")));
             }
         }
     }
@@ -124,7 +128,7 @@ void TCommandEdit::setExecuteList(const QString &time)
     QDateTime cur(QDateTime::currentDateTime());
     QDateTime dt = cur;
     QString str;
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 7; ++i) {
         if (!str.isEmpty()) str += '\n';
         dt = cronTime.getNextTime(dt);
         qint64 sec = cur.secsTo(dt);

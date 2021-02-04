@@ -303,7 +303,7 @@ void MainWindow::writeSettings()
 void MainWindow::closeEvent(QCloseEvent *event)
 {
 
-    int changed = false;
+    bool changed = false;
     for (const auto& cron : crontabs) {
         if (cron->changed) {
             changed = true;
