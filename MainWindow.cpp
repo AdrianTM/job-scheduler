@@ -119,9 +119,9 @@ void MainWindow::createActions()
                  QIcon::fromTheme("exit", QIcon(":images/exit.png")), tr("E&xit"));
     quitAction->setShortcut(QKeySequence(tr("Ctrl+Q")));
 
-    fileToolBar->addAction(saveAction);
-    fileToolBar->addAction(reloadAction);
     fileToolBar->addAction(newAction);
+    fileToolBar->addAction(reloadAction);
+    fileToolBar->addAction(saveAction);
     menuBar()->addMenu(fileMenu);
 
     QMenu *editMenu = new QMenu(tr("&Edit"), this);
