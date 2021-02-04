@@ -219,10 +219,10 @@ void MainWindow::reloadCron()
 {
 
     if (saveAction->isEnabled()) {
-        if (!QMessageBox::question(this,
-                                   tr("Job Scheduler"),
-                                   tr("Not saved since last change.\nAre you OK to reload?"),
-                                   tr("&Ok"), tr("&Cancel"), QString(), 0, 1)) {
+        if (QMessageBox::Ok == QMessageBox::question(this,
+                                                     tr("Job Scheduler"),
+                                                     tr("Not saved since last change.\nAre you OK to reload?"),
+                                                     QMessageBox::Ok, QMessageBox::Cancel)) {
             initCron();
         }
     }
@@ -317,9 +317,9 @@ void MainWindow::closeEvent(QCloseEvent *event)
     }
     if (changed) {
         if (QMessageBox::Cancel == QMessageBox::question(this,
-                                  tr("Job Scheduler"),
-                                  tr("Not saved since last change.\nAre you OK to exit?"),
-                                  QMessageBox::Ok, QMessageBox::Cancel)) {
+                                                         tr("Job Scheduler"),
+                                                         tr("Not saved since last change.\nAre you OK to exit?"),
+                                                         QMessageBox::Ok, QMessageBox::Cancel)) {
             event->ignore();
             return;
         }
