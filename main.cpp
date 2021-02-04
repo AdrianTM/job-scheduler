@@ -8,6 +8,7 @@
    of the License, or (at your option) any later version.
 */
 #include <QApplication>
+#include <QLibraryInfo>
 #include <QLocale>
 #include <QTranslator>
 
@@ -18,11 +19,19 @@ int main(int argc, char *argv[])
     Q_INIT_RESOURCE(application);
 
     QApplication app(argc, argv);
+    app.setWindowIcon(QIcon::fromTheme(app.applicationName()));
+
+    QTranslator qtTran;
+    if (qtTran.load(QLocale::system(), "qt", "_", QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+        app.installTranslator(&qtTran);
+
+    QTranslator qtBaseTran;
+    if (qtBaseTran.load("qtbase_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+        app.installTranslator(&qtBaseTran);
 
     QTranslator appTran;
-    appTran.load(QCoreApplication::applicationName() + "_" +  QLocale::system().name(),
-                 "/usr/share/" + QCoreApplication::applicationName() + "/locale");
-    app.installTranslator(&appTran);
+    if (appTran.load(app.applicationName() + "_" + QLocale::system().name(), "/usr/share/" + app.applicationName() + "/locale"))
+        app.installTranslator(&appTran);
 
     MainWindow window;
     window.show();
