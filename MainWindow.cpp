@@ -82,8 +82,6 @@ MainWindow::MainWindow()
     connect(reloadAction, &QAction::triggered, this, &MainWindow::reloadCron);
     connect(aboutAction, &QAction::triggered, this, &MainWindow::AboutJobScheduler);
     connect(helpAction, &QAction::triggered, this, &MainWindow::displayHelp);
-    // connect(aboutQtAction, &QAction::triggered, qApp, QApplication::aboutQt);
-
     connect(cronView, &CronView::pasted, pasteAction, &QAction::setEnabled);
 
     initCron();
@@ -151,12 +149,10 @@ void MainWindow::createActions()
                 QIcon(":/images/job-scheduler.png"), tr("&About"));
     helpAction = helpMenu->addAction(QIcon::fromTheme("help"), tr("&Help"));
     helpAction->setShortcut(QKeySequence("F1"));
-    // aboutQtAction = helpMenu->addAction(tr("About &Qt"));
     menuBar()->addMenu(helpMenu);
 
     saveAction->setEnabled(false);
     pasteAction->setEnabled(false);
-
 }
 
 void MainWindow::displayHelp()
@@ -185,7 +181,7 @@ void MainWindow::initCron()
 
     QString user = Clib::uName();
     Crontab *cron = new Crontab(user);
-    if (cron->tCommands.count() == 0 && cron->comment == "" &&
+    if (cron->tCommands.count() == 0 && cron->comment.isEmpty() &&
             cron->variables.count() == 0) {
         cron->comment = "";
         cron->variables << new Variable("HOME", Clib::uHome(), "Home");
@@ -287,7 +283,6 @@ void MainWindow::readSettings()
     settings.beginGroup("Main");
     exeMaxNum = settings.value("MaxListNum", 100 ).toInt();
     exeMaxDate = settings.value("MaxListDate", 1 ).toInt();
-    //winSize = settings.value("WindowSize", QSize(670,480)).toSize();
     viewSize = settings.value("ViewSize", QSize(200,460)).toSize();
     restoreGeometry(settings.value("Geometry").toByteArray());
     settings.endGroup();
@@ -315,14 +310,13 @@ void MainWindow::closeEvent(QCloseEvent *event)
             break;
         }
     }
-    if (changed) {
-        if (QMessageBox::Cancel == QMessageBox::question(this,
-                                                         tr("Job Scheduler"),
-                                                         tr("Not saved since last change.\nAre you OK to exit?"),
-                                                         QMessageBox::Ok, QMessageBox::Cancel)) {
-            event->ignore();
-            return;
-        }
+    if (changed && QMessageBox::question(this,
+                                         tr("Job Scheduler"),
+                                         tr("Not saved since last change.\nAre you OK to exit?"),
+                                         QMessageBox::Ok, QMessageBox::Cancel)
+            == QMessageBox::Cancel) {
+        event->ignore();
+        return;
     }
     writeSettings();
     event->accept();

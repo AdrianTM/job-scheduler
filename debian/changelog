@@ -1,3 +1,10 @@
+job-scheduler (0.21.2.01) mx; urgency=medium
+
+  * removed "Update" button and update the command list automatically
+  * changed icon order
+
+ -- Adrian <adrian@mxlinux.org>  Thu, 04 Feb 2021 15:58:15 -0500
+
 job-scheduler (0.21.2) mx; urgency=medium
 
   * Initial release 
