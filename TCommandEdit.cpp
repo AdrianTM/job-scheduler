@@ -58,7 +58,7 @@ TCommandEdit::TCommandEdit(QWidget *parent)
         mainLayout->addWidget(new QLabel(tr("Comment:")));
         mainLayout->addWidget((commentEdit = new QTextEdit()));
         mainLayout->addSpacing(5);
-        mainLayout->addWidget((exeBox = new QGroupBox(tr("Execute list:"))));
+        mainLayout->addWidget((exeBox = new QGroupBox(tr("Job Schedule:"))));
         {
             exeBox->setLayout((h = new QHBoxLayout));
             {

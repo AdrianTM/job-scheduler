@@ -49,7 +49,7 @@ MainWindow::MainWindow()
         tab->addTab(variableEdit, QIcon::fromTheme("edit-tag-symbolic", QIcon(":/images/edit_small.png")),
                     tr("&Variables"));
         tab->addTab(executeList, QIcon::fromTheme("view-list-symbolic", QIcon(":/images/view_text.png")),
-                    tr("E&xecute List"));
+                    tr("&Job List"));
     }
 
     QSplitter *spl = new QSplitter;
