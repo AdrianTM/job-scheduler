@@ -45,9 +45,9 @@ MainWindow::MainWindow()
     QTabWidget *tab = new QTabWidget;
     {
         tab->addTab(tCommandEdit, QIcon::fromTheme("edit-symbolic", QIcon(":/images/edit_small.png")),
-                    tr("Edit &Command"));
+                    tr("&Command"));
         tab->addTab(variableEdit, QIcon::fromTheme("edit-tag-symbolic", QIcon(":/images/edit_small.png")),
-                    tr("Edit &Variable"));
+                    tr("&Variables"));
         tab->addTab(executeList, QIcon::fromTheme("view-list-symbolic", QIcon(":/images/view_text.png")),
                     tr("E&xecute List"));
     }
@@ -316,10 +316,10 @@ void MainWindow::closeEvent(QCloseEvent *event)
         }
     }
     if (changed) {
-        if (QMessageBox::question(this,
+        if (QMessageBox::Cancel == QMessageBox::question(this,
                                   tr("Job Scheduler"),
                                   tr("Not saved since last change.\nAre you OK to exit?"),
-                                  tr("&Ok"), tr("&Cancel"), QString(), 0, 1)) {
+                                  QMessageBox::Ok, QMessageBox::Cancel)) {
             event->ignore();
             return;
         }
