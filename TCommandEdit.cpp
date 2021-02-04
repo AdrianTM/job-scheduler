@@ -45,7 +45,7 @@ TCommandEdit::TCommandEdit(QWidget *parent)
             h->addWidget(new QLabel(tr("Time:")));
             h->addWidget((timeEdit = new QLineEdit()));
             h->addWidget((timeButton =
-                    new QPushButton(QIcon::fromTheme("edit-symbolic", QIcon(":/images/edit_small.png")), tr("E&dit"))));
+                    new QPushButton(QIcon::fromTheme("edit-symbolic", QIcon(":/images/edit_small.png")), tr("Time String E&ditor"))));
             timeButton->setMinimumSize(QSize(150, timeButton->maximumHeight()));
         }
         mainLayout->addSpacing(5);
@@ -58,7 +58,7 @@ TCommandEdit::TCommandEdit(QWidget *parent)
         mainLayout->addWidget(new QLabel(tr("Comment:")));
         mainLayout->addWidget((commentEdit = new QTextEdit()));
         mainLayout->addSpacing(5);
-        mainLayout->addWidget((exeBox = new QGroupBox(tr("Execute list:"))));
+        mainLayout->addWidget((exeBox = new QGroupBox(tr("Job Schedule:"))));
         {
             exeBox->setLayout((h = new QHBoxLayout));
             {
