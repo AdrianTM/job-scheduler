@@ -116,7 +116,7 @@ QVariant CronModel::headerData(int section, Qt::Orientation orientation,
         case 1:
             return tr("User");
         case 2:
-            return tr("command");
+            return tr("Command");
         }
     }
 
