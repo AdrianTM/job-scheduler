@@ -1,6 +1,3 @@
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA512
-
 Format: 1.8
 Date: Thu, 04 Feb 2021 15:58:15 -0500
 Source: job-scheduler
@@ -21,32 +18,20 @@ Changes:
    * minor renaming of labels
    * minor GUI changes
 Checksums-Sha1:
- 877a6adabc0d38bbeae34595fb52748df654d1cc 1150 job-scheduler_0.21.2.01.dsc
- 8ae109e932e2ab9023c055049c964869776be2e0 186256 job-scheduler_0.21.2.01.tar.xz
- 307bd2d20e1ebe0cb241fa9000061b9e8c15d6b7 3813832 job-scheduler-dbgsym_0.21.2.01_amd64.deb
- 4cb503ebf7e5c692369cf830032eba1a7d4f88ad 11078 job-scheduler_0.21.2.01_amd64.buildinfo
- 515efe7e72ccb8d105a8077158f58b89bcf3c080 232344 job-scheduler_0.21.2.01_amd64.deb
+ 42d026c0be0e005aa31fa891bd12f3fc4abeeebb 588 job-scheduler_0.21.2.01.dsc
+ 005eeffe6dcb2964e9ba4375f97ff4cd4e795acc 186252 job-scheduler_0.21.2.01.tar.xz
+ 5252e88c657522d8b2d087f4f3b340025d722eea 3812780 job-scheduler-dbgsym_0.21.2.01_amd64.deb
+ 1c1dd0c776e9e2acb314e2e7e1628613793ada17 10513 job-scheduler_0.21.2.01_amd64.buildinfo
+ cdb7e60ed31051bcfb3f3fc4f4b9b55dd9bd90df 232332 job-scheduler_0.21.2.01_amd64.deb
 Checksums-Sha256:
- 5feb90a567cba052dfc1fa57156d2ff85520653ef2048c4bd06b145cdb25c80b 1150 job-scheduler_0.21.2.01.dsc
- 5952eaaef9db7fcdbd2787d46c3cd69f098fd8c50267a596201f6a0dd333c448 186256 job-scheduler_0.21.2.01.tar.xz
- a53d9de3de8a3f69cec9e035d9e504ec56bdbb94a7e622b4fdf2dc814c4209ef 3813832 job-scheduler-dbgsym_0.21.2.01_amd64.deb
- e202f9593bcee9fc29d5dbc1384e2a0bd952a3ac54b3cc578b0c1fdff8464846 11078 job-scheduler_0.21.2.01_amd64.buildinfo
- 063308a861f31e6a0a54bdfa2e47460d5771b4c120cf7e27a354cc75474ca6cf 232344 job-scheduler_0.21.2.01_amd64.deb
+ 44073556f3263b806e7763e93803bb8eed5989f0cfee28fb98d63b1e06fc0f97 588 job-scheduler_0.21.2.01.dsc
+ 659ca2f299b3973038f4db8709038cc72a7d6e89f7808182dc2acd6ace45949f 186252 job-scheduler_0.21.2.01.tar.xz
+ d043cb149f999cc0ca8e62024ffe95cabe97dbb339f5a7b3bb2d9a7bb00595a1 3812780 job-scheduler-dbgsym_0.21.2.01_amd64.deb
+ 5426548fad92a0311c09330a7ce0c383686f79f2916a8d16612c6170d131fc6e 10513 job-scheduler_0.21.2.01_amd64.buildinfo
+ e32f6866fa6de48639a940ebef7bdd9b2afc411bc9c9cf156525d80d99a0d87f 232332 job-scheduler_0.21.2.01_amd64.deb
 Files:
- 31622a27f1145c0daea743987b04849d 1150 admin optional job-scheduler_0.21.2.01.dsc
- bd732e1fcdc956de2dd5ca6d967b9e6d 186256 admin optional job-scheduler_0.21.2.01.tar.xz
- da5f636615272af69f3f856057eb7a49 3813832 debug optional job-scheduler-dbgsym_0.21.2.01_amd64.deb
- 143afdf85a9f628597ebd126f069832c 11078 admin optional job-scheduler_0.21.2.01_amd64.buildinfo
- 1465dcff245492e5f8a4c7cd7affa0f7 232344 admin optional job-scheduler_0.21.2.01_amd64.deb
-
------BEGIN PGP SIGNATURE-----
-
-iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmAd+ZkTHGFkcmlhbkBt
-eGxpbnV4Lm9yZwAKCRBwk4x4BnnumFDaB/4r8cjyEJZHFYPNxvWTJWlRFEQJ/6Ep
-IAQFRHUlV1icqyXrKN2Vdy4UTnTLZAvcM/j66FWpXBwdKdMQT7nS5p8SFoj1dcou
-V0++U4qScN1pwGjvUw4Zll7sSmPPQgVRmxMNNYOO/UyDXwEXdc62Dr1Y4i6B5ar2
-A3vP4axNh5ygadjCB5KVVxnwcHA7iHrBQF1YcTUzIs8VixtstBe4Ca92q79lhcHN
-mUa5fp88oRJ6qIJrjRlHGpQYLb2a5CuPIKA8ncIeIeV5CuTCfq1VCT7XwdD82RCH
-okjrsqkoA8tsn4dSFGaWuHvDHyF55+dvcL+0Npv6DUUEyaKqKrZwOgIe
-=AZnO
------END PGP SIGNATURE-----
+ ce11ae85379bacc7d665ef18e78382fe 588 admin optional job-scheduler_0.21.2.01.dsc
+ baaaf1cd41d369a279017ccfc359d200 186252 admin optional job-scheduler_0.21.2.01.tar.xz
+ f642ef3a5786adbe3cd40e6e6ad358a1 3812780 debug optional job-scheduler-dbgsym_0.21.2.01_amd64.deb
+ 89cb5a53bec009df5722c07be0cf1993 10513 admin optional job-scheduler_0.21.2.01_amd64.buildinfo
+ 764d7bbd2348f3567a6a8dc73f7b0b96 232332 admin optional job-scheduler_0.21.2.01_amd64.deb
