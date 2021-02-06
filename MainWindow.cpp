@@ -158,18 +158,15 @@ void MainWindow::createActions()
 void MainWindow::displayHelp()
 {
     QString url = "file:///usr/share/doc/job-scheduler/help/help.html";
-    QString runasuser = "runuser -l $(logname) -c ";
+    QString runasuser = (Clib::uId() == 0) ? "runuser -l $(logname) -c " : QString();
 
     QString cmd;
-    if (QFileInfo::exists("/usr/bin/mx-viewer")) {
+    if (QFileInfo::exists("/usr/bin/mx-viewer"))
         cmd = QString("mx-viewer %1 '%2' &").arg(url).arg(tr("Job Scheduler"));
-    }
-    else if (QFileInfo::exists("/usr/bin/antix-viewer")) {
+    else if (QFileInfo::exists("/usr/bin/antix-viewer"))
         cmd = QString("antix-viewer %1 '%2' &").arg(url).arg(tr("Job Scheduler"));
-    }
-    else {
-        cmd = QString(runasuser + "\"DISPLAY=$DISPLAY xdg-open %1\" &").arg(url);
-    }
+    else
+        cmd = QString(runasuser + "DISPLAY=$DISPLAY xdg-open %1 &").arg(url);
 
     system(cmd.toUtf8());
 }

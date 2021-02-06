@@ -1,0 +1,52 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Thu, 04 Feb 2021 15:58:15 -0500
+Source: job-scheduler
+Binary: job-scheduler job-scheduler-dbgsym
+Architecture: source amd64
+Version: 0.21.2.01
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ job-scheduler - job-scheduler
+Changes:
+ job-scheduler (0.21.2.01) mx; urgency=medium
+ .
+   * removed "Update" button and update the command list automatically
+   * changed icon order
+   * minor renaming of labels
+   * minor GUI changes
+Checksums-Sha1:
+ 877a6adabc0d38bbeae34595fb52748df654d1cc 1150 job-scheduler_0.21.2.01.dsc
+ 8ae109e932e2ab9023c055049c964869776be2e0 186256 job-scheduler_0.21.2.01.tar.xz
+ 307bd2d20e1ebe0cb241fa9000061b9e8c15d6b7 3813832 job-scheduler-dbgsym_0.21.2.01_amd64.deb
+ 4cb503ebf7e5c692369cf830032eba1a7d4f88ad 11078 job-scheduler_0.21.2.01_amd64.buildinfo
+ 515efe7e72ccb8d105a8077158f58b89bcf3c080 232344 job-scheduler_0.21.2.01_amd64.deb
+Checksums-Sha256:
+ 5feb90a567cba052dfc1fa57156d2ff85520653ef2048c4bd06b145cdb25c80b 1150 job-scheduler_0.21.2.01.dsc
+ 5952eaaef9db7fcdbd2787d46c3cd69f098fd8c50267a596201f6a0dd333c448 186256 job-scheduler_0.21.2.01.tar.xz
+ a53d9de3de8a3f69cec9e035d9e504ec56bdbb94a7e622b4fdf2dc814c4209ef 3813832 job-scheduler-dbgsym_0.21.2.01_amd64.deb
+ e202f9593bcee9fc29d5dbc1384e2a0bd952a3ac54b3cc578b0c1fdff8464846 11078 job-scheduler_0.21.2.01_amd64.buildinfo
+ 063308a861f31e6a0a54bdfa2e47460d5771b4c120cf7e27a354cc75474ca6cf 232344 job-scheduler_0.21.2.01_amd64.deb
+Files:
+ 31622a27f1145c0daea743987b04849d 1150 admin optional job-scheduler_0.21.2.01.dsc
+ bd732e1fcdc956de2dd5ca6d967b9e6d 186256 admin optional job-scheduler_0.21.2.01.tar.xz
+ da5f636615272af69f3f856057eb7a49 3813832 debug optional job-scheduler-dbgsym_0.21.2.01_amd64.deb
+ 143afdf85a9f628597ebd126f069832c 11078 admin optional job-scheduler_0.21.2.01_amd64.buildinfo
+ 1465dcff245492e5f8a4c7cd7affa0f7 232344 admin optional job-scheduler_0.21.2.01_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmAd+ZkTHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumFDaB/4r8cjyEJZHFYPNxvWTJWlRFEQJ/6Ep
+IAQFRHUlV1icqyXrKN2Vdy4UTnTLZAvcM/j66FWpXBwdKdMQT7nS5p8SFoj1dcou
+V0++U4qScN1pwGjvUw4Zll7sSmPPQgVRmxMNNYOO/UyDXwEXdc62Dr1Y4i6B5ar2
+A3vP4axNh5ygadjCB5KVVxnwcHA7iHrBQF1YcTUzIs8VixtstBe4Ca92q79lhcHN
+mUa5fp88oRJ6qIJrjRlHGpQYLb2a5CuPIKA8ncIeIeV5CuTCfq1VCT7XwdD82RCH
+okjrsqkoA8tsn4dSFGaWuHvDHyF55+dvcL+0Npv6DUUEyaKqKrZwOgIe
+=AZnO
+-----END PGP SIGNATURE-----

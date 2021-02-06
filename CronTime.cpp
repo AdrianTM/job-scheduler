@@ -211,7 +211,7 @@ QString CronTime::toString(const QBitArray &bit, int start)
             }
             cnt++;
             space_cnt = 0;
-        }else
+        } else
             space_cnt++;
 
     }
