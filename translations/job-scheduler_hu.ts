@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ja_JP">
+<TS version="2.1" language="hu_HU">
 <context>
     <name>CronModel</name>
     <message>
@@ -282,6 +282,11 @@ Are you OK to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../TCommandEdit.cpp" line="48"/>
+        <source>Time String E&amp;ditor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../TCommandEdit.cpp" line="52"/>
         <source>Command:</source>
         <translation type="unfinished"></translation>
@@ -289,11 +294,6 @@ Are you OK to exit?</source>
     <message>
         <location filename="../TCommandEdit.cpp" line="58"/>
         <source>Comment:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../TCommandEdit.cpp" line="48"/>
-        <source>Time String E&amp;ditor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
