@@ -51,4 +51,50 @@ SOURCES += CronModel.cpp \
            VariableModel.cpp \
            VariableView.cpp
 RESOURCES += application.qrc
-TRANSLATIONS += translations/job-scheduler_ja.ts
+
+TRANSLATIONS += translations/job-scheduler_am.ts \
+                translations/job-scheduler_ar.ts \
+                translations/job-scheduler_bg.ts \
+                translations/job-scheduler_bn.ts \
+                translations/job-scheduler_ca.ts \
+                translations/job-scheduler_cs.ts \
+                translations/job-scheduler_da.ts \
+                translations/job-scheduler_de.ts \
+                translations/job-scheduler_el.ts \
+                translations/job-scheduler_es.ts \
+                translations/job-scheduler_et.ts \
+                translations/job-scheduler_eu.ts \
+                translations/job-scheduler_fa.ts \
+                translations/job-scheduler_fi.ts \
+                translations/job-scheduler_fil_PH.ts \
+                translations/job-scheduler_fr.ts \
+                translations/job-scheduler_he_IL.ts \
+                translations/job-scheduler_hi.ts \
+                translations/job-scheduler_hr.ts \
+                translations/job-scheduler_hu.ts \
+                translations/job-scheduler_id.ts \
+                translations/job-scheduler_is.ts \
+                translations/job-scheduler_it.ts \
+                translations/job-scheduler_ja.ts \
+                translations/job-scheduler_kk.ts \
+                translations/job-scheduler_ko.ts \
+                translations/job-scheduler_lt.ts \
+                translations/job-scheduler_mk.ts \
+                translations/job-scheduler_mr.ts \
+                translations/job-scheduler_nb.ts \
+                translations/job-scheduler_nl.ts \
+                translations/job-scheduler_pl.ts \
+                translations/job-scheduler_pt.ts \
+                translations/job-scheduler_pt_BR.ts \
+                translations/job-scheduler_ro.ts \
+                translations/job-scheduler_ru.ts \
+                translations/job-scheduler_sk.ts \
+                translations/job-scheduler_sl.ts \
+                translations/job-scheduler_sq.ts \
+                translations/job-scheduler_sr.ts \
+                translations/job-scheduler_sv.ts \
+                translations/job-scheduler_tr.ts \
+                translations/job-scheduler_uk.ts \
+                translations/job-scheduler_vi.ts \
+                translations/job-scheduler_zh_CN.ts \
+                translations/job-scheduler_zh_TW.ts
