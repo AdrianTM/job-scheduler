@@ -45,7 +45,7 @@ void TimeButton::buttonToggled(bool chk)
         plt.setColor(QPalette::Button, QColor( 163, 194, 186 ));
         plt.setColor(QPalette::ButtonText, QColor( 0, 66, 0 ));
         setPalette(plt);
-    }else{
+    } else {
         setPalette(style()->standardPalette());
     }
 }

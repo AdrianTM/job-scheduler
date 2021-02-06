@@ -79,16 +79,16 @@
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="52"/>
-        <source>E&amp;xecute List</source>
+        <source>&amp;Job List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="92"/>
         <location filename="../MainWindow.cpp" line="165"/>
-        <location filename="../MainWindow.cpp" line="168"/>
-        <location filename="../MainWindow.cpp" line="219"/>
-        <location filename="../MainWindow.cpp" line="240"/>
-        <location filename="../MainWindow.cpp" line="314"/>
+        <location filename="../MainWindow.cpp" line="167"/>
+        <location filename="../MainWindow.cpp" line="216"/>
+        <location filename="../MainWindow.cpp" line="237"/>
+        <location filename="../MainWindow.cpp" line="311"/>
         <source>Job Scheduler</source>
         <translation type="unfinished"></translation>
     </message>
@@ -204,44 +204,44 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="220"/>
+        <location filename="../MainWindow.cpp" line="217"/>
         <source>Not saved since last change.
 Are you OK to reload?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="315"/>
+        <location filename="../MainWindow.cpp" line="312"/>
         <source>Not saved since last change.
 Are you OK to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="327"/>
+        <location filename="../MainWindow.cpp" line="324"/>
         <source>About Job Scheduler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="328"/>
+        <location filename="../MainWindow.cpp" line="325"/>
         <source>&lt;b&gt;Job Scheduler&lt;/b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="328"/>
+        <location filename="../MainWindow.cpp" line="325"/>
         <source>Version: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="329"/>
+        <location filename="../MainWindow.cpp" line="326"/>
         <source>Job Scheduler is based upon qroneko 0.5.4, released in 2005 by korewaisai (&lt;a href=&quot;mailto:korewaisai@yahoo.co.jp&quot;&gt;korewaisai@yahoo.co.jp&lt;/a&gt;)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="330"/>
+        <location filename="../MainWindow.cpp" line="327"/>
         <source>Original project page: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="331"/>
+        <location filename="../MainWindow.cpp" line="328"/>
         <source>MX project page: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -282,11 +282,6 @@ Are you OK to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../TCommandEdit.cpp" line="48"/>
-        <source>E&amp;dit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../TCommandEdit.cpp" line="52"/>
         <source>Command:</source>
         <translation type="unfinished"></translation>
@@ -297,8 +292,13 @@ Are you OK to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../TCommandEdit.cpp" line="48"/>
+        <source>Time String E&amp;ditor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../TCommandEdit.cpp" line="61"/>
-        <source>Execute list:</source>
+        <source>Job Schedule:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
