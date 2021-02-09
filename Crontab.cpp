@@ -58,7 +58,7 @@ QString Crontab::getCrontab(const QString &user)
         }
 
         QString err = QString::fromUtf8(p.readAllStandardError());
-        if (p.exitCode() || err != "") {
+        if (p.exitCode() || !err.isEmpty()) {
             estr = "crontab update error\n\n" + err;
             return ret;
         }
@@ -104,7 +104,7 @@ bool Crontab::putCrontab(const QString &text)
         t << text;
     } else {
         QString fname = writeTempFile(text, cronOwner);
-        if (fname == "")
+        if (fname.isEmpty())
             return false;
 
         QProcess p;
@@ -190,7 +190,7 @@ void Crontab::setup(const QString &str)
                 if (head.count() > 0) head << s;
                 head << cmnt;
                 cmnt.clear();
-            }else{
+            } else {
                 cmnt << s;
             }
         } else if (s.at(0) == '#') {

@@ -66,27 +66,27 @@ CronTime::CronTime(const QString &tstr)
     }
     minute = toBit(0, 60, slist.at(0));
     if (minute.isEmpty()) {
-        qDebug() << "CronTime::CronTime Invalid Minute Format:" << slist[0];
+        qDebug() << "CronTime::CronTime Invalid Minute Format:" << slist.at(0);
         return;
     }
     hour = toBit(0, 24, slist.at(1));
     if (hour.isEmpty()) {
-        qDebug() << "CronTime::CronTime Invalid Hour Format:" << slist[1];
+        qDebug() << "CronTime::CronTime Invalid Hour Format:" << slist.at(1);
         return;
     }
     day = toBit(1, 31, slist.at(2));
     if (day.isEmpty()) {
-        qDebug() << "CronTime::CronTime Invalid Day Format:" << slist[2];
+        qDebug() << "CronTime::CronTime Invalid Day Format:" << slist.at(2);
         return;
     }
     month = toBit(1, 12, toMonthNumeric(slist.at(3)));
     if (month.isEmpty()) {
-        qDebug() << "CronTime::CronTime Invalid Month Format:" << slist[3];
+        qDebug() << "CronTime::CronTime Invalid Month Format:" << slist.at(3);
         return;
     }
     week = toBit(0, 8, toWeekNumeric(slist.at(4)));
     if (week.isEmpty()) {
-        qDebug() << "CronTime::CronTime Invalid Week Format:" << slist[4];
+        qDebug() << "CronTime::CronTime Invalid Week Format:" << slist.at(4);
         return;
     }
     if (week.at(7)) week[0] = true;
@@ -131,19 +131,19 @@ QBitArray CronTime::toBit(int start, int num, const QString &str)
             if (deg == 0)
                 return NG;
             s = s.section('/', 0, 0);
-            if (s == "")
+            if (s.isEmpty())
                 return NG;
         }
         if (s.contains('-')) {
             QString fs = s.section('-', 0, 0);
             QString es = s.section('-', 1, 1);
-            if ( fs == "" || fs == "*" ) fp = 0;
+            if ( fs.isEmpty() || fs == "*" ) fp = 0;
             else {
                 if (!fs.contains(reg))
                     return NG;
                 fp = fs.toInt() - start;
             }
-            if ( es == "" || es == "*" ) ep = num - 1;
+            if ( es.isEmpty() || es == "*" ) ep = num - 1;
             else {
                 if (!es.contains(reg))
                     return NG;
@@ -198,7 +198,7 @@ QString CronTime::toString(const QBitArray &bit, int start)
     int interval_cnt = 0;
     int first_pnt = 0;
     for (int i = 0; i < size; i++) {
-        if (bit[i]) {
+        if (bit.at(i)) {
             if (cnt == 0)
                 first_pnt = i;
             else if (cnt == 1)
@@ -234,7 +234,7 @@ bool CronTime::isFill(const QBitArray &bit)
 {
     bool ret = true;
     for (int i = 0; i < bit.size(); i++) {
-        if (!bit[i]) {
+        if (!bit.at(i)) {
             ret = false;
             break;
         }
@@ -251,19 +251,19 @@ QDateTime CronTime::getNextTime(const QDateTime &chk)
     QDateTime tm = chk.addSecs(60 - chk.time().second());
     QTime clear(0,0);
     while (true) {
-        if (!month[tm.date().month() - 1]) {
+        if (!month.at(tm.date().month() - 1)) {
             tm = tm.addMonths(1);
             tm.setTime(clear);
             tm.setDate(QDate(tm.date().year(), tm.date().month(), 1));
             continue;
-        } else if (!day[tm.date().day() - 1] || !week[tm.date().dayOfWeek()]) {
+        } else if (!day.at(tm.date().day() - 1) || !week.at(tm.date().dayOfWeek())) {
             tm = tm.addDays(1);
             tm.setTime(clear);
             continue;
-        } else if (!hour[tm.time().hour()]) {
+        } else if (!hour.at(tm.time().hour())) {
             tm = tm.addSecs(60 * (60 - tm.time().minute()));
             continue;
-        } else if (!minute[tm.time().minute()]) {
+        } else if (!minute.at(tm.time().minute())) {
             tm = tm.addSecs(60);
         } else {
             break;
