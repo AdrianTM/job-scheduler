@@ -57,17 +57,17 @@ QModelIndex CronModel::index(int row, int column, const QModelIndex &parent) con
 
     if (!parent.isValid()) {
         if (isOneUser()) {
-            if (row < (*crontabs)[0]->tCommands.count())
-                return createIndex(row, column, (*crontabs)[0]->tCommands[row]);
+            if (row < (*crontabs).at(0)->tCommands.count())
+                return createIndex(row, column, (*crontabs).at(0)->tCommands.at(row));
         } else {
             if (row >= 0 && row < crontabs->count())
-                return createIndex(row, column, (*crontabs)[row]);
+                return createIndex(row, column, (*crontabs).at(row));
         }
     } else {
         if (!isOneUser()) {
             Crontab *cron = getCrontab(parent);
             if (row < cron->tCommands.count())
-                return createIndex(row, column, cron->tCommands[row]);
+                return createIndex(row, column, cron->tCommands.at(row));
         }
     }
 
@@ -97,7 +97,7 @@ int CronModel::rowCount(const QModelIndex &parent) const
         }
     } else {
         if (isOneUser())
-            return (*crontabs)[0]->tCommands.count();
+            return (*crontabs).at(0)->tCommands.count();
         else
             return crontabs->count();
     }
@@ -144,7 +144,7 @@ QModelIndex CronModel::removeCComand(const QModelIndex &idx)
 
     beginRemoveRows(del, cmndPos, cmndPos);
 
-    delete crontabs->at(cronPos)->tCommands[cmndPos];
+    delete crontabs->at(cronPos)->tCommands.at(cmndPos);
     crontabs->at(cronPos)->tCommands.removeAt(cmndPos);
 
     endRemoveRows();

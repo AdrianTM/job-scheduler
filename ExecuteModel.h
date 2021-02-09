@@ -38,7 +38,7 @@ private:
     int rowCount(const QModelIndex &parent) const
     { return (parent.isValid() ? 0 : executes->count()); }
     QModelIndex index(int row, int column, const QModelIndex &) const
-    { return createIndex(row, column, (*executes)[row]); }
+    { return createIndex(row, column, (*executes).at(row)); }
 
     QVariant headerData(int section, Qt::Orientation orientation,
                         int role) const;

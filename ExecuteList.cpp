@@ -100,9 +100,9 @@ void ExecuteList::dataChanged()
             }
             if (cur > stopTime)
                 break;
-            executes << new Execute( cmnd[p], cur.toString("yyyy-MM-dd(ddd) hh:mm") );
+            executes << new Execute( cmnd.at(p), cur.toString("yyyy-MM-dd(ddd) hh:mm") );
             itemCount++;
-            date[p] = CronTime(cmnd[p]->time).getNextTime(cur);
+            date[p] = CronTime(cmnd.at(p)->time).getNextTime(cur);
         }
     }
 
