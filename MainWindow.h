@@ -28,6 +28,7 @@ public:
     MainWindow();
 
 private slots:
+    void changeUser();
     void saveCron();
     void reloadCron();
     void dataChanged();
@@ -49,17 +50,18 @@ private:
 
     void closeEvent(QCloseEvent *event);
 
-    QAction *saveAction;
-    QAction *cutAction;
-    QAction *newAction;
-    QAction *copyAction;
-    QAction *pasteAction;
-    QAction *deleteAction;
-    QAction *quitAction;
-    QAction *reloadAction;
     QAction *aboutAction;
     QAction *aboutQtAction;
+    QAction *chuserAction;
+    QAction *copyAction;
+    QAction *cutAction;
+    QAction *deleteAction;
     QAction *helpAction;
+    QAction *newAction;
+    QAction *pasteAction;
+    QAction *quitAction;
+    QAction *reloadAction;
+    QAction *saveAction;
 
     CronView *cronView;
     ExecuteList *executeList;
