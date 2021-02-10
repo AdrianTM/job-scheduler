@@ -83,6 +83,7 @@ MainWindow::MainWindow()
     connect(aboutAction, &QAction::triggered, this, &MainWindow::AboutJobScheduler);
     connect(helpAction, &QAction::triggered, this, &MainWindow::displayHelp);
     connect(cronView, &CronView::pasted, pasteAction, &QAction::setEnabled);
+    connect(chuserAction, &QAction::triggered, this, &MainWindow::changeUser);
 
     initCron();
 
@@ -93,6 +94,14 @@ MainWindow::MainWindow()
     setWindowIcon(QIcon(":/images/job-scheduler.png"));
 
     setCentralWidget(spl);
+}
+
+void MainWindow::changeUser()
+{
+    saveCron();
+    (Clib::uId() != 0) ? system("su-to-root -X -c job-scheduler&") :
+                         system("runuser $(logname) -c job-scheduler&");
+    qApp->quit();
 }
 
 void MainWindow::createActions()
@@ -111,6 +120,12 @@ void MainWindow::createActions()
     saveAction = fileMenu->addAction(
                 QIcon::fromTheme("filesave", QIcon(":/images/filesave.png")), tr("&Save"));
     saveAction->setShortcut(QKeySequence(tr("Ctrl+S")));
+    fileMenu->addSeparator();
+    if (Clib::uId() != 0)
+        chuserAction = fileMenu->addAction(QIcon::fromTheme("go-up"), tr("Start as &Root"));
+    else
+        chuserAction = fileMenu->addAction(QIcon::fromTheme("go-down"), tr("Start as &Regular user"));
+    chuserAction->setShortcut(QKeySequence(tr("Ctrl+U")));
     fileMenu->addSeparator();
 
     quitAction = fileMenu->addAction(
@@ -137,11 +152,14 @@ void MainWindow::createActions()
     deleteAction = editMenu->addAction(
                 QIcon::fromTheme("edit-delete", QIcon(":/images/editdelete.png")), tr("&Delete"));
     deleteAction->setShortcut(QKeySequence(tr("Del")));
+
     editToolBar->addAction(cutAction);
     editToolBar->addAction(copyAction);
     editToolBar->addAction(pasteAction);
     editToolBar->addSeparator();
     editToolBar->addAction(deleteAction);
+    editToolBar->addSeparator();
+    editToolBar->addAction(chuserAction);
     menuBar()->addMenu(editMenu);
 
     QMenu *helpMenu = new QMenu(tr("&Help"), this);
