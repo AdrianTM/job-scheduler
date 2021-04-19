@@ -28,6 +28,7 @@
 #include "SaveDialog.h"
 #include "Version.h"
 #include "Clib.h"
+#include "QCloseEvent"
 
 MainWindow::MainWindow()
 {

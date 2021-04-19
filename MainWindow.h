@@ -19,6 +19,7 @@ class ExecuteList;
 class QModelIndex;
 class QTabWidget;
 class QItemSelectionModel;
+class QCloseEvent;
 
 class MainWindow : public QMainWindow
 {

@@ -1,0 +1,25 @@
+Format: 1.8
+Date: Sun, 18 Apr 2021 19:43:12 -0400
+Source: job-scheduler
+Binary: job-scheduler
+Architecture: armhf
+Version: 0.21.4.01
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Dolphin Oracle <dolphinoracle@gmail.com>
+Description:
+ job-scheduler - job-scheduler
+Changes:
+ job-scheduler (0.21.4.01) mx; urgency=medium
+ .
+   * add QCloseEvent declaration (buster and up)
+Checksums-Sha1:
+ ecb856d6cb5570da0dc332c60be04dc8ee40ab42 9803 job-scheduler_0.21.4.01_armhf.buildinfo
+ 4356a9d6612ab7dec10fd63e4c2776c545e88e10 235836 job-scheduler_0.21.4.01_armhf.deb
+Checksums-Sha256:
+ 3266b97a86af96668c31e715acdf445646a2bd13d2f3f117dde942bb4324fa60 9803 job-scheduler_0.21.4.01_armhf.buildinfo
+ 6a0aacbef371d953db4b8035f9781c7403a8d960258ad7602e7ca3aa92ee9958 235836 job-scheduler_0.21.4.01_armhf.deb
+Files:
+ cc8564bd91dc3708195218dba1c1b9d8 9803 admin optional job-scheduler_0.21.4.01_armhf.buildinfo
+ 6f05b07ac306b6a19018c8cbf56cf161 235836 admin optional job-scheduler_0.21.4.01_armhf.deb
