@@ -1,0 +1,31 @@
+Format: 1.8
+Date: Sun, 18 Apr 2021 19:43:12 -0400
+Source: job-scheduler
+Binary: job-scheduler
+Architecture: source amd64
+Version: 0.21.4.01
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Dolphin Oracle <dolphinoracle@gmail.com>
+Description:
+ job-scheduler - job-scheduler
+Changes:
+ job-scheduler (0.21.4.01) mx; urgency=medium
+ .
+   * add QCloseEvent declaration (buster and up)
+Checksums-Sha1:
+ 4c972d09eca79ed1e3d7179155a3fb5b35ab4e1e 587 job-scheduler_0.21.4.01.dsc
+ 48129d3ddb553a1e972f9b4862bc36cc2ea4e016 203096 job-scheduler_0.21.4.01.tar.xz
+ 5d851975e395e43fcf682e14e2bd110e4d7b6b08 10514 job-scheduler_0.21.4.01_amd64.buildinfo
+ f2196cd419135b7e59fd8e2b061688416eb295b4 246916 job-scheduler_0.21.4.01_amd64.deb
+Checksums-Sha256:
+ 74c68d3f620a0c15edd16ac4551adea71d2770e21d0c991e30461235b2a1e0a3 587 job-scheduler_0.21.4.01.dsc
+ 281510b9282953e4b3b0798146ec3e57b65d29cb4db409a28321cef7f95b5e35 203096 job-scheduler_0.21.4.01.tar.xz
+ 2b0b222eb6fe14689aefae3f638fc2dbc433294de39884388386fbb71f242448 10514 job-scheduler_0.21.4.01_amd64.buildinfo
+ 89c46577870c143d0679ed3525af3d6392793632cefd013aa36ea65f41cc591e 246916 job-scheduler_0.21.4.01_amd64.deb
+Files:
+ 2156b4a43fa2e68acd458003c1130536 587 admin optional job-scheduler_0.21.4.01.dsc
+ b2a51c2fe14ac2145a11602194788d56 203096 admin optional job-scheduler_0.21.4.01.tar.xz
+ cb065647764784026a4de0ea61904502 10514 admin optional job-scheduler_0.21.4.01_amd64.buildinfo
+ 4742888b55456686e0a6b0fdd76620f8 246916 admin optional job-scheduler_0.21.4.01_amd64.deb

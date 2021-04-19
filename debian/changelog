@@ -1,3 +1,9 @@
+job-scheduler (0.21.4.01) mx; urgency=medium
+
+  * add QCloseEvent declaration (buster and up) 
+
+ -- Dolphin Oracle <dolphinoracle@gmail.com>  Sun, 18 Apr 2021 19:43:12 -0400
+
 job-scheduler (0.21.2.02) mx; urgency=medium
 
   * restart with root or regular user
