@@ -278,7 +278,7 @@ QString CronTime::toWeekLiteral(const QString &str)
     QString ret = str;
     if (!str.contains(QRegularExpression( "[/*]"))) {
         int sp, ep;
-        while(true) {
+        while (true) {
             if ((sp = ret.indexOf(QRegularExpression("[0-9]"))) == -1)
                 break;
             if ((ep = ret.indexOf(QRegularExpression("[,-]"),sp)) == -1)
@@ -295,7 +295,7 @@ QString CronTime::toMonthLiteral(const QString &str)
     QString ret = str;
     if (!str.contains(QRegularExpression( "[/*]"))) {
         int sp, ep;
-        while(true) {
+        while (true) {
             if ((sp = ret.indexOf(QRegularExpression("[0-9]"))) == -1)
                 break;
             if ((ep = ret.indexOf(QRegularExpression("[,-]"),sp)) == -1)
