@@ -294,8 +294,7 @@ void MainWindow::changeCurrent(Crontab *, TCommand *cmnd)
 
 void MainWindow::readSettings()
 {
-    QSettings settings("MX-Linux", "job-scheduler");
-
+    QSettings settings(qApp->organizationName(), qApp->applicationName());
     settings.beginGroup("Main");
     exeMaxNum = settings.value("MaxListNum", 100 ).toInt();
     exeMaxDate = settings.value("MaxListDate", 1 ).toInt();
@@ -306,8 +305,7 @@ void MainWindow::readSettings()
 
 void MainWindow::writeSettings()
 {
-    QSettings settings("MX-Linux", "job-scheduler");
-
+    QSettings settings(qApp->organizationName(), qApp->applicationName());
     settings.beginGroup("Main");
     settings.setValue("MaxListNum", executeList->maxNum);
     settings.setValue("MaxListDate", executeList->maxDate);
