@@ -92,7 +92,7 @@ MainWindow::MainWindow()
     cronView->resize(viewSize);
 
     setWindowTitle(Clib::uName() + " - " + tr("Job Scheduler"));
-    setWindowIcon(QIcon(":/images/job-scheduler.png"));
+    setWindowIcon(QIcon(":/images/job-scheduler.svg"));
 
     setCentralWidget(spl);
 }
@@ -165,7 +165,7 @@ void MainWindow::createActions()
 
     QMenu *helpMenu = new QMenu(tr("&Help"), this);
     aboutAction = helpMenu->addAction(
-                QIcon(":/images/job-scheduler.png"), tr("&About"));
+                QIcon(":/images/job-scheduler.svg"), tr("&About"));
     helpAction = helpMenu->addAction(QIcon::fromTheme("help"), tr("&Help"));
     helpAction->setShortcut(QKeySequence("F1"));
     menuBar()->addMenu(helpMenu);

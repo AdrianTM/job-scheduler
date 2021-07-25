@@ -11,6 +11,6 @@
         <file>images/edit_small.png</file>
         <file>images/undo_small.png</file>
         <file>images/view_text.png</file>
-        <file>images/job-scheduler.png</file>
+        <file>images/job-scheduler.svg</file>
     </qresource>
 </RCC>
