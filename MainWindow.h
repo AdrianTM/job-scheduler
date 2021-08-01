@@ -11,6 +11,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QSettings>
 
 class TCommand;
 class Crontab;
@@ -70,8 +71,10 @@ private:
     bool useEtcCron;
     int exeMaxNum;
     int exeMaxDate;
+
     QSize winSize;
     QSize viewSize;
+    QSettings settings;
 
     QList<Crontab*> crontabs;
 
