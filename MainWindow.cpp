@@ -176,7 +176,7 @@ void MainWindow::createActions()
 void MainWindow::displayHelp()
 {
     QString url = "file:///usr/share/doc/job-scheduler/help/help.html";
-    QString runasuser = (Clib::uId() == 0) ? "runuser -l $(logname) -c " : QString();
+    QString runasuser = (Clib::uId() == 0) ? "runuser $(logname) -c " : QString();
 
     QString cmd;
     if (QFileInfo::exists("/usr/bin/mx-viewer"))
