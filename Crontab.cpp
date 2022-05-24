@@ -72,7 +72,7 @@ QString Crontab::getCrontab(const QString &user)
 QString Crontab::writeTempFile(const QString &text, const QString &tmp)
 {
     QString fdir = QDir::tempPath() + "/job-scheduler-" + Clib::uName();
-    if (!QFileInfo(fdir).exists()) {
+    if (!QFileInfo::exists(fdir)) {
         if (!QDir(fdir).mkdir(fdir)) {
             estr = "can't create directory " + fdir;
             return QString();
@@ -94,7 +94,7 @@ bool Crontab::putCrontab(const QString &text)
 {
     estr = "";
     if (cronOwner == "/etc/crontab") {
-        QString saveFile = writeTempFile(text, "etccron");
+        writeTempFile(text, "etccron");
         QFile f(cronOwner);
         if (!f.open(QIODevice::WriteOnly)) {
             estr = "can't open /etc/crontab for write\n\n" + f.errorString();
@@ -145,7 +145,7 @@ QString Crontab::cronText()
         ret += "# " + s.replace('\n',"\n# ") + "\n\n";
     }
 
-    for (Variable *v : variables) {
+    for (Variable *v : qAsConst(variables)) {
         if (!v->comment.isEmpty())
             ret += "# " + v->comment.replace('\n', "\n# ") + '\n';
 
@@ -153,7 +153,7 @@ QString Crontab::cronText()
     }
 
     ret += "\n";
-    for (TCommand *c : tCommands) {
+    for (TCommand *c : qAsConst(tCommands)) {
         if (!c->comment.isEmpty())
             ret += "# " + c->comment.replace('\n', "\n# ") + '\n';
 

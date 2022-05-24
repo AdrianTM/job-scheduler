@@ -72,12 +72,12 @@ void ExecuteList::dataChanged()
     QDateTime stopTime = QDateTime::currentDateTime().addDays(maxDate);
 
     executeView->clearSelection();
-    for (auto e : executes) delete e;
+    for (auto e : qAsConst(executes)) delete e;
     executes.clear();
     QList<TCommand*> cmnd;
     QList<QDateTime> date;
-    for (const auto& cron : *crontabs) {
-        for (const auto& cc : cron->tCommands) {
+    for (const auto& cron : qAsConst(*crontabs)) {
+        for (const auto& cc : qAsConst(cron->tCommands)) {
             CronTime ct(cc->time);
             if (ct.isValid()) {
                 cmnd << cc;
