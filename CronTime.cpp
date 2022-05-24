@@ -221,7 +221,7 @@ QString CronTime::toString(const QBitArray &bit, int start)
         lst << toTimeString(first_pnt + start, cnt, interval_cnt + 1);
 
     QString ret;
-    for (const QString &s : lst) {
+    for (const QString &s : qAsConst(lst)) {
         if (!ret.isEmpty())
             ret += ',';
         ret += s;
@@ -283,7 +283,7 @@ QString CronTime::toWeekLiteral(const QString &str)
                 break;
             if ((ep = ret.indexOf(QRegularExpression("[,-]"),sp)) == -1)
                 ep = ret.length();
-            int n = ret.mid(sp, ep - sp).toInt();
+            int n = ret.midRef(sp, ep - sp).toInt();
             ret = ret.replace(sp, ep - sp, upcaseHead(WeekNames.at(n)));
         }
     }
@@ -301,7 +301,7 @@ QString CronTime::toMonthLiteral(const QString &str)
             if ((ep = ret.indexOf(QRegularExpression("[,-]"),sp)) == -1)
                 ep = ret.length();
 
-            int n = ret.mid(sp, ep - sp).toInt() - 1;
+            int n = ret.midRef(sp, ep - sp).toInt() - 1;
             ret = ret.replace(sp, ep - sp, upcaseHead(MonthNames.at(n)));
         }
     }

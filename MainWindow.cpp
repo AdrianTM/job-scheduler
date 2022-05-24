@@ -180,9 +180,9 @@ void MainWindow::displayHelp()
 
     QString cmd;
     if (QFileInfo::exists("/usr/bin/mx-viewer"))
-        cmd = QString("mx-viewer %1 '%2' &").arg(url).arg(tr("Job Scheduler"));
+        cmd = QString("mx-viewer %1 '%2' &").arg(url, tr("Job Scheduler"));
     else if (QFileInfo::exists("/usr/bin/antix-viewer"))
-        cmd = QString("antix-viewer %1 '%2' &").arg(url).arg(tr("Job Scheduler"));
+        cmd = QString("antix-viewer %1 '%2' &").arg(url, "Job Scheduler");
     else
         cmd = QString(runasuser + "DISPLAY=$DISPLAY xdg-open %1 &").arg(url);
 
@@ -191,7 +191,7 @@ void MainWindow::displayHelp()
 
 void MainWindow::initCron()
 {
-    for (auto d : crontabs) delete d;
+    for (auto d : qAsConst(crontabs)) delete d;
     crontabs.clear();
 
     QString user = Clib::uName();
@@ -246,7 +246,7 @@ void MainWindow::saveCron()
     bool saved = false;
     bool notSaved =false;
 
-    for (auto cron : crontabs) {
+    for (auto cron : qAsConst(crontabs)) {
         if (cron->changed) {
             SaveDialog dialog(cron->cronOwner, cron->cronText());
             if (dialog.exec()==QDialog::Accepted) {
@@ -315,7 +315,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
 
     bool changed = false;
-    for (const auto& cron : crontabs) {
+    for (const auto& cron : qAsConst(crontabs)) {
         if (cron->changed) {
             changed = true;
             break;
