@@ -13,6 +13,7 @@
 #include <QTranslator>
 
 #include "MainWindow.h"
+#include <unistd.h>
 
 int main(int argc, char *argv[])
 {
@@ -34,6 +35,10 @@ int main(int argc, char *argv[])
     if (appTran.load(app.applicationName() + "_" + QLocale::system().name(), "/usr/share/" + app.applicationName() + "/locale"))
         app.installTranslator(&appTran);
 
+    if (getuid() == 0) {
+        qputenv("XDG_RUNTIME_DIR", "/run/user/0");
+        qputenv("HOME", "/root");
+    }
     MainWindow window;
     window.show();
     return app.exec();
