@@ -1,5 +1,5 @@
 QT       += core gui widgets
-CONFIG   += c++17
+CONFIG   += c++1z
 
 TEMPLATE = app
 TARGET = job-scheduler
