@@ -1,6 +1,6 @@
 job-scheduler (0.22.6) mx; urgency=medium
 
-  * Added launcher for running it as root
+  * Added launcher for running job-scheduler as root
   * Remove implicit "menu" dependency
   * Minor performace improvements
 
