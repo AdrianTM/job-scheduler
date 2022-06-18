@@ -25,7 +25,7 @@ SaveDialog::SaveDialog(const QString &user, const QString &text)
     QLabel *userLabel;
     QString label = "  " + user + "  ";
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    auto *mainLayout = new QVBoxLayout;
     {
         mainLayout->addLayout((h = new QHBoxLayout));
         {

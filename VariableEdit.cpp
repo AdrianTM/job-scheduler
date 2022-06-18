@@ -38,7 +38,7 @@ VariableEdit::VariableEdit(QWidget *parent)
 
     variableModel = new VariableModel();
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    auto *mainLayout = new QVBoxLayout;
     {
         mainLayout->addWidget((commentEdit = new QTextEdit()));
 

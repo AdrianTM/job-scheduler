@@ -36,13 +36,13 @@ MainWindow::MainWindow()
 
     //	statusBar();
 
-    CronModel *cronModel = new CronModel(&crontabs);
+    auto *cronModel = new CronModel(&crontabs);
     cronView = new CronView(cronModel);
-    TCommandEdit *tCommandEdit = new TCommandEdit();
-    VariableEdit *variableEdit = new VariableEdit();
+    auto *tCommandEdit = new TCommandEdit();
+    auto *variableEdit = new VariableEdit();
     executeList = new ExecuteList(exeMaxNum, exeMaxDate, &crontabs);
 
-    QTabWidget *tab = new QTabWidget;
+    auto *tab = new QTabWidget;
     {
         tab->addTab(tCommandEdit, QIcon::fromTheme("edit-symbolic", QIcon(":/images/edit_small.png")),
                     tr("&Command"));
@@ -52,7 +52,7 @@ MainWindow::MainWindow()
                     tr("&Job List"));
     }
 
-    QSplitter *spl = new QSplitter;
+    auto *spl = new QSplitter;
     {
         spl->addWidget(cronView);
         spl->addWidget(tab);
@@ -107,7 +107,7 @@ void MainWindow::changeUser()
 void MainWindow::createActions()
 {
 
-    QMenu *fileMenu = new QMenu(tr("&File"), this);
+    auto *fileMenu = new QMenu(tr("&File"), this);
     QToolBar *fileToolBar = addToolBar(tr("File"));
 
     newAction = fileMenu->addAction(
@@ -137,7 +137,7 @@ void MainWindow::createActions()
     fileToolBar->addAction(saveAction);
     menuBar()->addMenu(fileMenu);
 
-    QMenu *editMenu = new QMenu(tr("&Edit"), this);
+    auto *editMenu = new QMenu(tr("&Edit"), this);
     QToolBar *editToolBar = addToolBar(tr("Edit"));
     cutAction = editMenu->addAction(
                 QIcon::fromTheme("edit-cut", QIcon(":/images/editcut.png")), tr("Cu&t"));
@@ -162,7 +162,7 @@ void MainWindow::createActions()
     editToolBar->addAction(chuserAction);
     menuBar()->addMenu(editMenu);
 
-    QMenu *helpMenu = new QMenu(tr("&Help"), this);
+    auto *helpMenu = new QMenu(tr("&Help"), this);
     aboutAction = helpMenu->addAction(
                 QIcon(":/images/job-scheduler.svg"), tr("&About"));
     helpAction = helpMenu->addAction(QIcon::fromTheme("help"), tr("&Help"));
@@ -195,7 +195,7 @@ void MainWindow::initCron()
     crontabs.clear();
 
     QString user = Clib::uName();
-    Crontab *cron = new Crontab(user);
+    auto *cron = new Crontab(user);
     if (cron->tCommands.count() == 0 && cron->comment.isEmpty() &&
             cron->variables.count() == 0) {
         cron->comment = "";
@@ -255,7 +255,7 @@ void MainWindow::saveCron()
                     QMessageBox::critical(this, tr("Job Scheduler"), cron->estr);
                     notSaved = true;
                 } else {
-                    Crontab *newCron = new Crontab(cron->cronOwner);
+                    auto *newCron = new Crontab(cron->cronOwner);
                     int p = crontabs.indexOf(cron);
                     crontabs.replace(p, newCron);
                     delete cron;
