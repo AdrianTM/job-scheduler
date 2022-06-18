@@ -38,10 +38,10 @@ ExecuteList::ExecuteList(int maxN, int maxD, QList<Crontab*> *cron)
             h->addWidget(new QLabel(tr("Max Date")));
             h->addWidget(dateSpinBox);
             h->addWidget(new QLabel(tr("Select")));
-            h->addWidget(countLabel=new QLabel(""));
+            h->addWidget(countLabel=new QLabel(QLatin1String("")));
             h->addStretch();
             h->addWidget(resetButton =
-                    new QPushButton(QIcon::fromTheme("undo", QIcon(":/images/undo_small.png")), tr("&Update")));
+                    new QPushButton(QIcon::fromTheme(QStringLiteral("undo"), QIcon(":/images/undo_small.png")), tr("&Update")));
         }
     }
     //	mainLayout->setMargin(0);
@@ -83,7 +83,7 @@ void ExecuteList::dataChanged()
                 cmnd << cc;
                 date << ct.getNextTime(QDateTime::currentDateTime());
             } else {
-                executes << new Execute(cc, "Time Format Error", -1);
+                executes << new Execute(cc, QStringLiteral("Time Format Error"), -1);
             }
         }
     }
@@ -100,7 +100,7 @@ void ExecuteList::dataChanged()
             }
             if (cur > stopTime)
                 break;
-            executes << new Execute( cmnd.at(p), cur.toString("yyyy-MM-dd(ddd) hh:mm") );
+            executes << new Execute( cmnd.at(p), cur.toString(QStringLiteral("yyyy-MM-dd(ddd) hh:mm")) );
             itemCount++;
             date[p] = CronTime(cmnd.at(p)->time).getNextTime(cur);
         }
@@ -135,7 +135,7 @@ void ExecuteList::changeCurrent(Crontab *cron, TCommand *cmnd)
                 sel++;
             }
 
-    countLabel->setText(QString("%1/%2").arg(sel).arg(itemCount));
+    countLabel->setText(QStringLiteral("%1/%2").arg(sel).arg(itemCount));
     executeModel->doSort();
 }
 

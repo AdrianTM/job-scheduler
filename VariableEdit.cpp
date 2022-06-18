@@ -61,10 +61,10 @@ VariableEdit::VariableEdit(QWidget *parent)
                 {
                     h2->addStretch();
                     h2->addWidget((newButton =
-                            new QPushButton(QIcon::fromTheme("filenew", QIcon(":/images/filenew.png")),
+                            new QPushButton(QIcon::fromTheme(QStringLiteral("filenew"), QIcon(":/images/filenew.png")),
                                             tr("&New"))));
                     h2->addWidget((deleteButton =
-                            new QPushButton(QIcon::fromTheme("edit-delete", QIcon(":/images/editdelete.png")),
+                            new QPushButton(QIcon::fromTheme(QStringLiteral("edit-delete"), QIcon(":/images/editdelete.png")),
                                             tr("&Delete"))));
                 }
             }
@@ -218,8 +218,8 @@ void VariableEdit::setMailVar(int mailFlag)
     int curFlag = 0;
     Variable *v = nullptr;
     for (auto& var : crontab->variables) {
-        if (var->name == "MAILTO") {
-            curFlag = (var->value == "\"\"") ? 1 : 2;
+        if (var->name == QLatin1String("MAILTO")) {
+            curFlag = (var->value == QLatin1String("\"\"")) ? 1 : 2;
             v = var;
             break;
         }
@@ -239,16 +239,16 @@ void VariableEdit::setMailVar(int mailFlag)
         }
     } else if (mailFlag == 1) {
         if (curFlag == 0) {
-            crontab->variables << new Variable("MAILTO","\"\"","Don't send mail to anyone");
+            crontab->variables << new Variable(QStringLiteral("MAILTO"),QStringLiteral("\"\""),QStringLiteral("Don't send mail to anyone"));
         } else if (curFlag == 2) {
-            v->value = "\"\"";
-            v->comment = "Don't send mail to anyone";
+            v->value = QLatin1String("\"\"");
+            v->comment = QLatin1String("Don't send mail to anyone");
         }
     } else if (mailFlag == 2) {
         QString u = userCombo->currentText();
         if (curFlag == 0) {
             QString c = "Send mail to \"" + u + "\"";
-            crontab->variables << new Variable("MAILTO", u, c);
+            crontab->variables << new Variable(QStringLiteral("MAILTO"), u, c);
         } else if (curFlag == 1) {
             v->value = u;
             v->comment = "Send mail to \""+u+"\"";
@@ -269,9 +269,9 @@ void VariableEdit::setMailCombo(const QList<Variable*> &var)
 {
     bool mvar = false;
     for (const auto& v : var) {
-        if (v->name == "MAILTO") {
+        if (v->name == QLatin1String("MAILTO")) {
             mvar = true;
-            if (v->value == "\"\"") {
+            if (v->value == QLatin1String("\"\"")) {
                 mailOffRadio->setChecked(true);
                 userCombo->setCurrentIndex(userCombo->findText(crontab->cronOwner));
             } else {
