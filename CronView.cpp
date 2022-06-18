@@ -130,12 +130,12 @@ void CronView::newTCommand()
 {
     Crontab *cron = getCurrentCrontab();
     QString u;
-    if ( cron->cronOwner == "/etc/crontab" )
-        u = "root";
+    if ( cron->cronOwner == QLatin1String("/etc/crontab") )
+        u = QStringLiteral("root");
     else
         u = cron->cronOwner;
 
-    auto *cmnd =  new TCommand("0 * * * *", u, "", "", cron );
+    auto *cmnd =  new TCommand(QStringLiteral("0 * * * *"), u, QLatin1String(""), QLatin1String(""), cron );
     insertTCommand(cmnd);
 }
 
@@ -144,7 +144,7 @@ void CronView::pasteTCommand()
     Crontab *cron = getCurrentCrontab();
     auto *cmnd = new TCommand;
     *cmnd = *pasteData;
-    if (cron->cronOwner != "/etc/crontab")
+    if (cron->cronOwner != QLatin1String("/etc/crontab"))
         cmnd->user = cron->cronOwner;
 
     cmnd->parent = cron;

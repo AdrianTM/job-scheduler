@@ -36,7 +36,7 @@ TCommandEdit::TCommandEdit(QWidget *parent)
         {
             h->addWidget(new QLabel(tr("User:")));
             h->addWidget((userCombo = new QComboBox()));
-            h->addWidget((userLabel = new QLabel("")));
+            h->addWidget((userLabel = new QLabel(QLatin1String(""))));
             h->addStretch();
         }
         mainLayout->addSpacing(5);
@@ -45,7 +45,7 @@ TCommandEdit::TCommandEdit(QWidget *parent)
             h->addWidget(new QLabel(tr("Time:")));
             h->addWidget((timeEdit = new QLineEdit()));
             h->addWidget((timeButton =
-                    new QPushButton(QIcon::fromTheme("edit-symbolic", QIcon(":/images/edit_small.png")), tr("Time String E&ditor"))));
+                    new QPushButton(QIcon::fromTheme(QStringLiteral("edit-symbolic"), QIcon(":/images/edit_small.png")), tr("Time String E&ditor"))));
             timeButton->setMinimumSize(QSize(150, timeButton->maximumHeight()));
         }
         mainLayout->addSpacing(5);
@@ -62,7 +62,7 @@ TCommandEdit::TCommandEdit(QWidget *parent)
         {
             exeBox->setLayout((h = new QHBoxLayout));
             {
-                h->addWidget((exeLabel = new QLabel("\n\n\n\n\n\n\n")));
+                h->addWidget((exeLabel = new QLabel(QStringLiteral("\n\n\n\n\n\n\n"))));
             }
         }
     }
@@ -98,7 +98,7 @@ void TCommandEdit::changeCurrent(Crontab *cron, TCommand *cmnd)
         setEnabled(true);
         timeEdit->setText(tCommand->time);
         timeEdit->setCursorPosition(0);
-        if (cron->cronOwner == "/etc/crontab") {
+        if (cron->cronOwner == QLatin1String("/etc/crontab")) {
             userCombo->setCurrentIndex(userCombo->findText(tCommand->user));
             userCombo->show();
             userLabel->hide();
@@ -132,8 +132,8 @@ void TCommandEdit::setExecuteList(const QString &time)
         if (!str.isEmpty()) str += '\n';
         dt = cronTime.getNextTime(dt);
         qint64 sec = cur.secsTo(dt);
-        str += QString( "%1 - %2:%3 later" )
-                .arg(dt.toString("yyyy-MM-dd(ddd) hh:mm"))
+        str += QStringLiteral( "%1 - %2:%3 later" )
+                .arg(dt.toString(QStringLiteral("yyyy-MM-dd(ddd) hh:mm")))
                 .arg(sec / (60 * 60))
                 .arg((sec / 60) % 60 , 2, 10, QChar('0'));
         if (dt.date() == today)

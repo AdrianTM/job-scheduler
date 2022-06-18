@@ -130,7 +130,7 @@ TimeDialog::TimeDialog(const QString &time, QWidget *parent)
                 g->setColumnMinimumWidth(0,120);
                 g->setColumnMinimumWidth(1,120);
                 for (int i = 0; i < 12; ++i) {
-                    QString str = QString("%1(%2)").arg(MonthName.at(i)).arg(i+1);
+                    QString str = QStringLiteral("%1(%2)").arg(MonthName.at(i)).arg(i+1);
                     QPushButton *btn = new TimeButton(str);
                     g->addWidget(btn, i%6, i/6);
                     monthBGroup->addButton(btn);
@@ -142,7 +142,7 @@ TimeDialog::TimeDialog(const QString &time, QWidget *parent)
             weekBGroup->setExclusive(false);
             {
                 for (int i = 0; i < 7; ++i) {
-                    QString str = QString("%1(%2)").arg(WeekName.at(i)).arg(i);
+                    QString str = QStringLiteral("%1(%2)").arg(WeekName.at(i)).arg(i);
                     QPushButton *btn = new TimeButton(str);
                     v->addWidget(btn);
                     weekBGroup->addButton(btn);
@@ -174,8 +174,8 @@ TimeDialog::TimeDialog(const QString &time, QWidget *parent)
 
     outTime = inTime;
     if (!CronTime(outTime).isValid()) {
-        timeEdit->setText("Time format error");
-        outTime = "* * * * *";
+        timeEdit->setText(QStringLiteral("Time format error"));
+        outTime = QLatin1String("* * * * *");
     } else {
         timeEdit->setText(outTime);
     }

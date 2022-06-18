@@ -45,18 +45,18 @@ CronTime::CronTime(const QString &tstr)
     QString str = tstr.toLower();
     if (str.at(0) == '@') {
         QString s = str.mid(1);
-        if (s == "hourly")
-            str = "0 * * * *";
-        else if (s == "daily" || s == "midnight")
-            str = "0 0 * * *";
-        else if (s == "weekly")
-            str = "0 0 * * 0";
-        else if (s == "monthly")
-            str = "0 0 1 * *";
-        else if (s == "yearly" || s == "annually")
-            str = "0 0 1 1 *";
-        else if (s == "reboot")
-            str = "0 0 * * *";
+        if (s == QLatin1String("hourly"))
+            str = QStringLiteral("0 * * * *");
+        else if (s == QLatin1String("daily") || s == QLatin1String("midnight"))
+            str = QStringLiteral("0 0 * * *");
+        else if (s == QLatin1String("weekly"))
+            str = QStringLiteral("0 0 * * 0");
+        else if (s == QLatin1String("monthly"))
+            str = QStringLiteral("0 0 1 * *");
+        else if (s == QLatin1String("yearly") || s == QLatin1String("annually"))
+            str = QStringLiteral("0 0 1 1 *");
+        else if (s == QLatin1String("reboot"))
+            str = QStringLiteral("0 0 * * *");
     }
     QStringList slist = str.split(' ');
 
@@ -105,13 +105,13 @@ QString CronTime::toString(bool literal)
 
     QString ret;
     if (literal)
-        ret	= toString(minute, 0) + " " +  toString(hour,0) + " " +
+        ret	= toString(minute, 0) + " " +  toString(hour, 0) + " " +
                 toString(day, 1) + " " +
                 toMonthLiteral(toString(month, 1)) + " " +
                 toWeekLiteral(toString(week, 0));
     else
-        ret	= toString(minute, 0) + " " +  toString(hour,0) + " " +
-                toString(day, 1) + " " + toString(month, 1) + " " +
+        ret	= toString(minute, 0) + " " +  toString(hour, 0) + " " +
+                toString(day, 1) + " " + toString(month,  1) + " " +
                 toString(week, 0);
 
     return ret;
@@ -119,10 +119,11 @@ QString CronTime::toString(bool literal)
 
 QBitArray CronTime::toBit(int start, int num, const QString &str)
 {
-    QRegularExpression reg("^\\d+$");
+    QRegularExpression reg(QStringLiteral("^\\d+$"));
     QBitArray ret(num);
     QBitArray NG(0);
-    int fp, ep;
+    int fp = 0;
+    int ep = 0;
     for (auto& s : str.split(',')) {
         int deg = 1;
 
@@ -137,13 +138,13 @@ QBitArray CronTime::toBit(int start, int num, const QString &str)
         if (s.contains('-')) {
             QString fs = s.section('-', 0, 0);
             QString es = s.section('-', 1, 1);
-            if ( fs.isEmpty() || fs == "*" ) fp = 0;
+            if ( fs.isEmpty() || fs == QLatin1String("*") ) fp = 0;
             else {
                 if (!fs.contains(reg))
                     return NG;
                 fp = fs.toInt() - start;
             }
-            if ( es.isEmpty() || es == "*" ) ep = num - 1;
+            if ( es.isEmpty() || es == QLatin1String("*") ) ep = num - 1;
             else {
                 if (!es.contains(reg))
                     return NG;
@@ -151,7 +152,7 @@ QBitArray CronTime::toBit(int start, int num, const QString &str)
             }
             if ( fp > ep )
                 return NG;
-        } else if (s == "*") {
+        } else if (s == QLatin1String("*")) {
             fp = 0;
             ep = num - 1;
         } else {
@@ -172,15 +173,15 @@ QString CronTime::toTimeString(int start, int cnt, int interval)
 {
 
     if (cnt == 1)
-        return QString("%1").arg(start);
+        return QStringLiteral("%1").arg(start);
 
     if (cnt == 2)
-        return QString("%1,%2").arg(start).arg(start + interval);
+        return QStringLiteral("%1,%2").arg(start).arg(start + interval);
 
     if (interval == 1)
-        return QString("%1-%2").arg(start).arg(start + cnt - 1);
+        return QStringLiteral("%1-%2").arg(start).arg(start + cnt - 1);
 
-    return  QString("%1-%2/%3").arg(start)
+    return  QStringLiteral("%1-%2/%3").arg(start)
             .arg(start + (cnt - 1) * interval)
             .arg(interval);
 }
@@ -216,7 +217,7 @@ QString CronTime::toString(const QBitArray &bit, int start)
 
     }
     if (first_pnt == 0 && cnt > 2 && ((interval_cnt + 1) * cnt) >= size )
-        lst << QString("*/%1").arg(interval_cnt + 1);
+        lst << QStringLiteral("*/%1").arg(interval_cnt + 1);
     else
         lst << toTimeString(first_pnt + start, cnt, interval_cnt + 1);
 
@@ -276,12 +277,12 @@ QDateTime CronTime::getNextTime(const QDateTime &chk)
 QString CronTime::toWeekLiteral(const QString &str)
 {
     QString ret = str;
-    if (!str.contains(QRegularExpression( "[/*]"))) {
+    if (!str.contains(QRegularExpression( QStringLiteral("[/*]")))) {
         int sp, ep;
         while (true) {
-            if ((sp = ret.indexOf(QRegularExpression("[0-9]"))) == -1)
+            if ((sp = ret.indexOf(QRegularExpression(QStringLiteral("[0-9]")))) == -1)
                 break;
-            if ((ep = ret.indexOf(QRegularExpression("[,-]"),sp)) == -1)
+            if ((ep = ret.indexOf(QRegularExpression(QStringLiteral("[,-]")),sp)) == -1)
                 ep = ret.length();
             int n = ret.midRef(sp, ep - sp).toInt();
             ret = ret.replace(sp, ep - sp, upcaseHead(WeekNames.at(n)));
@@ -293,12 +294,12 @@ QString CronTime::toWeekLiteral(const QString &str)
 QString CronTime::toMonthLiteral(const QString &str)
 {
     QString ret = str;
-    if (!str.contains(QRegularExpression( "[/*]"))) {
+    if (!str.contains(QRegularExpression( QStringLiteral("[/*]")))) {
         int sp, ep;
         while (true) {
-            if ((sp = ret.indexOf(QRegularExpression("[0-9]"))) == -1)
+            if ((sp = ret.indexOf(QRegularExpression(QStringLiteral("[0-9]")))) == -1)
                 break;
-            if ((ep = ret.indexOf(QRegularExpression("[,-]"),sp)) == -1)
+            if ((ep = ret.indexOf(QRegularExpression(QStringLiteral("[,-]")),sp)) == -1)
                 ep = ret.length();
 
             int n = ret.midRef(sp, ep - sp).toInt() - 1;
