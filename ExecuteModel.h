@@ -25,7 +25,8 @@ public:
 
     ~ExecuteModel() {}
 
-    Execute *getExecute(const QModelIndex &idx);
+    enum Col { ExeTime, CronTime, User, Command };
+    static Execute *getExecute(const QModelIndex &idx);
     void doSort();
 
 private:

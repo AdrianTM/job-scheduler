@@ -9,8 +9,8 @@
 */
 #include <QtCore>
 
-#include "Crontab.h"
 #include "Clib.h"
+#include "Crontab.h"
 
 
 Crontab::Crontab(const QString &user)
@@ -58,7 +58,7 @@ QString Crontab::getCrontab(const QString &user)
         }
 
         QString err = QString::fromUtf8(p.readAllStandardError());
-        if (p.exitCode() || !err.isEmpty()) {
+        if ((p.exitCode() != 0) || !err.isEmpty()) {
             estr = "crontab update error\n\n" + err;
             return ret;
         }
@@ -126,7 +126,7 @@ bool Crontab::putCrontab(const QString &text)
         }
 
         QString err = QString::fromUtf8(p.readAllStandardError());
-        if (p.exitCode() || !err.isEmpty()) {
+        if ((p.exitCode() != 0) || !err.isEmpty()) {
             estr = "crontab update error\n\n" + err;
             return false;
         }
@@ -239,7 +239,7 @@ void Crontab::setup(const QString &str)
 
 }
 
-QString Crontab::list2String(QStringList list) const
+QString Crontab::list2String(const QStringList &list)
 {
     QString ret(QLatin1String(""));
     bool flag = false;
@@ -250,5 +250,5 @@ QString Crontab::list2String(QStringList list) const
         flag = true;
     }
 
-    return ret.replace(QRegularExpression(QStringLiteral("^\\n\\n")),QLatin1String("\n"));
+    return ret.replace(QRegularExpression(QStringLiteral("^\\n\\n")),QStringLiteral("\n"));
 }

@@ -13,21 +13,22 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
+#include <QProcess>
 #include <QSplitter>
 #include <QToolBar>
 
-#include "MainWindow.h"
-#include "Crontab.h"
+#include "Clib.h"
 #include "CronModel.h"
 #include "CronView.h"
-#include "TCommandEdit.h"
-#include "VariableEdit.h"
+#include "Crontab.h"
 #include "ExecuteList.h"
 #include "ExecuteView.h"
-#include "SaveDialog.h"
-#include "Version.h"
-#include "Clib.h"
+#include "MainWindow.h"
 #include "QCloseEvent"
+#include "SaveDialog.h"
+#include "TCommandEdit.h"
+#include "VariableEdit.h"
+#include "Version.h"
 
 MainWindow::MainWindow()
 {
@@ -198,7 +199,7 @@ void MainWindow::displayHelp()
 
 void MainWindow::initCron()
 {
-    for (auto d : qAsConst(crontabs)) delete d;
+    for (auto *d : qAsConst(crontabs)) delete d;
     crontabs.clear();
 
     QString user = Clib::uName();
@@ -253,7 +254,7 @@ void MainWindow::saveCron()
     bool saved = false;
     bool notSaved =false;
 
-    for (auto cron : qAsConst(crontabs)) {
+    for (auto *cron : qAsConst(crontabs)) {
         if (cron->changed) {
             SaveDialog dialog(cron->cronOwner, cron->cronText());
             if (dialog.exec()==QDialog::Accepted) {
@@ -284,13 +285,13 @@ void MainWindow::saveCron()
 
 void MainWindow::dataChanged()
 {
-    Crontab *cron = cronView->getCurrentCrontab();
+    auto *cron = cronView->getCurrentCrontab();
     cron->changed = true;
     saveAction->setEnabled(true);
     cronView->resizeColumnToContents(0);
 }
 
-void MainWindow::changeCurrent(Crontab *, TCommand *cmnd)
+void MainWindow::changeCurrent(Crontab * /*unused*/, TCommand *cmnd)
 {
     bool flg = (cmnd != nullptr);
     cutAction->setEnabled(flg);

@@ -35,7 +35,7 @@ public:
     int rowCount(const QModelIndex &parent) const { return (parent.isValid() ? 0 : variables->count()); }
 
     void varDataChanged(const QModelIndex &idx);
-    Variable *getVariable(const QModelIndex &idx);
+    static Variable *getVariable(const QModelIndex &idx);
     bool removeVariable(int row);
     bool insertVariable(int row, Variable *var);
 

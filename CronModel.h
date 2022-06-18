@@ -24,22 +24,23 @@ public:
         : QAbstractItemModel(parent), crontabs(cron) {}
     ~CronModel() {}
 
+    enum Data { Time, User, Command };
     Qt::ItemFlags flags(const QModelIndex &) const;
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
     int rowCount(const QModelIndex &parent) const;
     int columnCount(const QModelIndex &) const { return 4; }
     QVariant headerData(int section, Qt::Orientation orientation,
                         int role) const;
-    QVariant data(const QModelIndex &index, int role) const;
+    QVariant data(const QModelIndex &idx, int role) const;
     QModelIndex parent(const QModelIndex &index) const;
     bool dropMimeData( const QMimeData *data, Qt::DropAction action,
                        int row, int column, const QModelIndex &parent);
 
 
-    void tCommandChanged(const QModelIndex &index);
-    void dragTCommand(const QModelIndex &index);
-    QModelIndex removeCComand(const QModelIndex &index);
-    QModelIndex insertTCommand(const QModelIndex &index, TCommand *cmnd);
+    void tCommandChanged(const QModelIndex &idx);
+    void dragTCommand(const QModelIndex &idx);
+    QModelIndex removeCComand(const QModelIndex &idx);
+    QModelIndex insertTCommand(const QModelIndex &idx, TCommand *cmnd);
     QModelIndex searchTCommand(TCommand *cmnd) const;
     inline bool isOneUser() const
     { return (crontabs->count() == 1); }

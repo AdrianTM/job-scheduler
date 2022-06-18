@@ -12,12 +12,12 @@
 #include <QSpinBox>
 #include <QVBoxLayout>
 
+#include "CronTime.h"
+#include "Crontab.h"
 #include "Execute.h"
 #include "ExecuteList.h"
-#include "ExecuteView.h"
 #include "ExecuteModel.h"
-#include "Crontab.h"
-#include "CronTime.h"
+#include "ExecuteView.h"
 
 ExecuteList::ExecuteList(int maxN, int maxD, QList<Crontab*> *cron)
     :maxNum(maxN), maxDate(maxD), crontabs(cron)
@@ -47,10 +47,10 @@ ExecuteList::ExecuteList(int maxN, int maxD, QList<Crontab*> *cron)
     //	mainLayout->setMargin(0);
     setLayout(mainLayout);
 
-    numSpinBox->setRange(1,999);
+    numSpinBox->setRange(1, 999);
     numSpinBox->setSingleStep(10);
     numSpinBox->setValue(maxNum);
-    dateSpinBox->setRange(1,999);
+    dateSpinBox->setRange(1, 999);
     dateSpinBox->setValue(maxDate);
     countLabel->setFrameStyle(QFrame::Panel | QFrame::Sunken);
 
@@ -72,7 +72,7 @@ void ExecuteList::dataChanged()
     QDateTime stopTime = QDateTime::currentDateTime().addDays(maxDate);
 
     executeView->clearSelection();
-    for (auto e : qAsConst(executes)) delete e;
+    for (auto *e : qAsConst(executes)) delete e;
     executes.clear();
     QList<TCommand*> cmnd;
     QList<QDateTime> date;

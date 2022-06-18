@@ -10,8 +10,8 @@
 #ifndef CCOMMANDEDIT_H
 #define CCOMMANDEDIT_H
 
-#include <QWidget>
 #include <QTimer>
+#include <QWidget>
 
 class QLineEdit;
 class QTextEdit;
@@ -51,7 +51,7 @@ private:
     QLabel *userLabel;
     bool viewChanging;
 
-    TCommand *tCommand;
+    TCommand *tCommand{};
     QTimer timer;
 
 };

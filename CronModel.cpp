@@ -7,8 +7,8 @@
    as published by the Free Software Foundation; either version 2
    of the License, or (at your option) any later version.
 */
-#include "Crontab.h"
 #include "CronModel.h"
+#include "Crontab.h"
 
 void dumpIndex(const QModelIndex &idx, QString h);
 
@@ -18,13 +18,13 @@ QVariant CronModel::data(const QModelIndex &idx, int role) const
         return QVariant();
 
     if (idx.parent().isValid() || isOneUser()) {
-        TCommand *cmnd = getTCommand(idx);
+        auto *cmnd = getTCommand(idx);
         switch (idx.column()) {
-        case 0:
+        case Data::Time:
             return cmnd->time;
-        case 1:
+        case Data::User:
             return cmnd->user;
-        case 2:
+        case Data::Command:
             return cmnd->command;
         }
     } else {
@@ -65,7 +65,7 @@ QModelIndex CronModel::index(int row, int column, const QModelIndex &parent) con
         }
     } else {
         if (!isOneUser()) {
-            Crontab *cron = getCrontab(parent);
+            auto *cron = getCrontab(parent);
             if (row < cron->tCommands.count())
                 return createIndex(row, column, cron->tCommands.at(row));
         }
@@ -77,7 +77,7 @@ QModelIndex CronModel::index(int row, int column, const QModelIndex &parent) con
 Qt::ItemFlags CronModel::flags(const QModelIndex &idx) const
 {
     if (!idx.isValid())
-        return nullptr;
+        return Qt::ItemFlags();
 
     if (isOneUser() || idx.parent().isValid())
         return Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled;
@@ -110,11 +110,11 @@ QVariant CronModel::headerData(int section, Qt::Orientation orientation,
 
     if (role == Qt::DisplayRole && orientation == Qt::Horizontal) {
         switch (section) {
-        case 0:
+        case Data::Time:
             return tr("Time");
-        case 1:
+        case Data::User:
             return tr("User");
-        case 2:
+        case Data::Command:
             return tr("Command");
         }
     }
@@ -257,8 +257,8 @@ QModelIndex CronModel::searchTCommand(TCommand *cmnd) const
     return QModelIndex();
 }
 
-bool CronModel::dropMimeData ( const QMimeData*, Qt::DropAction,
-                               int row, int , const QModelIndex &parent )
+bool CronModel::dropMimeData ( const QMimeData* /*data*/, Qt::DropAction /*action*/,
+                               int row, int  /*column*/, const QModelIndex &parent )
 {
     //				   (0, --)
     //	   ----------

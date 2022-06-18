@@ -42,7 +42,7 @@ public slots:
     void setVisible(bool flag);
 
 private:
-    int itemCount;
+    int itemCount{};
     QLabel *countLabel;
     ExecuteModel *executeModel;
     QList<Crontab*> *crontabs;

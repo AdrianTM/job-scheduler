@@ -95,12 +95,12 @@ CronTime::CronTime(const QString &tstr)
     bValid = true;
 }
 
-bool CronTime::isValid()
+bool CronTime::isValid() const
 {
     return bValid;
 }
 
-QString CronTime::toString(bool literal)
+QString CronTime::toString(bool literal) const
 {
 
     QString ret;
@@ -247,10 +247,10 @@ bool CronTime::isFill(const QBitArray &bit)
 // this module is key of overall performance,
 // but i won't change so far.
 //
-QDateTime CronTime::getNextTime(const QDateTime &chk)
+QDateTime CronTime::getNextTime(const QDateTime &dtime) const
 {
-    QDateTime tm = chk.addSecs(60 - chk.time().second());
-    QTime clear(0,0);
+    QDateTime tm = dtime.addSecs(60 - dtime.time().second());
+    QTime clear(0, 0);
     while (true) {
         if (!month.at(tm.date().month() - 1)) {
             tm = tm.addMonths(1);
@@ -269,7 +269,6 @@ QDateTime CronTime::getNextTime(const QDateTime &chk)
         } else {
             break;
         }
-
     }
     return tm;
 }
@@ -278,11 +277,12 @@ QString CronTime::toWeekLiteral(const QString &str)
 {
     QString ret = str;
     if (!str.contains(QRegularExpression( QStringLiteral("[/*]")))) {
-        int sp = 0, ep = 0;
+        int sp = 0;
+        int ep = 0;
         while (true) {
             if ((sp = ret.indexOf(QRegularExpression(QStringLiteral("[0-9]")))) == -1)
                 break;
-            if ((ep = ret.indexOf(QRegularExpression(QStringLiteral("[,-]")),sp)) == -1)
+            if ((ep = ret.indexOf(QRegularExpression(QStringLiteral("[,-]")), sp)) == -1)
                 ep = ret.length();
             int n = ret.midRef(sp, ep - sp).toInt();
             ret = ret.replace(sp, ep - sp, upcaseHead(WeekNames.at(n)));
@@ -294,8 +294,9 @@ QString CronTime::toWeekLiteral(const QString &str)
 QString CronTime::toMonthLiteral(const QString &str)
 {
     QString ret = str;
-    if (!str.contains(QRegularExpression( QStringLiteral("[/*]")))) {
-        int sp = 0, ep = 0;
+    if (!str.contains(QRegularExpression(QStringLiteral("[/*]")))) {
+        int sp = 0;
+        int ep = 0;
         while (true) {
             if ((sp = ret.indexOf(QRegularExpression(QStringLiteral("[0-9]")))) == -1)
                 break;

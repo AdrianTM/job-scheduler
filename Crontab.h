@@ -29,8 +29,8 @@ class TCommand : public CronType
 {
 public:
     TCommand() {}
-    TCommand(const QString t, const QString u, const QString cmnd,
-             const QString cmnt, Crontab *p)
+    TCommand(const QString &t, const QString &u, const QString &cmnd,
+             const QString &cmnt, Crontab *p)
         : CronType(CronType::COMMAND), time(t), user(u), command(cmnd),
           comment(cmnt), parent(p) {}
     ~TCommand() {}
@@ -46,7 +46,7 @@ public:
 class Variable
 {
 public:
-    Variable(const QString n, const QString v, const QString c)
+    Variable(const QString &n, const QString &v, const QString &c)
         : name(n), value(v), comment(c) {}
     ~Variable() {}
 
@@ -67,8 +67,8 @@ public:
     bool putCrontab() { return putCrontab(cronText()); }
 
     void setup(const QString &str);
-    QString writeTempFile(const QString &test, const QString &temp);
-    QString list2String(QStringList s) const;
+    QString writeTempFile(const QString &test, const QString &tmp);
+    static QString list2String(const QStringList &list) ;
     QString cronText();
 
     QString estr;
