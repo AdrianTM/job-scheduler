@@ -12,6 +12,7 @@
 #include <QLocale>
 #include <QTranslator>
 
+#include "Clib.h"
 #include "MainWindow.h"
 #include <unistd.h>
 
@@ -38,6 +39,9 @@ int main(int argc, char *argv[])
     if (getuid() == 0) {
         qputenv("XDG_RUNTIME_DIR", "/run/user/0");
         qputenv("HOME", "/root");
+    } else { // when switching between modes we need to reset the HOME and XDG_RUNTME_DIR
+        qputenv("XDG_RUNTIME_DIR", "/run/user/" + QString::number(getuid()).toUtf8());
+        qputenv("HOME", Clib::uHome().toUtf8());
     }
     MainWindow window;
     window.show();
