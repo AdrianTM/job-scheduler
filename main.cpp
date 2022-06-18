@@ -20,22 +20,6 @@ int main(int argc, char *argv[])
 {
     Q_INIT_RESOURCE(application);
 
-    QApplication app(argc, argv);
-    app.setWindowIcon(QIcon::fromTheme(app.applicationName()));
-    app.setOrganizationName(QStringLiteral("MX-Linux"));
-
-    QTranslator qtTran;
-    if (qtTran.load(QLocale::system(), QStringLiteral("qt"), QStringLiteral("_"), QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
-        app.installTranslator(&qtTran);
-
-    QTranslator qtBaseTran;
-    if (qtBaseTran.load("qtbase_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
-        app.installTranslator(&qtBaseTran);
-
-    QTranslator appTran;
-    if (appTran.load(app.applicationName() + "_" + QLocale::system().name(), "/usr/share/" + app.applicationName() + "/locale"))
-        app.installTranslator(&appTran);
-
     if (getuid() == 0) {
         qputenv("XDG_RUNTIME_DIR", "/run/user/0");
         qputenv("HOME", "/root");
@@ -43,7 +27,23 @@ int main(int argc, char *argv[])
         qputenv("XDG_RUNTIME_DIR", "/run/user/" + QString::number(getuid()).toUtf8());
         qputenv("HOME", Clib::uHome().toUtf8());
     }
+    QApplication app(argc, argv);
+    QApplication::setWindowIcon(QIcon::fromTheme(QApplication::applicationName()));
+    QApplication::setOrganizationName(QStringLiteral("MX-Linux"));
+
+    QTranslator qtTran;
+    if (qtTran.load(QLocale::system(), QStringLiteral("qt"), QStringLiteral("_"), QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+        QApplication::installTranslator(&qtTran);
+
+    QTranslator qtBaseTran;
+    if (qtBaseTran.load("qtbase_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+        QApplication::installTranslator(&qtBaseTran);
+
+    QTranslator appTran;
+    if (appTran.load(QApplication::applicationName() + "_" + QLocale::system().name(), "/usr/share/" + QApplication::applicationName() + "/locale"))
+        QApplication::installTranslator(&appTran);
+
     MainWindow window;
     window.show();
-    return app.exec();
+    return QApplication::exec();
 }

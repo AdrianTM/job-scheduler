@@ -7,20 +7,23 @@
    as published by the Free Software Foundation; either version 2
    of the License, or (at your option) any later version.
 */
-#include <QtGui>
 #include <QComboBox>
 #include <QGroupBox>
+#include <QHBoxLayout>
 #include <QLabel>
 #include <QLineEdit>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
 #include <QTextEdit>
+#include <QVBoxLayout>
+#include <QtGui>
 
-#include "TCommandEdit.h"
-#include "Crontab.h"
-#include "CronTime.h"
-#include "TimeDialog.h"
 #include "Clib.h"
+#include "CronTime.h"
+#include "Crontab.h"
+#include "TCommandEdit.h"
+#include "TimeDialog.h"
+#include <chrono>
+
+using namespace std::chrono_literals;
 
 TCommandEdit::TCommandEdit(QWidget *parent)
     : QWidget(parent)
@@ -83,7 +86,7 @@ TCommandEdit::TCommandEdit(QWidget *parent)
     connect(timeEdit, &QLineEdit::textEdited, this, &TCommandEdit::timeEdited);
     connect(commentEdit, &QTextEdit::textChanged, this, &TCommandEdit::commentEdited);
     connect(userCombo, qOverload<int>(&QComboBox::activated), this, &TCommandEdit::userChanged);
-    timer.start(60000);
+    timer.start(1min);
     connect(&timer, &QTimer::timeout, this, &TCommandEdit::resetExeTime);
     connect(timeButton, &QPushButton::clicked, this, &TCommandEdit::doTimeDialog);
 }

@@ -1,3 +1,11 @@
+job-scheduler (0.22.6) mx; urgency=medium
+
+  * Added launcher for running it as root
+  * Remove implicit "menu" dependency
+  * Minor performace improvements
+
+ -- Adrian <adrian@mxlinux.org>  Sat, 18 Jun 2022 02:03:37 -0400
+
 job-scheduler (0.21.7) mx; urgency=medium
 
   * Update job-scheduler icon

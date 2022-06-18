@@ -44,7 +44,7 @@ private:
     void createActions();
     void createMenus();
     void createToolBar();
-    void displayHelp();
+    static void displayHelp();
     void initCron();
 
     void readSettings();
@@ -52,25 +52,25 @@ private:
 
     void closeEvent(QCloseEvent *event);
 
-    QAction *aboutAction;
-    QAction *aboutQtAction;
-    QAction *chuserAction;
-    QAction *copyAction;
-    QAction *cutAction;
-    QAction *deleteAction;
-    QAction *helpAction;
-    QAction *newAction;
-    QAction *pasteAction;
-    QAction *quitAction;
-    QAction *reloadAction;
-    QAction *saveAction;
+    QAction *aboutAction{};
+    QAction *aboutQtAction{};
+    QAction *chuserAction{};
+    QAction *copyAction{};
+    QAction *cutAction{};
+    QAction *deleteAction{};
+    QAction *helpAction{};
+    QAction *newAction{};
+    QAction *pasteAction{};
+    QAction *quitAction{};
+    QAction *reloadAction{};
+    QAction *saveAction{};
 
     CronView *cronView;
     ExecuteList *executeList;
 
-    bool useEtcCron;
-    int exeMaxNum;
-    int exeMaxDate;
+    bool useEtcCron{};
+    int exeMaxNum{};
+    int exeMaxDate{};
 
     QSize winSize;
     QSize viewSize;

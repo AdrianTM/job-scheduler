@@ -10,17 +10,17 @@
 #ifndef CRONTIME_H
 #define CRONTIME_H
 
-#include <QDateTime>
 #include <QBitArray>
+#include <QDateTime>
 
 class CronTime
 {
 public:
     CronTime(const QString &tstr);
 
-    QDateTime getNextTime(const QDateTime &dtime);
-    bool isValid();
-    QString toString(bool literal = false);
+    QDateTime getNextTime(const QDateTime &dtime) const;
+    bool isValid() const;
+    QString toString(bool literal = false) const;
 
     QBitArray minute;
     QBitArray hour;
@@ -32,11 +32,11 @@ public:
 private:
     bool bValid;
 
-    QBitArray toBit(int start, int num, const QString &str);
-    QString toString(const QBitArray &bit, int start);
-    QString toTimeString(int first_pnt, int cnt, int iterval);
-    QString toWeekLiteral(const QString &str);
-    QString toMonthLiteral(const QString &str);
+    static QBitArray toBit(int start, int num, const QString &str);
+    static QString toString(const QBitArray &bit, int start);
+    static QString toTimeString(int start, int cnt, int interval);
+    static QString toWeekLiteral(const QString &str);
+    static QString toMonthLiteral(const QString &str);
 
 };
 

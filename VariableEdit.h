@@ -50,10 +50,10 @@ signals:
     void dataChanged();
 
 private:
-    void setMailVar(int flg);
+    void setMailVar(int flag);
     void setMailCombo(const QList<Variable*> &var);
 
-    QVBoxLayout *varInputLayout;
+    QVBoxLayout *varInputLayout{};
     QTextEdit *commentEdit;
     QRadioButton *mailOffRadio;
     QRadioButton *mailOnRadio;
@@ -66,8 +66,8 @@ private:
     bool viewChanging;
     bool varViewChanging;
 
-    Crontab *crontab;
-    Variable *variable;
+    Crontab *crontab{};
+    Variable *variable{};
     VariableModel *variableModel;
 };
 

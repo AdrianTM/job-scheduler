@@ -10,10 +10,10 @@
 #ifndef CLIB_H
 #define CLIB_H
 
-#include <unistd.h>
-#include <pwd.h>
-
 #include <QStringList>
+
+#include <pwd.h>
+#include <unistd.h>
 
 class Clib
 {

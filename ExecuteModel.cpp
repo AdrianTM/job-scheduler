@@ -59,13 +59,13 @@ QVariant ExecuteModel::headerData(int section, Qt::Orientation orientation,
 {
     if (role == Qt::DisplayRole && orientation == Qt::Horizontal) {
         switch(section) {
-        case 0:
+        case Col::ExeTime:
             return tr("Execute Time");
-        case 1:
+        case Col::CronTime:
             return tr("Time");
-        case 2:
+        case Col::User:
             return tr("User");
-        case 3:
+        case Col::Command:
             return tr("Command");
         }
     }
@@ -102,16 +102,16 @@ void ExecuteModel::doSort()
     bool (*cmp)(Execute *e1, Execute *e2) { nullptr };
     if (sortOrder == Qt::AscendingOrder) {
         switch(sortColumn) {
-        case 0:
+        case Col::ExeTime:
             cmp = ltExeTime;
             break;
-        case 1:
+        case Col::CronTime:
             cmp = ltCronTime;
             break;
-        case 2:
+        case Col::User:
             cmp = ltUser;
             break;
-        case 3:
+        case Col::Command:
             cmp = ltCommand;
             break;
         default:
@@ -119,16 +119,16 @@ void ExecuteModel::doSort()
         }
     } else {
         switch(sortColumn) {
-        case 0:
+        case Col::ExeTime:
             cmp = gtExeTime;
             break;
-        case 1:
+        case Col::CronTime:
             cmp = gtCronTime;
             break;
-        case 2:
+        case Col::User:
             cmp = gtUser;
             break;
-        case 3:
+        case Col::Command:
             cmp = gtCommand;
             break;
         default:

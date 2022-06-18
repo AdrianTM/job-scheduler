@@ -18,11 +18,11 @@
 #include <QTextEdit>
 #include <QtGui>
 
-#include "Crontab.h"
-#include "VariableModel.h"
-#include "VariableEdit.h"
-#include "VariableView.h"
 #include "Clib.h"
+#include "Crontab.h"
+#include "VariableEdit.h"
+#include "VariableModel.h"
+#include "VariableView.h"
 
 VariableEdit::VariableEdit(QWidget *parent)
     : QWidget(parent)
@@ -33,7 +33,8 @@ VariableEdit::VariableEdit(QWidget *parent)
     QPushButton *deleteButton = nullptr;
     QGroupBox *varGroup = nullptr;
     QGridLayout *g = nullptr;
-    QHBoxLayout *h = nullptr, *h2 = nullptr;
+    QHBoxLayout *h = nullptr;
+    QHBoxLayout *h2 = nullptr;
     QVBoxLayout *v = nullptr;
 
     variableModel = new VariableModel();
@@ -110,7 +111,7 @@ VariableEdit::VariableEdit(QWidget *parent)
 
 }
 
-void VariableEdit::changeCurrent(Crontab *cron, TCommand *)
+void VariableEdit::changeCurrent(Crontab *cron, TCommand * /*unused*/)
 {
     if (cron == nullptr) {
         setEnabled(false);
@@ -207,12 +208,12 @@ void VariableEdit::mailToClicked(bool state)
     if ( state )
         setMailVar(2);
 }
-void VariableEdit::userActivated(int)
+void VariableEdit::userActivated(int /*unused*/)
 {
     setMailVar(-1);
 }
 
-void VariableEdit::setMailVar(int mailFlag)
+void VariableEdit::setMailVar(int flag)
 {
     // 0 = On, 1 = Off, 2 = To, -1 = User activated
     int curFlag = 0;
@@ -224,27 +225,27 @@ void VariableEdit::setMailVar(int mailFlag)
             break;
         }
     }
-    if ( mailFlag != -1 ) {
-        if (curFlag == mailFlag)
+    if ( flag != -1 ) {
+        if (curFlag == flag)
             return;
     } else {
         if (curFlag != 2)
             return;
-        mailFlag = 2;
+        flag = 2;
     }
-    if (mailFlag == 0) {
+    if (flag == 0) {
         if (curFlag == 1 || curFlag == 2) {
             int i = crontab->variables.indexOf(v);
             crontab->variables.removeAt(i);
         }
-    } else if (mailFlag == 1) {
+    } else if (flag == 1) {
         if (curFlag == 0) {
             crontab->variables << new Variable(QStringLiteral("MAILTO"),QStringLiteral("\"\""),QStringLiteral("Don't send mail to anyone"));
         } else if (curFlag == 2) {
-            v->value = QLatin1String("\"\"");
-            v->comment = QLatin1String("Don't send mail to anyone");
+            v->value = QStringLiteral("\"\"");
+            v->comment = QStringLiteral("Don't send mail to anyone");
         }
-    } else if (mailFlag == 2) {
+    } else if (flag == 2) {
         QString u = userCombo->currentText();
         if (curFlag == 0) {
             QString c = "Send mail to \"" + u + "\"";

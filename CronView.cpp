@@ -7,14 +7,14 @@
    as published by the Free Software Foundation; either version 2
    of the License, or (at your option) any later version.
 */
-#include <QtGui>
 #include <QScrollBar>
+#include <QtGui>
 
-#include "Crontab.h"
 #include "CronModel.h"
 #include "CronView.h"
+#include "Crontab.h"
 
-void dumpIndex(const QModelIndex &idx, QString h)
+void dumpIndex(const QModelIndex &idx, const QString &h)
 {
 
     if (idx.isValid()) {
@@ -27,9 +27,7 @@ void dumpIndex(const QModelIndex &idx, QString h)
 }
 
 CronView::CronView(CronModel *model)
-    : QTreeView()
 {
-
     cronModel = model;
     pasteData = nullptr;
     setModel(cronModel);
@@ -59,7 +57,7 @@ void CronView::resetView()
     for (int i = 0; i < cronModel->columnCount(QModelIndex()); ++i)
         resizeColumnToContents(i);
 
-    QModelIndex idx = cronModel->index(0,0);
+    QModelIndex idx = cronModel->index(0, 0);
 
     if (idx.isValid())
         setCurrentIndex(idx);
@@ -68,7 +66,7 @@ void CronView::resetView()
 
 }
 
-void CronView::selectChanged(const QModelIndex &cur, const QModelIndex &)
+void CronView::selectChanged(const QModelIndex &cur, const QModelIndex & /*unused*/)
 {
     emit viewSelected(cronModel->getCrontab(cur), cronModel->getTCommand(cur));
 }
@@ -114,7 +112,7 @@ void CronView::insertTCommand(TCommand *cmnd)
 
 void CronView::copyTCommand()
 {
-    if (!pasteData)
+    if (pasteData == nullptr)
         pasteData = new TCommand();
     *pasteData = *getCurrentTCommand();
     emit pasted();
@@ -128,7 +126,7 @@ void CronView::cutTCommand()
 
 void CronView::newTCommand()
 {
-    Crontab *cron = getCurrentCrontab();
+    auto *cron = getCurrentCrontab();
     QString u;
     if ( cron->cronOwner == QLatin1String("/etc/crontab") )
         u = QStringLiteral("root");
@@ -141,7 +139,7 @@ void CronView::newTCommand()
 
 void CronView::pasteTCommand()
 {
-    Crontab *cron = getCurrentCrontab();
+    auto *cron = getCurrentCrontab();
     auto *cmnd = new TCommand;
     *cmnd = *pasteData;
     if (cron->cronOwner != QLatin1String("/etc/crontab"))
@@ -175,7 +173,7 @@ TCommand *CronView::getCurrentTCommand()
     return cronModel->getTCommand(currentIndex());
 }
 
-void CronView::scrollTo(const QModelIndex &idx, ScrollHint)
+void CronView::scrollTo(const QModelIndex &idx, ScrollHint /*hint*/)
 {
     QRect rect = visualRect(idx);
     if (rect.height() == 0)

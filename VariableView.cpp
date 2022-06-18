@@ -7,8 +7,8 @@
    as published by the Free Software Foundation; either version 2
    of the License, or (at your option) any later version.
 */
-#include <QtGui>
 #include <QScrollBar>
+#include <QtGui>
 
 #include "Crontab.h"
 #include "VariableView.h"
@@ -37,10 +37,10 @@ void VariableView::resetView()
         emit changeVar(nullptr);
 }
 
-void VariableView::varSelected(const QModelIndex &cur, const QModelIndex &)
+void VariableView::varSelected(const QModelIndex &cur, const QModelIndex & /*unused*/)
 {
     if (cur.isValid())
-        emit changeVar(variableModel->getVariable(cur));
+        emit changeVar(VariableModel::getVariable(cur));
     else
         emit changeVar(nullptr);
 }
@@ -77,7 +77,7 @@ void VariableView::removeVariable()
     }
 }
 
-void VariableView::scrollTo(const QModelIndex &idx, ScrollHint)
+void VariableView::scrollTo(const QModelIndex &idx, ScrollHint /*hint*/)
 {
     QRect area = viewport()->rect();
     QRect rect = visualRect(idx);
