@@ -41,9 +41,9 @@ QModelIndex CronModel::parent(const QModelIndex &index) const
         return QModelIndex();
 
     if (crontabs->count() > 1) {
-        CronType *t = static_cast<CronType*>(index.internalPointer());
+        auto *t = static_cast<CronType*>(index.internalPointer());
         if (t->type == CronType::COMMAND) {
-            TCommand *cmnd = static_cast<TCommand*>(t);
+            auto *cmnd = static_cast<TCommand*>(t);
             Crontab *cron = cmnd->parent;
             return createIndex(crontabs->indexOf(cron), 0, cron);
         }
@@ -313,7 +313,7 @@ bool CronModel::dropMimeData ( const QMimeData*, Qt::DropAction,
             reinterpret_cast<uintptr_t>(getTCommand(next)) == reinterpret_cast<uintptr_t>(drag))
         return false;
 
-    TCommand *t = new TCommand();
+    auto *t = new TCommand();
     *t = *drag;
     Crontab *c = getCrontab(ins);
     if (c->cronOwner != "/etc/crontab")

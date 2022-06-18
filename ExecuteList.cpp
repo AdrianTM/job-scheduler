@@ -25,10 +25,10 @@ ExecuteList::ExecuteList(int maxN, int maxD, QList<Crontab*> *cron)
     executeModel = new ExecuteModel(&executes);
     QHBoxLayout *h;
     QPushButton *resetButton;
-    QSpinBox *numSpinBox = new QSpinBox;
-    QSpinBox *dateSpinBox = new QSpinBox;
+    auto *numSpinBox = new QSpinBox;
+    auto *dateSpinBox = new QSpinBox;
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    auto *mainLayout = new QVBoxLayout;
     {
         mainLayout->addWidget(executeView=new ExecuteView(executeModel));
         mainLayout->addLayout((h = new QHBoxLayout));

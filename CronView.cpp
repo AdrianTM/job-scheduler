@@ -135,14 +135,14 @@ void CronView::newTCommand()
     else
         u = cron->cronOwner;
 
-    TCommand *cmnd =  new TCommand("0 * * * *", u, "", "", cron );
+    auto *cmnd =  new TCommand("0 * * * *", u, "", "", cron );
     insertTCommand(cmnd);
 }
 
 void CronView::pasteTCommand()
 {
     Crontab *cron = getCurrentCrontab();
-    TCommand *cmnd = new TCommand;
+    auto *cmnd = new TCommand;
     *cmnd = *pasteData;
     if (cron->cronOwner != "/etc/crontab")
         cmnd->user = cron->cronOwner;

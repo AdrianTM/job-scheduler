@@ -67,7 +67,7 @@ TimeDialog::TimeDialog(const QString &time, QWidget *parent)
     QPushButton *okButton;
     QPushButton *cancelButton;
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    auto *mainLayout = new QVBoxLayout;
     {
         mainLayout->addLayout((h = new QHBoxLayout));	// time text
         {

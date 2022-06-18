@@ -30,7 +30,7 @@ TCommandEdit::TCommandEdit(QWidget *parent)
     QGroupBox *exeBox;
     QHBoxLayout *h;
 
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    auto *mainLayout = new QVBoxLayout;
     {
         mainLayout->addLayout((h = new QHBoxLayout));
         {

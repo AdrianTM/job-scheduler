@@ -17,7 +17,7 @@ QVariant ExecuteModel::data(const QModelIndex &index, int role) const
 {
     if (index.isValid()) {
         if (role == Qt::DisplayRole) {
-            Execute *e = static_cast<Execute*>(index.internalPointer());
+            auto *e = static_cast<Execute*>(index.internalPointer());
             switch (index.column()) {
             case 0:
                 return e->exeTime;
@@ -29,7 +29,7 @@ QVariant ExecuteModel::data(const QModelIndex &index, int role) const
                 return e->tCommands->command;
             }
         } else if (role == Qt::BackgroundColorRole) {
-            Execute *e = static_cast<Execute*>(index.internalPointer());
+            auto *e = static_cast<Execute*>(index.internalPointer());
             switch (e->sel) {
             case 1:
                 return QColor(229, 241, 255);
@@ -37,7 +37,7 @@ QVariant ExecuteModel::data(const QModelIndex &index, int role) const
                 return QColor(208, 255, 241);
             }
         } else if (role == Qt::TextColorRole) {
-            Execute *e = static_cast<Execute*>(index.internalPointer());
+            auto *e = static_cast<Execute*>(index.internalPointer());
             if (index.column() == 0 && e->flag != 0)
                 return QColor(189, 55, 44);
             else
