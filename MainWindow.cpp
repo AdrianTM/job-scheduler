@@ -99,8 +99,15 @@ MainWindow::MainWindow()
 void MainWindow::changeUser()
 {
     saveCron();
-    (Clib::uId() != 0) ? system("su-to-root -X -c job-scheduler&") :
-                         system("runuser $(logname) -c job-scheduler&");
+    if (Clib::uId() != 0) {
+        QProcess::startDetached(QStringLiteral("job-scheduler-launcher"), {});
+    } else {
+        QProcess proc;
+        proc.start(QStringLiteral("logname"), {}, QIODevice::ReadOnly);
+        proc.waitForFinished();
+        QString user = QString::fromUtf8(proc.readAllStandardOutput()).trimmed();
+        QProcess::startDetached(QStringLiteral("runuser"), {QStringLiteral("-u"), user, QStringLiteral("job-scheduler")});
+    }
     qApp->quit();
 }
 
