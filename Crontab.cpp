@@ -216,7 +216,7 @@ void Crontab::setup(const QString &str)
             } else {
                 // Command
                 QRegularExpression sep(QStringLiteral("\\s+"));
-                int n;
+                int n = 0;
                 if (s.at(0) == '@')
                     n = 0;
                 else
