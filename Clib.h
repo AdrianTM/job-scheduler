@@ -10,7 +10,6 @@
 #ifndef CLIB_H
 #define CLIB_H
 
-#include <stdlib.h>
 #include <unistd.h>
 #include <pwd.h>
 
@@ -23,7 +22,7 @@ public:
     inline static QString uName() { return getpwuid(uId())->pw_name; }
     inline static QString uHome() { return getpwuid(uId())->pw_dir; }
     inline static QString uShell() { return getpwuid(uId())->pw_shell; }
-    inline static QString getEnv(const char *name) { return getenv(name); }
+    inline static QString getEnv(const char *name) { return qEnvironmentVariable(name); }
     inline static QStringList allUsers() {
         QStringList ulist;
         struct passwd *pw;
