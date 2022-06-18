@@ -56,7 +56,7 @@ void VariableView::insertVariable()
 {
     auto *v = new Variable(QStringLiteral("*"),QStringLiteral("*"),QLatin1String(""));
     QModelIndex index = currentIndex();
-    int pos;
+    int pos = 0;
     if (index.isValid())
         pos = index.row();
     else

@@ -26,9 +26,9 @@ TCommandEdit::TCommandEdit(QWidget *parent)
     : QWidget(parent)
 {
 
-    QPushButton *timeButton;
-    QGroupBox *exeBox;
-    QHBoxLayout *h;
+    QPushButton *timeButton = nullptr;
+    QGroupBox *exeBox = nullptr;
+    QHBoxLayout *h = nullptr;
 
     auto *mainLayout = new QVBoxLayout;
     {

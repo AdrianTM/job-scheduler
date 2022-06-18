@@ -25,8 +25,7 @@ public:
     ~CronModel() {}
 
     Qt::ItemFlags flags(const QModelIndex &) const;
-    QModelIndex index(int row, int column,
-                      const QModelIndex &parent = QModelIndex()) const;
+    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
     int rowCount(const QModelIndex &parent) const;
     int columnCount(const QModelIndex &) const { return 4; }
     QVariant headerData(int section, Qt::Orientation orientation,

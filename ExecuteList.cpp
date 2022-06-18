@@ -23,8 +23,8 @@ ExecuteList::ExecuteList(int maxN, int maxD, QList<Crontab*> *cron)
     :maxNum(maxN), maxDate(maxD), crontabs(cron)
 {
     executeModel = new ExecuteModel(&executes);
-    QHBoxLayout *h;
-    QPushButton *resetButton;
+    QHBoxLayout *h = nullptr;
+    QPushButton *resetButton = nullptr;
     auto *numSpinBox = new QSpinBox;
     auto *dateSpinBox = new QSpinBox;
 

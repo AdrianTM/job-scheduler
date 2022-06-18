@@ -59,13 +59,13 @@ const QStringList SimpleName = { "@hourly", "@daily", "@weekly", "@monthly", "@y
 TimeDialog::TimeDialog(const QString &time, QWidget *parent)
     : QDialog(parent), inTime(time)
 {
-    QHBoxLayout *h;
-    QGridLayout *g;
-    QVBoxLayout *v;
-    QGroupBox *b;
-    QPushButton *resetButton;
-    QPushButton *okButton;
-    QPushButton *cancelButton;
+    QHBoxLayout *h = nullptr;
+    QGridLayout *g = nullptr;
+    QVBoxLayout *v = nullptr;
+    QGroupBox *b = nullptr;
+    QPushButton *resetButton = nullptr;
+    QPushButton *okButton = nullptr;
+    QPushButton *cancelButton = nullptr;
 
     auto *mainLayout = new QVBoxLayout;
     {

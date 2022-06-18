@@ -80,8 +80,7 @@ Qt::ItemFlags CronModel::flags(const QModelIndex &idx) const
         return nullptr;
 
     if (isOneUser() || idx.parent().isValid())
-        return Qt::ItemIsSelectable | Qt::ItemIsEnabled |
-                Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled;
+        return Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled;
     else
         return Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDropEnabled;
 }
@@ -129,8 +128,8 @@ QModelIndex CronModel::removeCComand(const QModelIndex &idx)
     if (!idx.isValid())
         return QModelIndex();
 
-    int cronPos;
-    int cmndPos;
+    int cronPos = 0;
+    int cmndPos = 0;
     QModelIndex del;
     if (idx.parent().isValid()) {
         cronPos = idx.parent().row();
@@ -165,8 +164,8 @@ QModelIndex CronModel::insertTCommand(const QModelIndex &idx, TCommand *cmnd)
     //	dumpIndex(idx, "CronModel::insertTCommand");
     //	qDebug() << "CronModel::insertTCommand time=" << cmnd->time;
 
-    int cronPos;
-    int cmndPos;
+    int cronPos = 0;
+    int cmndPos = 0;
     QModelIndex ins;
     if (idx.isValid()) {
         if (idx.parent().isValid()) {

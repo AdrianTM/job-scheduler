@@ -28,13 +28,13 @@ VariableEdit::VariableEdit(QWidget *parent)
     : QWidget(parent)
 {
 
-    QFrame *sepFrame;
-    QPushButton *newButton;
-    QPushButton *deleteButton;
-    QGroupBox *varGroup;
-    QGridLayout *g;
-    QHBoxLayout *h, *h2;
-    QVBoxLayout *v;
+    QFrame *sepFrame = nullptr;
+    QPushButton *newButton = nullptr;
+    QPushButton *deleteButton = nullptr;
+    QGroupBox *varGroup = nullptr;
+    QGridLayout *g = nullptr;
+    QHBoxLayout *h = nullptr, *h2 = nullptr;
+    QVBoxLayout *v = nullptr;
 
     variableModel = new VariableModel();
 
