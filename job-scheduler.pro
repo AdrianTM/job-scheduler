@@ -59,6 +59,7 @@ TRANSLATIONS += translations/job-scheduler_am.ts \
                 translations/job-scheduler_da.ts \
                 translations/job-scheduler_de.ts \
                 translations/job-scheduler_el.ts \
+                translations/job-scheduler_en.ts \
                 translations/job-scheduler_es.ts \
                 translations/job-scheduler_et.ts \
                 translations/job-scheduler_eu.ts \
