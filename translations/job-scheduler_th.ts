@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="fil_PH">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="th">
 <context>
     <name>CronModel</name>
     <message>
@@ -97,7 +97,7 @@
     <message>
         <location filename="../MainWindow.cpp" line="119"/>
         <source>File</source>
-        <translation>File</translation>
+        <translation>ไฟล์</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="122"/>
@@ -117,7 +117,7 @@
     <message>
         <location filename="../MainWindow.cpp" line="127"/>
         <source>Ctrl+R</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+R</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="129"/>
@@ -177,12 +177,12 @@
     <message>
         <location filename="../MainWindow.cpp" line="154"/>
         <source>&amp;Copy</source>
-        <translation>&amp;Kopyahin</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="155"/>
         <source>Ctrl+C</source>
-        <translation>Ctrl+C</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="157"/>
@@ -278,7 +278,7 @@ Are you OK to exit?</source>
     <message>
         <location filename="../SaveDialog.cpp" line="41"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"/>
+        <translation>&amp;ยกเลิก</translation>
     </message>
 </context>
 <context>
@@ -389,7 +389,7 @@ Are you OK to exit?</source>
     <message>
         <location filename="../TimeDialog.cpp" line="169"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"/>
+        <translation>&amp;ยกเลิก</translation>
     </message>
     <message>
         <location filename="../TimeDialog.cpp" line="170"/>
@@ -422,7 +422,7 @@ Are you OK to exit?</source>
     <message>
         <location filename="../VariableEdit.cpp" line="54"/>
         <source>To</source>
-        <translation>Sa</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../VariableEdit.cpp" line="66"/>
