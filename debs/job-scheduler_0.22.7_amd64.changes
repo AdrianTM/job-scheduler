@@ -1,0 +1,31 @@
+Format: 1.8
+Date: Sat, 23 Jul 2022 11:13:35 -0400
+Source: job-scheduler
+Binary: job-scheduler
+Architecture: source amd64
+Version: 0.22.7
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Dolphin Oracle <dolphinoracle@gmail.com>
+Description:
+ job-scheduler - job-scheduler
+Changes:
+ job-scheduler (0.22.7) mx; urgency=medium
+ .
+   * translation refresh
+Checksums-Sha1:
+ 3aa1a7a418548d784d684df0d1db829d04609991 575 job-scheduler_0.22.7.dsc
+ ea9d6e9755d1d4341d08db6e4b42c39173679f8f 918352 job-scheduler_0.22.7.tar.xz
+ 05f40105122b3ac5abbc20cd2977f59dd387ef00 10497 job-scheduler_0.22.7_amd64.buildinfo
+ d85650c86b51cf1c7b40b9a999b188c8d9ffc35f 263352 job-scheduler_0.22.7_amd64.deb
+Checksums-Sha256:
+ 19a58d5e110641a3f4fe2d0460f93a6397a4a51e042f03d9fe86bb9bff041d06 575 job-scheduler_0.22.7.dsc
+ dbb590b98fb060bcccbfdfae7dbf3e95ee82150e912ce1dc58dd93ae7a4d381b 918352 job-scheduler_0.22.7.tar.xz
+ c56eab036303648d8ba8dab9e73672271521c1db6a310b0f2a7c91d204bb6b87 10497 job-scheduler_0.22.7_amd64.buildinfo
+ 6818ec1c47b5c508e00d2411c4358fd86164e8a5195a369c98fc2edc204ac321 263352 job-scheduler_0.22.7_amd64.deb
+Files:
+ 918c47d9cfdfc5d8403866d769ab83cd 575 admin optional job-scheduler_0.22.7.dsc
+ 2072f55379fbb00ad5737304d661f299 918352 admin optional job-scheduler_0.22.7.tar.xz
+ 3f73f1ace1dd19e6249a30637ca12a26 10497 admin optional job-scheduler_0.22.7_amd64.buildinfo
+ edbdfb9605acdb26fbf91a53f5c46b37 263352 admin optional job-scheduler_0.22.7_amd64.deb

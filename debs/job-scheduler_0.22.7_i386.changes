@@ -1,0 +1,25 @@
+Format: 1.8
+Date: Sat, 23 Jul 2022 11:13:35 -0400
+Source: job-scheduler
+Binary: job-scheduler
+Architecture: i386
+Version: 0.22.7
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Dolphin Oracle <dolphinoracle@gmail.com>
+Description:
+ job-scheduler - job-scheduler
+Changes:
+ job-scheduler (0.22.7) mx; urgency=medium
+ .
+   * translation refresh
+Checksums-Sha1:
+ 4eec83e2fd6ac8ca76deac38b587f9d3915348c8 10204 job-scheduler_0.22.7_i386.buildinfo
+ 30ee12764f48f7b1e76a8287deeecfaefe86f8b5 270200 job-scheduler_0.22.7_i386.deb
+Checksums-Sha256:
+ bdc76eea33e067690a84700f3e2a738680551f926b11b22c326caf63cf2d23d7 10204 job-scheduler_0.22.7_i386.buildinfo
+ 8d6c7337ed9c89d747f89cac74345ed3dd8a51a9c8db85f18135a1a8c4393fc4 270200 job-scheduler_0.22.7_i386.deb
+Files:
+ 0694660a4dacb4401b7727a6266501da 10204 admin optional job-scheduler_0.22.7_i386.buildinfo
+ 18aa9fd3e5491b609290c3c8dcfb700c 270200 admin optional job-scheduler_0.22.7_i386.deb
