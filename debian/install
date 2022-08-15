@@ -4,4 +4,4 @@ job-scheduler		usr/bin
 job-scheduler.desktop	usr/share/applications
 scripts/job-scheduler-launcher	usr/bin
 scripts/org.mxlinux.pkexec.job-scheduler-launcher.policy	usr/share/polkit-1/actions
-translations/*.qm	usr/share/job-schduler/locale
+translations/*.qm	usr/share/job-scheduler/locale
