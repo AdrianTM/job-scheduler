@@ -2,16 +2,16 @@ Format: 1.0
 Source: job-scheduler
 Binary: job-scheduler
 Architecture: i386
-Version: 0.22.7
+Version: 0.22.8
 Checksums-Md5:
- 18aa9fd3e5491b609290c3c8dcfb700c 270200 job-scheduler_0.22.7_i386.deb
+ e00c2c17d97e23ff1543694be9aa38a4 270432 job-scheduler_0.22.8_i386.deb
 Checksums-Sha1:
- 30ee12764f48f7b1e76a8287deeecfaefe86f8b5 270200 job-scheduler_0.22.7_i386.deb
+ 08ad6811a24252f0f38c81d95ae031e85fb450e8 270432 job-scheduler_0.22.8_i386.deb
 Checksums-Sha256:
- 8d6c7337ed9c89d747f89cac74345ed3dd8a51a9c8db85f18135a1a8c4393fc4 270200 job-scheduler_0.22.7_i386.deb
+ 00d814732eb1516ff487b671c5f5cad464e252f4921265307bc5311e518375a7 270432 job-scheduler_0.22.8_i386.deb
 Build-Origin: Debian
 Build-Architecture: i386
-Build-Date: Sat, 23 Jul 2022 13:41:38 -0400
+Build-Date: Mon, 15 Aug 2022 19:46:33 -0400
 Build-Tainted-By:
  merged-usr-via-symlinks
  usr-local-has-libraries
@@ -339,4 +339,4 @@ Installed-Build-Depends:
 Environment:
  DEB_BUILD_OPTIONS="parallel=4"
  LANG="en_US.UTF-8"
- SOURCE_DATE_EPOCH="1658589215"
+ SOURCE_DATE_EPOCH="1660604005"
