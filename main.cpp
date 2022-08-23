@@ -16,6 +16,8 @@
 #include "MainWindow.h"
 #include <unistd.h>
 
+const extern QString starting_home = qEnvironmentVariable("HOME");
+
 int main(int argc, char *argv[])
 {
     Q_INIT_RESOURCE(application);
