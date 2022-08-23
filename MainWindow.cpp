@@ -17,6 +17,7 @@
 #include <QSplitter>
 #include <QToolBar>
 
+#include "about.h"
 #include "Clib.h"
 #include "CronModel.h"
 #include "CronView.h"
@@ -183,18 +184,8 @@ void MainWindow::createActions()
 
 void MainWindow::displayHelp()
 {
-    QString url = QStringLiteral("file:///usr/share/doc/job-scheduler/help/help.html");
-    QString runasuser = (Clib::uId() == 0) ? QStringLiteral("runuser $(logname) -c ") : QString();
-
-    QString cmd;
-    if (QFileInfo::exists(QStringLiteral("/usr/bin/mx-viewer")))
-        cmd = QStringLiteral("mx-viewer %1 '%2' &").arg(url, tr("Job Scheduler"));
-    else if (QFileInfo::exists(QStringLiteral("/usr/bin/antix-viewer")))
-        cmd = QStringLiteral("antix-viewer %1 '%2' &").arg(url, "Job Scheduler");
-    else
-        cmd = QString(runasuser + "DISPLAY=$DISPLAY xdg-open %1 &").arg(url);
-
-    system(cmd.toUtf8());
+    QString url = QStringLiteral("file:///usr/share/doc/job-scheduler/help.html");
+    displayDoc(url, tr("Job Scheduler"));
 }
 
 void MainWindow::initCron()
@@ -343,9 +334,12 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::AboutJobScheduler()
 {
-    QMessageBox::about(this, tr("About Job Scheduler"),
-                       tr("<b>Job Scheduler</b>") + " - " + tr("Version: %1").arg(VERSION) + "<p>" +
+    this->hide();
+    displayAboutMsgBox(tr("About Job Scheduler"), tr("<b>Job Scheduler</b>") + " - " + tr("Version: %1").arg(VERSION) + "<p>" +
                        tr("Job Scheduler is based upon qroneko 0.5.4, released in 2005 by korewaisai (<a href=\"mailto:korewaisai@yahoo.co.jp\">korewaisai@yahoo.co.jp</a>)") + "<p>" +
                        tr("Original project page: %1").arg(QStringLiteral("<a href=\"https://qroneko.sourceforge.net\">https://qroneko.sourceforge.net</a>")) + "<p>" +
-                       tr("MX project page: %1").arg(QStringLiteral("<a href=\"https://github.com/mx-linux/job-scheduler\">https://github.com/mx-linux/job-scheduler</a>")));
+                       tr("MX project page: %1").arg(QStringLiteral("<a href=\"https://github.com/mx-linux/job-scheduler\">https://github.com/mx-linux/job-scheduler</a>")),
+                       QStringLiteral("/usr/share/doc/job-scheduler/license.html"),
+                       tr("%1 License").arg(this->windowTitle()));
+    this->show();
 }
