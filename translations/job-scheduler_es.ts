@@ -22,7 +22,7 @@
     <message>
         <location filename="../ExecuteList.cpp" line="36"/>
         <source>Max Item</source>
-        <translation>Artículo máx.</translation>
+        <translation>Elemento máx.</translation>
     </message>
     <message>
         <location filename="../ExecuteList.cpp" line="38"/>
@@ -102,7 +102,7 @@
     <message>
         <location filename="../MainWindow.cpp" line="122"/>
         <source>&amp;New Item</source>
-        <translation>&amp;Nuevo artículo</translation>
+        <translation>&amp;Nuevo elemento</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="123"/>
