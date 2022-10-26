@@ -122,7 +122,7 @@
     <message>
         <location filename="../MainWindow.cpp" line="129"/>
         <source>&amp;Save</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Opslaan</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="130"/>
@@ -162,7 +162,7 @@
     <message>
         <location filename="../MainWindow.cpp" line="149"/>
         <source>Edit</source>
-        <translation type="unfinished"/>
+        <translation>Bewerken</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="151"/>
@@ -359,12 +359,12 @@ Are you OK to exit?</source>
     <message>
         <location filename="../TimeDialog.cpp" line="111"/>
         <source>Day</source>
-        <translation type="unfinished"/>
+        <translation>Dag</translation>
     </message>
     <message>
         <location filename="../TimeDialog.cpp" line="126"/>
         <source>Month</source>
-        <translation type="unfinished"/>
+        <translation>Maand</translation>
     </message>
     <message>
         <location filename="../TimeDialog.cpp" line="140"/>

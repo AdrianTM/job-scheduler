@@ -162,7 +162,7 @@
     <message>
         <location filename="../MainWindow.cpp" line="149"/>
         <source>Edit</source>
-        <translation>Редактировать</translation>
+        <translation>Правка</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="151"/>

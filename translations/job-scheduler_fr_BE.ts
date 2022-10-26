@@ -147,7 +147,7 @@
     <message>
         <location filename="../MainWindow.cpp" line="140"/>
         <source>E&amp;xit</source>
-        <translation>Sort&amp;ir</translation>
+        <translation>Qu&amp;itter</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="141"/>
@@ -220,14 +220,14 @@
         <source>Not saved since last change.
 Are you OK to reload?</source>
         <translation>Pas sauvegardé depuis la dernière modification.
-Êtes-vous prêt à recharger ?</translation>
+Êtes-vous prêt à recharger?</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="334"/>
         <source>Not saved since last change.
 Are you OK to exit?</source>
         <translation>Pas sauvegardé depuis la dernière modification.
-Pouvez-vous sortir ?</translation>
+Pouvez-vous sortir?</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="346"/>
@@ -270,7 +270,7 @@ Pouvez-vous sortir ?</translation>
     <message>
         <location filename="../SaveDialog.cpp" line="32"/>
         <source>User:</source>
-        <translation>Utilisateur :</translation>
+        <translation>Utilisateur:</translation>
     </message>
     <message>
         <location filename="../SaveDialog.cpp" line="40"/>
@@ -288,12 +288,12 @@ Pouvez-vous sortir ?</translation>
     <message>
         <location filename="../TCommandEdit.cpp" line="40"/>
         <source>User:</source>
-        <translation>Utilisateur :</translation>
+        <translation>Utilisateur:</translation>
     </message>
     <message>
         <location filename="../TCommandEdit.cpp" line="48"/>
         <source>Time:</source>
-        <translation>Evénement :</translation>
+        <translation>Evénement:</translation>
     </message>
     <message>
         <location filename="../TCommandEdit.cpp" line="51"/>
@@ -409,7 +409,7 @@ Pouvez-vous sortir ?</translation>
     <message>
         <location filename="../VariableEdit.cpp" line="51"/>
         <source>Mail:</source>
-        <translation>Courrier :</translation>
+        <translation>Courrier:</translation>
     </message>
     <message>
         <location filename="../VariableEdit.cpp" line="52"/>
@@ -439,17 +439,17 @@ Pouvez-vous sortir ?</translation>
     <message>
         <location filename="../VariableEdit.cpp" line="77"/>
         <source>Name:</source>
-        <translation>Nom :</translation>
+        <translation>Nom:</translation>
     </message>
     <message>
         <location filename="../VariableEdit.cpp" line="82"/>
         <source>Value:</source>
-        <translation>Valeur :</translation>
+        <translation>Valeur:</translation>
     </message>
     <message>
         <location filename="../VariableEdit.cpp" line="85"/>
         <source>Comment:</source>
-        <translation>Commentaire :</translation>
+        <translation>Commentaire:</translation>
     </message>
 </context>
 <context>

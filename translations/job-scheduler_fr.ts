@@ -147,7 +147,7 @@
     <message>
         <location filename="../MainWindow.cpp" line="140"/>
         <source>E&amp;xit</source>
-        <translation>Sort&amp;ir</translation>
+        <translation>Qu&amp;itter</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="141"/>
@@ -242,7 +242,7 @@ Pouvez-vous sortir ?</translation>
     <message>
         <location filename="../MainWindow.cpp" line="347"/>
         <source>Version: %1</source>
-        <translation>Version: %1</translation>
+        <translation>Version : %1</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="348"/>
@@ -303,17 +303,17 @@ Pouvez-vous sortir ?</translation>
     <message>
         <location filename="../TCommandEdit.cpp" line="55"/>
         <source>Command:</source>
-        <translation>Commande:</translation>
+        <translation>Commande :</translation>
     </message>
     <message>
         <location filename="../TCommandEdit.cpp" line="61"/>
         <source>Comment:</source>
-        <translation>Commentaire:</translation>
+        <translation>Commentaire :</translation>
     </message>
     <message>
         <location filename="../TCommandEdit.cpp" line="64"/>
         <source>Job Schedule:</source>
-        <translation>Ordonnance de tâches:</translation>
+        <translation>Ordonnance de tâches :</translation>
     </message>
     <message>
         <location filename="../TCommandEdit.cpp" line="126"/>
