@@ -32,7 +32,8 @@ HEADERS += Clib.h \
            VariableEdit.h \
            VariableModel.h \
            VariableView.h \
-           Version.h
+           Version.h \
+           about.h
 SOURCES += CronModel.cpp \
            Crontab.cpp \
            CronTime.cpp \
@@ -40,6 +41,7 @@ SOURCES += CronModel.cpp \
            ExecuteList.cpp \
            ExecuteModel.cpp \
            ExecuteView.cpp \
+           about.cpp \
            main.cpp \
            MainWindow.cpp \
            SaveDialog.cpp \
