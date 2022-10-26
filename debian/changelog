@@ -1,3 +1,9 @@
+job-scheduler (0.22.10.01) mx; urgency=medium
+
+  * update translations 
+
+ -- Dolphin Oracle <dolphinoracle@gmail.com>  Wed, 26 Oct 2022 19:55:12 -0400
+
 job-scheduler (0.22.8.2) mx; urgency=medium
 
   * Fix: launching documents from Help (fixes a problem in Plasma)
