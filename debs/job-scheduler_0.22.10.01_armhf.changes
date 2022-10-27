@@ -1,0 +1,25 @@
+Format: 1.8
+Date: Wed, 26 Oct 2022 19:55:12 -0400
+Source: job-scheduler
+Binary: job-scheduler
+Architecture: armhf
+Version: 0.22.10.01
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Dolphin Oracle <dolphinoracle@gmail.com>
+Description:
+ job-scheduler - job-scheduler
+Changes:
+ job-scheduler (0.22.10.01) mx; urgency=medium
+ .
+   * update translations
+Checksums-Sha1:
+ 9c4c6a5c832d6b3cb4074d21d6aa7a122bd7302f 9891 job-scheduler_0.22.10.01_armhf.buildinfo
+ b098fcdc1dc52c26d56d28b7c0536c7b408ea5f7 255048 job-scheduler_0.22.10.01_armhf.deb
+Checksums-Sha256:
+ 98be51c67a4349c89323b49a635edda01da26b32d228ba10bd367bc09b47dad9 9891 job-scheduler_0.22.10.01_armhf.buildinfo
+ 66cb91d32fe0893c03137011d6c710b0d6e1d11741272f8785c2337990bdd028 255048 job-scheduler_0.22.10.01_armhf.deb
+Files:
+ 5bbacc7a32a14dc1000ae3b1cc36770c 9891 admin optional job-scheduler_0.22.10.01_armhf.buildinfo
+ a578b26cf979d8e0ce8f2762370990d0 255048 admin optional job-scheduler_0.22.10.01_armhf.deb
