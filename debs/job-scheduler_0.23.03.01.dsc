@@ -2,15 +2,15 @@ Format: 3.0 (native)
 Source: job-scheduler
 Binary: job-scheduler
 Architecture: any
-Version: 0.22.10.01
+Version: 0.23.03.01
 Maintainer: Adrian <adrian@mxlinux.org>
 Standards-Version: 3.9.8
 Build-Depends: debhelper (>= 10), qtbase5-dev, qttools5-dev-tools
 Package-List:
  job-scheduler deb admin optional arch=any
 Checksums-Sha1:
- b9e083b96e8be23c61274b5b0110bce9121a3786 984404 job-scheduler_0.22.10.01.tar.xz
+ 5bafe9e05d17087f0674d55579a10573f4644e1b 231676 job-scheduler_0.23.03.01.tar.xz
 Checksums-Sha256:
- 47852640ef9f8b1aa0da70852ab2eeaa6923f52e66503abf274e5265c32411bd 984404 job-scheduler_0.22.10.01.tar.xz
+ 9e15d1385e92b65d0bf8df7dcc34ef2b015153ce399736a9da7ceba6c631dc3d 231676 job-scheduler_0.23.03.01.tar.xz
 Files:
- ac69288484f9760a7f57a2af94b01fc4 984404 job-scheduler_0.22.10.01.tar.xz
+ 63c1cf01069287b5647c6401a17caf5e 231676 job-scheduler_0.23.03.01.tar.xz
