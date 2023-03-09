@@ -1,3 +1,9 @@
+job-scheduler (0.23.03.01) mx; urgency=medium
+
+  * update translations
+
+ -- Dolphin Oracle <dolphinoracle@gmail.com>  Wed, 08 Mar 2023 22:58:36 -0500
+
 job-scheduler (0.22.10.01) mx; urgency=medium
 
   * update translations 
