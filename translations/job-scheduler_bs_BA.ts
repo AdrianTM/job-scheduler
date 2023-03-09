@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh_HK">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="bs_BA">
 <context>
     <name>CronModel</name>
     <message>
@@ -268,23 +268,23 @@ Are you OK to exit?</source>
     <message>
         <location filename="../about.cpp" line="50"/>
         <source>License</source>
-        <translation>授權條款</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../about.cpp" line="51"/>
         <location filename="../about.cpp" line="60"/>
         <source>Changelog</source>
-        <translation>變更紀錄</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../about.cpp" line="52"/>
         <source>Cancel</source>
-        <translation>取消</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../about.cpp" line="70"/>
         <source>&amp;Close</source>
-        <translation>關閉（&amp;C）</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
