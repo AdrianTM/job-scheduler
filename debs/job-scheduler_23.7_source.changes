@@ -1,0 +1,41 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Thu, 20 Jul 2023 15:59:22 -0400
+Source: job-scheduler
+Architecture: source
+Version: 23.7
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Changes:
+ job-scheduler (23.7) mx; urgency=medium
+ .
+   * Update translations
+   * Fix version
+Checksums-Sha1:
+ 826e7e6c04db82d5b1d96a4ada6ec5d296b81073 1129 job-scheduler_23.7.dsc
+ 53b7f0c7d061a4ae465637d89b8efe4b4094230b 238080 job-scheduler_23.7.tar.xz
+ 2cc7f208997a32b7efc68c3fc3fa67fc9653c216 10749 job-scheduler_23.7_amd64.buildinfo
+Checksums-Sha256:
+ f227a2206df1af71238d1aacfedc780e23d37a140cae237f9a17ee6ba1f53698 1129 job-scheduler_23.7.dsc
+ b030ede70982fe3df07f6761f0aba152a5c22eae34612436099946af7be951de 238080 job-scheduler_23.7.tar.xz
+ 18d475c0bc369a65cbc2646cec25ecebd91b35b676ee8cec0b27a73cc5f51024 10749 job-scheduler_23.7_amd64.buildinfo
+Files:
+ 22a02c8063c4a3339850b228f31523de 1129 admin optional job-scheduler_23.7.dsc
+ 6a277935f29a0ff5190da88a014f25b7 238080 admin optional job-scheduler_23.7.tar.xz
+ 2b5644822203d2c42e4924d1e137eefe 10749 admin optional job-scheduler_23.7_amd64.buildinfo
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmS5kr4THGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumH+pB/4m0IIN2aVtRb5HOxEAVK6Tb5AifV8b
+DgqJAQwi/60APySaDzYSREk8DU/4/B7lBUmQToii4baSPYhO3MgNOdeHS/pPomR1
+JQlVBYs7heREYbI6FkqarRNptb2d32Lv3+u5geEEdScz6h6RNsI8qrl1SE3Ja8HP
+4ozcEcm8cEFUX6ne04T4tTeV7BRprXoY174nfE1FErlEf25ZOAMORb45dH2fb/90
+5eyFMI2y47kgUV8EB6dhqc+bhJKXo5wtqjta6IT/h2xT0gpwdCXw8/nY/IIHKA/M
+rWfCFu/wSgaWLpCafrnu/w0kED5FChj3AgD5xcVrt+eilOaghgcZxla0
+=2JWS
+-----END PGP SIGNATURE-----
