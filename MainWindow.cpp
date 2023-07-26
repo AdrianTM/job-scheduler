@@ -115,7 +115,7 @@ void MainWindow::changeUser()
         QProcess::startDetached(QStringLiteral("runuser"),
                                 {QStringLiteral("-u"), user, QStringLiteral("job-scheduler")});
     }
-    qApp->quit();
+    QApplication::quit();
 }
 
 void MainWindow::createActions()

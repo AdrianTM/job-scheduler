@@ -21,8 +21,8 @@ class TimeButton : public QPushButton
 {
     Q_OBJECT
 public:
-    TimeButton(const QString &label, QWidget *parent = nullptr);
-    TimeButton(int label, QWidget *parent = nullptr);
+    explicit TimeButton(const QString &label, QWidget *parent = nullptr);
+    explicit TimeButton(int label, QWidget *parent = nullptr);
     void init();
 
 public slots:
@@ -33,7 +33,7 @@ class TimeDialog : public QDialog
 {
     Q_OBJECT
 public:
-    TimeDialog(QString time, QWidget *parent = nullptr);
+    explicit TimeDialog(QString time, QWidget *parent = nullptr);
     QString time() { return outTime; }
 
 private slots:

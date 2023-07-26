@@ -76,14 +76,14 @@ QString Crontab::writeTempFile(const QString &text, const QString &tmp)
     if (!QFileInfo::exists(fdir)) {
         if (!QDir(fdir).mkdir(fdir)) {
             estr = "can't create directory " + fdir;
-            return QString();
+            return {};
         }
     }
     QTemporaryFile f(fdir + "/" + tmp);
     f.setAutoRemove(false);
     if (!f.open()) {
         estr = "can't open temporary file\n\n" + f.errorString();
-        return QString();
+        return {};
     }
     QTextStream t(&f);
     t << text;

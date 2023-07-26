@@ -25,7 +25,7 @@ class TCommandEdit : public QWidget
 {
     Q_OBJECT
 public:
-    TCommandEdit(QWidget *parent = nullptr);
+    explicit TCommandEdit(QWidget *parent = nullptr);
 
 public slots:
     void changeCurrent(Crontab *cron, TCommand *cmnd);
