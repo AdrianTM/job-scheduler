@@ -50,7 +50,7 @@ private:
     void readSettings();
     void writeSettings();
 
-    void closeEvent(QCloseEvent *event);
+    void closeEvent(QCloseEvent *event) override;
 
     QAction *aboutAction {};
     QAction *aboutQtAction {};

@@ -26,7 +26,7 @@ public:
     inline static QStringList allUsers()
     {
         QStringList ulist;
-        struct passwd *pw;
+        struct passwd *pw = nullptr;
         while ((pw = getpwent()) != nullptr)
             ulist << pw->pw_name;
         endpwent();

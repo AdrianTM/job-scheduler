@@ -25,7 +25,7 @@ QVariant VariableModel::data(const QModelIndex &idx, int role) const
         }
     }
 
-    return QVariant();
+    return {};
 }
 
 QVariant VariableModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -40,7 +40,7 @@ QVariant VariableModel::headerData(int section, Qt::Orientation orientation, int
         }
     }
 
-    return QVariant();
+    return {};
 }
 
 bool VariableModel::removeVariable(int row)

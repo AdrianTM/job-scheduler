@@ -38,7 +38,7 @@ public slots:
     void changeCurrent(Crontab *cron, TCommand *cmnd);
     void numChanged(int num);
     void dateChanged(int num);
-    void setVisible(bool flag);
+    void setVisible(bool flag) override;
 
 private:
     int itemCount {};

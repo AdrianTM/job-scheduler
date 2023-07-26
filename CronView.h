@@ -22,7 +22,7 @@ class CronView : public QTreeView
     Q_OBJECT
 
 public:
-    CronView(CronModel *model);
+    explicit CronView(CronModel *model);
 
     void resetView();
     void hideUser(bool flag = true) { setColumnHidden(1, flag); }
@@ -30,7 +30,7 @@ public:
     TCommand *getCurrentTCommand();
 
 protected:
-    void startDrag(Qt::DropActions supportedActions);
+    void startDrag(Qt::DropActions supportedActions) override;
 
 public slots:
     void changeCurrent(TCommand *cmnd);
@@ -52,7 +52,7 @@ signals:
     void dataChanged();
 
 private:
-    void scrollTo(const QModelIndex &idx, ScrollHint hint);
+    void scrollTo(const QModelIndex &idx, ScrollHint hint) override;
 
     TCommand *pasteData;
     CronModel *cronModel;

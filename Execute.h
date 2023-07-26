@@ -11,21 +11,22 @@
 #define EXECUTE_H
 
 #include <QString>
+#include <utility>
 
 class TCommand;
 
 class Execute
 {
 public:
-    Execute(TCommand *cd, const QString &dt, int fl = 0, int sl = 0)
+    Execute(TCommand *cd, QString dt, int fl = 0, int sl = 0)
         : tCommands(cd)
-        , exeTime(dt)
+        , exeTime(std::move(dt))
         , flag(fl)
         , sel(sl)
     {
     }
 
-    ~Execute() { }
+    ~Execute() = default;
 
     TCommand *tCommands;
     QString exeTime;

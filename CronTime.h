@@ -16,11 +16,11 @@
 class CronTime
 {
 public:
-    CronTime(const QString &tstr);
+    explicit CronTime(const QString &tstr);
 
-    QDateTime getNextTime(const QDateTime &dtime) const;
-    bool isValid() const;
-    QString toString(bool literal = false) const;
+    [[nodiscard]] QDateTime getNextTime(const QDateTime &dtime) const;
+    [[nodiscard]] bool isValid() const;
+    [[nodiscard]] QString toString(bool literal = false) const;
 
     QBitArray minute;
     QBitArray hour;

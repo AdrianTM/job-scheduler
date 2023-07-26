@@ -15,7 +15,7 @@ void dumpIndex(const QModelIndex &idx, QString h);
 QVariant CronModel::data(const QModelIndex &idx, int role) const
 {
     if (!idx.isValid() || role != Qt::DisplayRole)
-        return QVariant();
+        return {};
 
     if (idx.parent().isValid() || isOneUser()) {
         auto *cmnd = getTCommand(idx);
@@ -32,13 +32,13 @@ QVariant CronModel::data(const QModelIndex &idx, int role) const
             return getCrontab(idx)->cronOwner;
     }
 
-    return QVariant();
+    return {};
 }
 
 QModelIndex CronModel::parent(const QModelIndex &index) const
 {
     if (!index.isValid())
-        return QModelIndex();
+        return {};
 
     if (crontabs->count() > 1) {
         auto *t = static_cast<CronType *>(index.internalPointer());
@@ -49,7 +49,7 @@ QModelIndex CronModel::parent(const QModelIndex &index) const
         }
     }
 
-    return QModelIndex();
+    return {};
 }
 
 QModelIndex CronModel::index(int row, int column, const QModelIndex &parent) const
@@ -71,13 +71,13 @@ QModelIndex CronModel::index(int row, int column, const QModelIndex &parent) con
         }
     }
 
-    return QModelIndex();
+    return {};
 }
 
 Qt::ItemFlags CronModel::flags(const QModelIndex &idx) const
 {
     if (!idx.isValid())
-        return Qt::ItemFlags();
+        return {};
 
     if (isOneUser() || idx.parent().isValid())
         return Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled;
@@ -117,14 +117,14 @@ QVariant CronModel::headerData(int section, Qt::Orientation orientation, int rol
         }
     }
 
-    return QVariant();
+    return {};
 }
 
 QModelIndex CronModel::removeCComand(const QModelIndex &idx)
 {
 
     if (!idx.isValid())
-        return QModelIndex();
+        return {};
 
     int cronPos = 0;
     int cmndPos = 0;
@@ -151,7 +151,7 @@ QModelIndex CronModel::removeCComand(const QModelIndex &idx)
     else if (!isOneUser())
         return del;
 
-    return QModelIndex();
+    return {};
 }
 
 QModelIndex CronModel::insertTCommand(const QModelIndex &idx, TCommand *cmnd)
@@ -251,7 +251,7 @@ QModelIndex CronModel::searchTCommand(TCommand *cmnd) const
             }
         }
     }
-    return QModelIndex();
+    return {};
 }
 
 bool CronModel::dropMimeData(const QMimeData * /*data*/, Qt::DropAction /*action*/, int row, int /*column*/,

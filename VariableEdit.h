@@ -27,7 +27,7 @@ class VariableEdit : public QWidget
 {
     Q_OBJECT
 public:
-    VariableEdit(QWidget *parent = nullptr);
+    explicit VariableEdit(QWidget *parent = nullptr);
 
 public slots:
     void changeCurrent(Crontab *cron, TCommand *cmnd);

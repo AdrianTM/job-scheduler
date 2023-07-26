@@ -20,7 +20,7 @@ class ExecuteView : public QTreeView
 {
     Q_OBJECT
 public:
-    ExecuteView(ExecuteModel *model);
+    explicit ExecuteView(ExecuteModel *model);
     void resetView();
     void hideUser(bool flag) { setColumnHidden(2, flag); }
 
@@ -31,7 +31,7 @@ signals:
     void viewSelected(TCommand *cmnd);
 
 private:
-    void scrollTo(const QModelIndex &, ScrollHint);
+    void scrollTo(const QModelIndex & /*index*/, ScrollHint /*hint*/) override;
 
     ExecuteModel *executeModel;
 };
