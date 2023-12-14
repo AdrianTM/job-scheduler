@@ -58,10 +58,11 @@ bool VariableModel::insertVariable(int row, Variable *var)
 {
     beginInsertRows(QModelIndex(), row, row);
 
-    if (variables->count() > 0)
+    if (variables->count() > 0) {
         variables->insert(row, var);
-    else
+    } else {
         *variables << var;
+    }
 
     endInsertRows();
     return true;
@@ -74,4 +75,7 @@ void VariableModel::varDataChanged(const QModelIndex &idx)
     emit dataChanged(first, end);
 }
 
-Variable *VariableModel::getVariable(const QModelIndex &idx) { return static_cast<Variable *>(idx.internalPointer()); }
+Variable *VariableModel::getVariable(const QModelIndex &idx)
+{
+    return static_cast<Variable *>(idx.internalPointer());
+}

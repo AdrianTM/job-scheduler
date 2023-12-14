@@ -7,8 +7,7 @@
    as published by the Free Software Foundation; either version 2
    of the License, or (at your option) any later version.
 */
-#ifndef CRONTAB_H
-#define CRONTAB_H
+#pragma once
 
 #include <QList>
 #include <QString>
@@ -33,31 +32,31 @@ class TCommand : public CronType
 public:
     TCommand() = default;
     TCommand(QString t, QString u, QString cmnd, QString cmnt, Crontab *p)
-        : CronType(CronType::COMMAND)
-        , time(std::move(t))
-        , user(std::move(u))
-        , command(std::move(cmnd))
-        , comment(std::move(cmnt))
-        , parent(p)
+        : CronType(CronType::COMMAND),
+          time(std::move(t)),
+          user(std::move(u)),
+          command(std::move(cmnd)),
+          comment(std::move(cmnt)),
+          parent(p)
     {
     }
     ~TCommand() = default;
 
-//private:
+    // private:
     QString time;
     QString user;
     QString command;
     QString comment;
-    Crontab *parent{};
+    Crontab *parent {};
 };
 
 class Variable
 {
 public:
     Variable(QString n, QString v, QString c)
-        : name(std::move(n))
-        , value(std::move(v))
-        , comment(std::move(c))
+        : name(std::move(n)),
+          value(std::move(v)),
+          comment(std::move(c))
     {
     }
     ~Variable() = default;
@@ -76,7 +75,10 @@ public:
 
     QString getCrontab(const QString &user);
     bool putCrontab(const QString &text);
-    bool putCrontab() { return putCrontab(cronText()); }
+    bool putCrontab()
+    {
+        return putCrontab(cronText());
+    }
 
     void setup(const QString &str);
     QString writeTempFile(const QString &text, const QString &tmp);
@@ -92,5 +94,3 @@ public:
     QList<Variable *> variables;
     QList<TCommand *> tCommands;
 };
-
-#endif

@@ -7,8 +7,7 @@
    as published by the Free Software Foundation; either version 2
    of the License, or (at your option) any later version.
 */
-#ifndef CRONTIME_H
-#define CRONTIME_H
+#pragma once
 
 #include <QBitArray>
 #include <QDateTime>
@@ -38,5 +37,3 @@ private:
     static QString toWeekLiteral(const QString &str);
     static QString toMonthLiteral(const QString &str);
 };
-
-#endif

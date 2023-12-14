@@ -7,8 +7,7 @@
    as published by the Free Software Foundation; either version 2
    of the License, or (at your option) any later version.
 */
-#ifndef EXECUTEMODEL_H
-#define EXECUTEMODEL_H
+#pragma once
 
 #include <QAbstractItemModel>
 
@@ -20,8 +19,8 @@ class ExecuteModel : public QAbstractItemModel
 
 public:
     explicit ExecuteModel(QList<Execute *> *exe, QObject *parent = nullptr)
-        : QAbstractItemModel(parent)
-        , executes(exe)
+        : QAbstractItemModel(parent),
+          executes(exe)
     {
     }
 
@@ -32,10 +31,22 @@ public:
     void doSort();
 
 private:
-    [[nodiscard]] Qt::ItemFlags flags(const QModelIndex & /*index*/) const override { return Qt::ItemIsSelectable | Qt::ItemIsEnabled; }
-    [[nodiscard]] QModelIndex parent(const QModelIndex & /*child*/) const override { return {}; }
-    [[nodiscard]] int columnCount(const QModelIndex & /*parent*/) const override { return 5; }
-    [[nodiscard]] int rowCount(const QModelIndex &parent) const override { return (parent.isValid() ? 0 : executes->count()); }
+    [[nodiscard]] Qt::ItemFlags flags(const QModelIndex & /*index*/) const override
+    {
+        return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+    }
+    [[nodiscard]] QModelIndex parent(const QModelIndex & /*child*/) const override
+    {
+        return {};
+    }
+    [[nodiscard]] int columnCount(const QModelIndex & /*parent*/) const override
+    {
+        return 5;
+    }
+    [[nodiscard]] int rowCount(const QModelIndex &parent) const override
+    {
+        return (parent.isValid() ? 0 : executes->count());
+    }
     [[nodiscard]] QModelIndex index(int row, int column, const QModelIndex & /*parent*/) const override
     {
         return createIndex(row, column, (*executes).at(row));
@@ -46,8 +57,6 @@ private:
     void sort(int column, Qt::SortOrder order = Qt::AscendingOrder) override;
 
     QList<Execute *> *executes;
-    int sortColumn{0};
-    Qt::SortOrder sortOrder{Qt::AscendingOrder};
+    int sortColumn {0};
+    Qt::SortOrder sortOrder {Qt::AscendingOrder};
 };
-
-#endif

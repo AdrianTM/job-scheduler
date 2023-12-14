@@ -7,8 +7,7 @@
    as published by the Free Software Foundation; either version 2
    of the License, or (at your option) any later version.
 */
-#ifndef CCOMMANDEDIT_H
-#define CCOMMANDEDIT_H
+#pragma once
 
 #include <QTimer>
 #include <QWidget>
@@ -54,5 +53,3 @@ private:
     TCommand *tCommand {};
     QTimer timer;
 };
-
-#endif
