@@ -15,7 +15,8 @@
 #include "Crontab.h"
 #include "VariableModel.h"
 
-VariableView::VariableView(VariableModel *model)
+VariableView::VariableView(VariableModel *model, QWidget *parent)
+    : QTreeView(parent)
 {
     variableModel = model;
     setModel(variableModel);

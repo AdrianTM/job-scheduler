@@ -23,7 +23,7 @@ class ExecuteList : public QWidget
     Q_OBJECT
 
 public:
-    ExecuteList(int maxN, int maxD, QList<Crontab *> *cron);
+    ExecuteList(int maxN, int maxD, QList<Crontab *> *cron, QWidget *parent = nullptr);
 
     QList<Execute *> executes;
 

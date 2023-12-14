@@ -19,7 +19,7 @@ class VariableView : public QTreeView
 {
     Q_OBJECT
 public:
-    explicit VariableView(VariableModel *model);
+    explicit VariableView(VariableModel *model, QWidget *parent = nullptr);
     void resetView();
     void varDataChanged();
     void insertVariable();

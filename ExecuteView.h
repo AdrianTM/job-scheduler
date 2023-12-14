@@ -19,7 +19,7 @@ class ExecuteView : public QTreeView
 {
     Q_OBJECT
 public:
-    explicit ExecuteView(ExecuteModel *model);
+    explicit ExecuteView(ExecuteModel *model, QWidget *parent = nullptr);
     void resetView();
     void hideUser(bool flag)
     {

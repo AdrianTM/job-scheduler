@@ -32,7 +32,8 @@
 #include "Version.h"
 #include "about.h"
 
-MainWindow::MainWindow()
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
 {
     readSettings();
     createActions();
