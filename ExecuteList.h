@@ -7,8 +7,7 @@
    as published by the Free Software Foundation; either version 2
    of the License, or (at your option) any later version.
 */
-#ifndef EXECUTELIST_H
-#define EXECUTELIST_H
+#pragma once
 
 #include <QWidget>
 
@@ -48,5 +47,3 @@ private:
     Crontab *curCrontab;
     TCommand *curTCommand;
 };
-
-#endif

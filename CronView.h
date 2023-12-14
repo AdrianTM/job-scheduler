@@ -7,8 +7,7 @@
    as published by the Free Software Foundation; either version 2
    of the License, or (at your option) any later version.
 */
-#ifndef CRONVIEW_H
-#define CRONVIEW_H
+#pragma once
 
 #include <QTreeView>
 
@@ -25,7 +24,10 @@ public:
     explicit CronView(CronModel *model);
 
     void resetView();
-    void hideUser(bool flag = true) { setColumnHidden(1, flag); }
+    void hideUser(bool flag = true)
+    {
+        setColumnHidden(1, flag);
+    }
     Crontab *getCurrentCrontab();
     TCommand *getCurrentTCommand();
 
@@ -57,5 +59,3 @@ private:
     TCommand *pasteData;
     CronModel *cronModel;
 };
-
-#endif

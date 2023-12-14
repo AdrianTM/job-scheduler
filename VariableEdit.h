@@ -7,8 +7,7 @@
    as published by the Free Software Foundation; either version 2
    of the License, or (at your option) any later version.
 */
-#ifndef VARIABLEEDIT_H
-#define VARIABLEEDIT_H
+#pragma once
 
 #include <QWidget>
 
@@ -69,5 +68,3 @@ private:
     Variable *variable {};
     VariableModel *variableModel;
 };
-
-#endif

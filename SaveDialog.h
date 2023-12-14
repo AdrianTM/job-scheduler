@@ -7,8 +7,7 @@
    as published by the Free Software Foundation; either version 2
    of the License, or (at your option) any later version.
 */
-#ifndef SAVEDIALOG_H
-#define SAVEDIALOG_H
+#pragma once
 
 #include <QDialog>
 #include <QString>
@@ -22,10 +21,11 @@ class SaveDialog : public QDialog
 
 public:
     SaveDialog(const QString &user, const QString &text);
-    QString getText() { return cronText->toPlainText(); }
+    QString getText()
+    {
+        return cronText->toPlainText();
+    }
 
 private:
     QTextEdit *cronText;
 };
-
-#endif

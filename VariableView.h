@@ -7,8 +7,7 @@
    as published by the Free Software Foundation; either version 2
    of the License, or (at your option) any later version.
 */
-#ifndef VARIABLEVIEW_H
-#define VARIABLEVIEW_H
+#pragma once
 
 #include <QTreeView>
 
@@ -37,4 +36,3 @@ signals:
 private:
     void scrollTo(const QModelIndex & /*index*/, ScrollHint /*hint*/) override;
 };
-#endif

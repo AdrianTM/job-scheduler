@@ -7,8 +7,7 @@
    as published by the Free Software Foundation; either version 2
    of the License, or (at your option) any later version.
 */
-#ifndef EXECUTE_H
-#define EXECUTE_H
+#pragma once
 
 #include <QString>
 #include <utility>
@@ -19,10 +18,10 @@ class Execute
 {
 public:
     Execute(TCommand *cd, QString dt, int fl = 0, int sl = 0)
-        : tCommands(cd)
-        , exeTime(std::move(dt))
-        , flag(fl)
-        , sel(sl)
+        : tCommands(cd),
+          exeTime(std::move(dt)),
+          flag(fl),
+          sel(sl)
     {
     }
 
@@ -33,4 +32,3 @@ public:
     int flag; // 0:Normal, -1:Time format error,
     int sel;  // 1:Selecting(Cron) 2:Selecting(Command)
 };
-#endif

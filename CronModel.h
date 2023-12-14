@@ -7,8 +7,7 @@
    as published by the Free Software Foundation; either version 2
    of the License, or (at your option) any later version.
 */
-#ifndef CRONMODEL_H
-#define CRONMODEL_H
+#pragma once
 
 #include <QAbstractItemModel>
 
@@ -21,8 +20,8 @@ class CronModel : public QAbstractItemModel
 
 public:
     explicit CronModel(QList<Crontab *> *cron, QObject *parent = nullptr)
-        : QAbstractItemModel(parent)
-        , crontabs(cron)
+        : QAbstractItemModel(parent),
+          crontabs(cron)
     {
     }
     ~CronModel() override = default;
@@ -31,27 +30,32 @@ public:
     [[nodiscard]] Qt::ItemFlags flags(const QModelIndex & /*index*/) const override;
     [[nodiscard]] QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
     [[nodiscard]] int rowCount(const QModelIndex &parent) const override;
-    [[nodiscard]] int columnCount(const QModelIndex & /*parent*/) const override { return 4; }
+    [[nodiscard]] int columnCount(const QModelIndex & /*parent*/) const override
+    {
+        return 4;
+    }
     [[nodiscard]] QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
     [[nodiscard]] QVariant data(const QModelIndex &idx, int role) const override;
     [[nodiscard]] QModelIndex parent(const QModelIndex &index) const override;
-    bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) override;
+    bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column,
+                      const QModelIndex &parent) override;
 
     void tCommandChanged(const QModelIndex &idx);
     void dragTCommand(const QModelIndex &idx);
     QModelIndex removeCComand(const QModelIndex &idx);
     QModelIndex insertTCommand(const QModelIndex &idx, TCommand *cmnd);
     QModelIndex searchTCommand(TCommand *cmnd) const;
-    [[nodiscard]] inline bool isOneUser() const { return (crontabs->count() == 1); }
+    [[nodiscard]] inline bool isOneUser() const
+    {
+        return (crontabs->count() == 1);
+    }
     [[nodiscard]] TCommand *getTCommand(const QModelIndex &idx) const;
     [[nodiscard]] Crontab *getCrontab(const QModelIndex &idx) const;
 
 private:
     QList<Crontab *> *crontabs;
-    TCommand *drag{};
+    TCommand *drag {};
 
 signals:
     void moveTCommand(TCommand *cmd);
 };
-
-#endif
