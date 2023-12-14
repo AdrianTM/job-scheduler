@@ -15,8 +15,9 @@
 #include "Execute.h"
 #include "ExecuteModel.h"
 
-ExecuteView::ExecuteView(ExecuteModel *model)
-    : executeModel(model)
+ExecuteView::ExecuteView(ExecuteModel *model, QWidget *parent)
+    : QTreeView(parent),
+      executeModel(model)
 {
     setModel(executeModel);
 

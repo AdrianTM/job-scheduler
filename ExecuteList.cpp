@@ -20,8 +20,9 @@
 #include "ExecuteModel.h"
 #include "ExecuteView.h"
 
-ExecuteList::ExecuteList(int maxN, int maxD, QList<Crontab *> *cron)
-    : maxNum(maxN),
+ExecuteList::ExecuteList(int maxN, int maxD, QList<Crontab *> *cron, QWidget *parent)
+    : QWidget(parent),
+      maxNum(maxN),
       maxDate(maxD),
       crontabs(cron)
 {

@@ -21,7 +21,7 @@ class CronView : public QTreeView
     Q_OBJECT
 
 public:
-    explicit CronView(CronModel *model);
+    explicit CronView(CronModel *model, QWidget *parent = nullptr);
 
     void resetView();
     void hideUser(bool flag = true)

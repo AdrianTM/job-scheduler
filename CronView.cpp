@@ -26,7 +26,8 @@ void dumpIndex(const QModelIndex &idx, const QString &h)
     }
 }
 
-CronView::CronView(CronModel *model)
+CronView::CronView(CronModel *model, QWidget *parent)
+    : QTreeView(parent)
 {
     cronModel = model;
     pasteData = nullptr;

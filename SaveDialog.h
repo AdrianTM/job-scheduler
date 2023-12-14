@@ -20,7 +20,7 @@ class SaveDialog : public QDialog
     Q_OBJECT
 
 public:
-    SaveDialog(const QString &user, const QString &text);
+    SaveDialog(const QString &user, const QString &text, QWidget *parent = nullptr);
     QString getText()
     {
         return cronText->toPlainText();
