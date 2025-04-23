@@ -240,7 +240,7 @@ QString CronTime::toString(const QBitArray &bit, int start)
     }
 
     QString ret;
-    for (const QString &s : qAsConst(lst)) {
+    for (const QString &s : std::as_const(lst)) {
         if (!ret.isEmpty()) {
             ret += ',';
         }
