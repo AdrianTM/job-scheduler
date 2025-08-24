@@ -29,7 +29,7 @@
 #include "SaveDialog.h"
 #include "TCommandEdit.h"
 #include "VariableEdit.h"
-#include "Version.h"
+
 #include "about.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -342,7 +342,7 @@ void MainWindow::AboutJobScheduler()
 {
     hide();
     displayAboutMsgBox(tr("About Job Scheduler"),
-                       tr("<b>Job Scheduler</b>") + " - " + tr("Version: %1").arg(VERSION) + "<p>"
+                       tr("<b>Job Scheduler</b>") + " - " + tr("Version: %1").arg(QString(VERSION)) + "<p>"
                            + tr("Job Scheduler is based upon qroneko 0.5.4, released in 2005 by korewaisai (<a "
                                 "href=\"mailto:korewaisai@yahoo.co.jp\">korewaisai@yahoo.co.jp</a>)")
                            + "<p>"
