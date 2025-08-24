@@ -197,7 +197,11 @@ TimeDialog::TimeDialog(QString time, QWidget *parent)
             &TimeDialog::weekButtonClicked);
     connect(simpleBGroup, qOverload<QAbstractButton *>(&QButtonGroup::buttonClicked), this,
             &TimeDialog::simpleButtonClicked);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
+    connect(litCheckBox, &QCheckBox::checkStateChanged, this, &TimeDialog::litCheckBoxChanged);
+#else
     connect(litCheckBox, &QCheckBox::stateChanged, this, &TimeDialog::litCheckBoxChanged);
+#endif
     connect(resetButton, &QPushButton::clicked, this, &TimeDialog::resetClicked);
     connect(okButton, &QPushButton::clicked, this, &TimeDialog::accept);
     connect(cancelButton, &QPushButton::clicked, this, &TimeDialog::reject);
