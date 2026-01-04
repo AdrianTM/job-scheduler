@@ -142,21 +142,21 @@ void CronView::newTCommand()
         u = cron->cronOwner;
     }
 
-    auto *cmnd = new TCommand(QStringLiteral("0 * * * *"), u, QLatin1String(""), QLatin1String(""), cron);
-    insertTCommand(cmnd);
+    auto cmnd = std::make_unique<TCommand>(QStringLiteral("0 * * * *"), u, QLatin1String(""), QLatin1String(""), cron);
+    insertTCommand(cmnd.release());
 }
 
 void CronView::pasteTCommand()
 {
     auto *cron = getCurrentCrontab();
-    auto *cmnd = new TCommand;
+    auto cmnd = std::make_unique<TCommand>();
     *cmnd = *pasteData;
     if (cron->cronOwner != QLatin1String("/etc/crontab")) {
         cmnd->user = cron->cronOwner;
     }
 
     cmnd->parent = cron;
-    insertTCommand(cmnd);
+    insertTCommand(cmnd.release());
 }
 
 void CronView::changeCurrent(TCommand *cmnd)
