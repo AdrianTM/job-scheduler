@@ -7,6 +7,8 @@
    as published by the Free Software Foundation; either version 2
    of the License, or (at your option) any later version.
 */
+#include <memory>
+
 #include "CronModel.h"
 #include "Crontab.h"
 
@@ -331,7 +333,7 @@ bool CronModel::dropMimeData(const QMimeData * /*data*/, Qt::DropAction /*action
         return false;
     }
 
-    auto *t = new TCommand();
+    auto t = std::make_unique<TCommand>();
     *t = *drag;
     Crontab *c = getCrontab(ins);
     if (c->cronOwner != QLatin1String("/etc/crontab")) {
@@ -339,7 +341,8 @@ bool CronModel::dropMimeData(const QMimeData * /*data*/, Qt::DropAction /*action
     }
     t->parent = c;
 
-    insertTCommand(ins, t);
+    insertTCommand(ins, t.get());
+    t.release();
 
     QModelIndex del = searchTCommand(drag);
     removeCComand(del);
