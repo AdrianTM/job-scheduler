@@ -31,16 +31,16 @@ SaveDialog::SaveDialog(const QString &user, const QString &text, QWidget *parent
     {
         mainLayout->addLayout((h = new QHBoxLayout));
         {
-            h->addWidget(new QLabel(tr("User:")));
-            h->addWidget((userLabel = new QLabel(label)));
+            h->addWidget(new QLabel(tr("User:"), this));
+            h->addWidget((userLabel = new QLabel(label, this)));
             h->addStretch();
         }
-        mainLayout->addWidget(cronText = new QTextEdit());
+        mainLayout->addWidget(cronText = new QTextEdit(this));
         mainLayout->addLayout((h = new QHBoxLayout));
         {
             h->addStretch();
-            h->addWidget((okButton = new QPushButton(tr("&OK"))));
-            h->addWidget((cancelButton = new QPushButton(tr("&Cancel"))));
+            h->addWidget((okButton = new QPushButton(tr("&OK"), this)));
+            h->addWidget((cancelButton = new QPushButton(tr("&Cancel"), this)));
         }
     }
     userLabel->setFrameStyle(QFrame::Panel | QFrame::Sunken);

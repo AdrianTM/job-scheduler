@@ -43,29 +43,23 @@ MainWindow::MainWindow(QWidget *parent)
 
     //	statusBar();
 
-    auto *cronModel = new CronModel(&crontabs);
-    cronView = new CronView(cronModel);
-    auto *tCommandEdit = new TCommandEdit();
-    auto *variableEdit = new VariableEdit();
-    executeList = new ExecuteList(exeMaxNum, exeMaxDate, &crontabs);
+    auto *cronModel = new CronModel(&crontabs, this);
+    auto *spl = new QSplitter(this);
+    cronView = new CronView(cronModel, spl);
+    auto *tab = new QTabWidget(spl);
+    auto *tCommandEdit = new TCommandEdit(tab);
+    auto *variableEdit = new VariableEdit(tab);
+    executeList = new ExecuteList(exeMaxNum, exeMaxDate, &crontabs, tab);
 
-    auto *tab = new QTabWidget;
-    {
-        tab->addTab(tCommandEdit, QIcon::fromTheme(QStringLiteral("edit-symbolic"), QIcon(":/images/edit_small.png")),
-                    tr("&Command"));
-        tab->addTab(variableEdit,
-                    QIcon::fromTheme(QStringLiteral("edit-tag-symbolic"), QIcon(":/images/edit_small.png")),
-                    tr("&Variables"));
-        tab->addTab(executeList,
-                    QIcon::fromTheme(QStringLiteral("view-list-symbolic"), QIcon(":/images/view_text.png")),
-                    tr("&Job List"));
-    }
+    tab->addTab(tCommandEdit, QIcon::fromTheme(QStringLiteral("edit-symbolic"), QIcon(":/images/edit_small.png")),
+                tr("&Command"));
+    tab->addTab(variableEdit, QIcon::fromTheme(QStringLiteral("edit-tag-symbolic"), QIcon(":/images/edit_small.png")),
+                tr("&Variables"));
+    tab->addTab(executeList, QIcon::fromTheme(QStringLiteral("view-list-symbolic"), QIcon(":/images/view_text.png")),
+                tr("&Job List"));
 
-    auto *spl = new QSplitter;
-    {
-        spl->addWidget(cronView);
-        spl->addWidget(tab);
-    }
+    spl->addWidget(cronView);
+    spl->addWidget(tab);
 
     connect(cronView, &CronView::viewSelected, this, &MainWindow::changeCurrent);
     connect(cronView, &CronView::viewSelected, tCommandEdit, &TCommandEdit::changeCurrent);

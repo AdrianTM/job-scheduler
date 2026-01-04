@@ -75,14 +75,14 @@ TimeDialog::TimeDialog(QString time, QWidget *parent)
     {
         mainLayout->addLayout((h = new QHBoxLayout)); // time text
         {
-            h->addWidget(new QLabel(tr("time")));
-            h->addWidget((timeEdit = new QLineEdit()));
+            h->addWidget(new QLabel(tr("time"), this));
+            h->addWidget((timeEdit = new QLineEdit(this)));
         }
         mainLayout->addLayout((h = new QHBoxLayout)); // minutes, hour, day
         {
-            h->addWidget((b = new QGroupBox(tr("Minute"))));
+            h->addWidget((b = new QGroupBox(tr("Minute"), this)));
             b->setLayout((g = new QGridLayout()));
-            minuteBGroup = new QButtonGroup();
+            minuteBGroup = new QButtonGroup(this);
             minuteBGroup->setExclusive(false);
             {
                 g->setSpacing(0);
@@ -92,28 +92,28 @@ TimeDialog::TimeDialog(QString time, QWidget *parent)
                     minuteBGroup->addButton(btn);
                 }
             }
-            h->addWidget((b = new QGroupBox(tr("Hour"))));
+            h->addWidget((b = new QGroupBox(tr("Hour"), this)));
             b->setLayout((g = new QGridLayout()));
-            hourBGroup = new QButtonGroup();
+            hourBGroup = new QButtonGroup(this);
             hourBGroup->setExclusive(false);
             {
                 g->setSpacing(0);
-                g->addWidget(new QLabel(tr("AM ")), 0, 0, 1, 6, Qt::AlignRight);
+                g->addWidget(new QLabel(tr("AM "), this), 0, 0, 1, 6, Qt::AlignRight);
                 for (int i : std::views::iota(0, JobScheduler::HOURS_PER_DAY / 2)) {
                     QPushButton *btn = new TimeButton(i);
                     g->addWidget(btn, i / 6 + 1, i % 6, 1, 1);
                     hourBGroup->addButton(btn);
                 }
-                g->addWidget(new QLabel(tr("PM ")), 3, 0, 1, 6, Qt::AlignRight);
+                g->addWidget(new QLabel(tr("PM "), this), 3, 0, 1, 6, Qt::AlignRight);
                 for (int i : std::views::iota(JobScheduler::HOURS_PER_DAY / 2, JobScheduler::HOURS_PER_DAY)) {
                     QPushButton *btn = new TimeButton(i);
                     g->addWidget(btn, i / 6 + 2, i % 6, 1, 1);
                     hourBGroup->addButton(btn);
                 }
             }
-            h->addWidget((b = new QGroupBox(tr("Day"))));
+            h->addWidget((b = new QGroupBox(tr("Day"), this)));
             b->setLayout((g = new QGridLayout()));
-            dayBGroup = new QButtonGroup();
+            dayBGroup = new QButtonGroup(this);
             dayBGroup->setExclusive(false);
             {
                 g->setSpacing(0);
@@ -126,9 +126,9 @@ TimeDialog::TimeDialog(QString time, QWidget *parent)
         }
         mainLayout->addLayout((h = new QHBoxLayout)); // month, week, Simple
         {
-            h->addWidget((b = new QGroupBox(tr("Month"))));
+            h->addWidget((b = new QGroupBox(tr("Month"), this)));
             b->setLayout((g = new QGridLayout()));
-            monthBGroup = new QButtonGroup();
+            monthBGroup = new QButtonGroup(this);
             monthBGroup->setExclusive(false);
             {
                 g->setColumnMinimumWidth(0, JobScheduler::MONTH_BUTTON_COLUMN_WIDTH);
@@ -140,9 +140,9 @@ TimeDialog::TimeDialog(QString time, QWidget *parent)
                     monthBGroup->addButton(btn);
                 }
             }
-            h->addWidget((b = new QGroupBox(tr("Week"))));
+            h->addWidget((b = new QGroupBox(tr("Week"), this)));
             b->setLayout((v = new QVBoxLayout()));
-            weekBGroup = new QButtonGroup();
+            weekBGroup = new QButtonGroup(this);
             weekBGroup->setExclusive(false);
             {
                 for (int i : std::views::iota(0, JobScheduler::DAYS_PER_WEEK)) {
@@ -152,9 +152,9 @@ TimeDialog::TimeDialog(QString time, QWidget *parent)
                     weekBGroup->addButton(btn);
                 }
             }
-            h->addWidget((b = new QGroupBox(tr("Simple"))));
+            h->addWidget((b = new QGroupBox(tr("Simple"), this)));
             b->setLayout((v = new QVBoxLayout()));
-            simpleBGroup = new QButtonGroup();
+            simpleBGroup = new QButtonGroup(this);
             simpleBGroup->setExclusive(false);
             {
                 for (int i : std::views::iota(0, 6)) {
@@ -166,11 +166,11 @@ TimeDialog::TimeDialog(QString time, QWidget *parent)
             h->addLayout((v = new QVBoxLayout));
             {
                 v->addStretch();
-                v->addWidget((litCheckBox = new QCheckBox(tr("Enable Literal"))));
+                v->addWidget((litCheckBox = new QCheckBox(tr("Enable Literal"), this)));
                 v->addStretch();
-                v->addWidget((resetButton = new QPushButton(tr("&Reset"))));
-                v->addWidget((cancelButton = new QPushButton(tr("&Cancel"))));
-                v->addWidget((okButton = new QPushButton(tr("&Ok"))));
+                v->addWidget((resetButton = new QPushButton(tr("&Reset"), this)));
+                v->addWidget((cancelButton = new QPushButton(tr("&Cancel"), this)));
+                v->addWidget((okButton = new QPushButton(tr("&Ok"), this)));
             }
         }
     }

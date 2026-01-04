@@ -32,24 +32,24 @@ ExecuteList::ExecuteList(int maxN, int maxD, std::vector<std::unique_ptr<Crontab
     executeModel = new ExecuteModel(&executes, this);
     QHBoxLayout *h = nullptr;
     QPushButton *resetButton = nullptr;
-    auto *numSpinBox = new QSpinBox;
-    auto *dateSpinBox = new QSpinBox;
+    auto *numSpinBox = new QSpinBox(this);
+    auto *dateSpinBox = new QSpinBox(this);
 
     auto *mainLayout = new QVBoxLayout;
     {
-        mainLayout->addWidget(executeView = new ExecuteView(executeModel));
+        mainLayout->addWidget(executeView = new ExecuteView(executeModel, this));
         mainLayout->addLayout((h = new QHBoxLayout));
         {
-            h->addWidget(new QLabel(tr("Max Item")));
+            h->addWidget(new QLabel(tr("Max Item"), this));
             h->addWidget(numSpinBox);
-            h->addWidget(new QLabel(tr("Max Date")));
+            h->addWidget(new QLabel(tr("Max Date"), this));
             h->addWidget(dateSpinBox);
-            h->addWidget(new QLabel(tr("Select")));
-            h->addWidget(countLabel = new QLabel(QLatin1String("")));
+            h->addWidget(new QLabel(tr("Select"), this));
+            h->addWidget(countLabel = new QLabel(QLatin1String(""), this));
             h->addStretch();
             h->addWidget(resetButton
                          = new QPushButton(QIcon::fromTheme(QStringLiteral("undo"), QIcon(":/images/undo_small.png")),
-                                           tr("&Update")));
+                                           tr("&Update"), this));
         }
     }
     //	mainLayout->setMargin(0);

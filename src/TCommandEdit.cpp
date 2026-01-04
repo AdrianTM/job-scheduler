@@ -40,37 +40,37 @@ TCommandEdit::TCommandEdit(QWidget *parent)
     {
         mainLayout->addLayout((h = new QHBoxLayout));
         {
-            h->addWidget(new QLabel(tr("User:")));
-            h->addWidget((userCombo = new QComboBox()));
-            h->addWidget((userLabel = new QLabel(QLatin1String(""))));
+            h->addWidget(new QLabel(tr("User:"), this));
+            h->addWidget((userCombo = new QComboBox(this)));
+            h->addWidget((userLabel = new QLabel(QLatin1String(""), this)));
             h->addStretch();
         }
         mainLayout->addSpacing(5);
         mainLayout->addLayout((h = new QHBoxLayout));
         {
-            h->addWidget(new QLabel(tr("Time:")));
-            h->addWidget((timeEdit = new QLineEdit()));
+            h->addWidget(new QLabel(tr("Time:"), this));
+            h->addWidget((timeEdit = new QLineEdit(this)));
             h->addWidget((timeButton = new QPushButton(
                               QIcon::fromTheme(QStringLiteral("edit-symbolic"), QIcon(":/images/edit_small.png")),
-                              tr("Time String E&ditor"))));
+                              tr("Time String E&ditor"), this)));
             timeButton->setMinimumSize(
                 QSize(JobScheduler::COMMAND_TIME_BUTTON_MIN_WIDTH, timeButton->maximumHeight()));
         }
         mainLayout->addSpacing(5);
-        mainLayout->addWidget(new QLabel(tr("Command:")));
+        mainLayout->addWidget(new QLabel(tr("Command:"), this));
         mainLayout->addLayout((h = new QHBoxLayout));
         {
-            h->addWidget((commandEdit = new QLineEdit()));
+            h->addWidget((commandEdit = new QLineEdit(this)));
         }
         mainLayout->addSpacing(5);
-        mainLayout->addWidget(new QLabel(tr("Comment:")));
-        mainLayout->addWidget((commentEdit = new QTextEdit()));
+        mainLayout->addWidget(new QLabel(tr("Comment:"), this));
+        mainLayout->addWidget((commentEdit = new QTextEdit(this)));
         mainLayout->addSpacing(5);
-        mainLayout->addWidget((exeBox = new QGroupBox(tr("Job Schedule:"))));
+        mainLayout->addWidget((exeBox = new QGroupBox(tr("Job Schedule:"), this)));
         {
             exeBox->setLayout((h = new QHBoxLayout));
             {
-                h->addWidget((exeLabel = new QLabel(QStringLiteral("\n\n\n\n\n\n\n"))));
+                h->addWidget((exeLabel = new QLabel(QStringLiteral("\n\n\n\n\n\n\n"), this)));
             }
         }
     }
