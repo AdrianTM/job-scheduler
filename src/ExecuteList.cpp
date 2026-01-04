@@ -29,7 +29,7 @@ ExecuteList::ExecuteList(int maxN, int maxD, std::vector<std::unique_ptr<Crontab
       maxDate(maxD),
       crontabs(cron)
 {
-    executeModel = new ExecuteModel(&executes);
+    executeModel = new ExecuteModel(&executes, this);
     QHBoxLayout *h = nullptr;
     QPushButton *resetButton = nullptr;
     auto *numSpinBox = new QSpinBox;

@@ -41,7 +41,7 @@ VariableEdit::VariableEdit(QWidget *parent)
     QHBoxLayout *h2 = nullptr;
     QVBoxLayout *v = nullptr;
 
-    variableModel = new VariableModel();
+    variableModel = new VariableModel(this);
 
     auto *mainLayout = new QVBoxLayout;
     {

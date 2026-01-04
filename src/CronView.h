@@ -9,6 +9,8 @@
 */
 #pragma once
 
+#include <memory>
+
 #include <QTreeView>
 
 class QPaintEvent;
@@ -57,6 +59,6 @@ signals:
 private:
     void scrollTo(const QModelIndex &idx, ScrollHint hint) override;
 
-    TCommand *pasteData;
+    std::unique_ptr<TCommand> pasteData;
     CronModel *cronModel;
 };

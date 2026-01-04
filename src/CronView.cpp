@@ -11,6 +11,7 @@
 
 #include <QScrollBar>
 #include <QtGui>
+#include <memory>
 #include <ranges>
 
 #include "CronModel.h"
@@ -44,10 +45,7 @@ CronView::CronView(CronModel *model, QWidget *parent)
     connect(cronModel, &CronModel::moveTCommand, this, &CronView::TCommandMoved);
 }
 
-CronView::~CronView()
-{
-    delete pasteData;
-}
+CronView::~CronView() = default;
 
 void CronView::resetView()
 {
@@ -121,8 +119,8 @@ void CronView::insertTCommand(TCommand *cmnd)
 
 void CronView::copyTCommand()
 {
-    if (pasteData == nullptr) {
-        pasteData = new TCommand();
+    if (!pasteData) {
+        pasteData = std::make_unique<TCommand>();
     }
     *pasteData = *getCurrentTCommand();
     emit pasted();
