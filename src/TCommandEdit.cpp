@@ -149,9 +149,9 @@ void TCommandEdit::setExecuteList(const QString &time)
                    .arg(sec / (60 * 60))
                    .arg((sec / 60) % 60, 2, 10, QChar('0'));
         if (dt.date() == today) {
-            str += " - " + tr("Today");
+            str += QStringLiteral(" - %1").arg(tr("Today"));
         } else if (dt.date() == tommorow) {
-            str += " - " + tr("Tomorrow");
+            str += QStringLiteral(" - %1").arg(tr("Tomorrow"));
         }
     }
     exeLabel->setText(str);

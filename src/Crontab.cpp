@@ -150,27 +150,27 @@ QString Crontab::cronText()
 
     if (!comment.isEmpty()) {
         QString s = comment;
-        ret += "# " + s.replace('\n', QLatin1String("\n# ")) + "\n\n";
+        ret += QStringLiteral("# %1\n\n").arg(s.replace('\n', QLatin1String("\n# ")));
     }
 
     for (Variable *v : std::as_const(variables)) {
         if (!v->comment.isEmpty()) {
-            ret += "# " + v->comment.replace('\n', QLatin1String("\n# ")) + '\n';
+            ret += QStringLiteral("# %1\n").arg(v->comment.replace('\n', QLatin1String("\n# ")));
         }
 
-        ret += v->name + "=" + v->value + '\n';
+        ret += QStringLiteral("%1=%2\n").arg(v->name, v->value);
     }
 
     ret += QLatin1String("\n");
     for (TCommand *c : std::as_const(tCommands)) {
         if (!c->comment.isEmpty()) {
-            ret += "# " + c->comment.replace('\n', QLatin1String("\n# ")) + '\n';
+            ret += QStringLiteral("# %1\n").arg(c->comment.replace('\n', QLatin1String("\n# ")));
         }
 
         if (cronOwner == QLatin1String("/etc/crontab")) {
-            ret += c->time + " " + c->user + " " + c->command + '\n';
+            ret += QStringLiteral("%1 %2 %3\n").arg(c->time, c->user, c->command);
         } else {
-            ret += c->time + " " + c->command + '\n';
+            ret += QStringLiteral("%1 %2\n").arg(c->time, c->command);
         }
     }
 
