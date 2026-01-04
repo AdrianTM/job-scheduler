@@ -138,7 +138,7 @@ QVariant CronModel::headerData(int section, Qt::Orientation orientation, int rol
     return {};
 }
 
-QModelIndex CronModel::removeCComand(const QModelIndex &idx)
+QModelIndex CronModel::removeCommand(const QModelIndex &idx)
 {
 
     if (!idx.isValid()) {
@@ -352,7 +352,7 @@ bool CronModel::dropMimeData(const QMimeData * /*data*/, Qt::DropAction /*action
     insertTCommand(ins, raw_ptr);
 
     QModelIndex del = searchTCommand(drag);
-    removeCComand(del);
+    removeCommand(del);
 
     drag = nullptr;
 

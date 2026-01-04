@@ -116,7 +116,7 @@ bool gtCommand(Execute *e1, Execute *e2)
 
 void ExecuteModel::doSort()
 {
-    bool (*cmp)(Execute * e1, Execute * e2) {nullptr};
+    bool (*cmp)(Execute *e1, Execute *e2) {nullptr};
     if (sortOrder == Qt::AscendingOrder) {
         switch (sortColumn) {
         case Col::ExeTime:

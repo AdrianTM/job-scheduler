@@ -45,7 +45,7 @@ public:
 
     void tCommandChanged(const QModelIndex &idx);
     void dragTCommand(const QModelIndex &idx);
-    QModelIndex removeCComand(const QModelIndex &idx);
+    QModelIndex removeCommand(const QModelIndex &idx);
     QModelIndex insertTCommand(const QModelIndex &idx, TCommand *cmnd);
     QModelIndex searchTCommand(TCommand *cmnd) const;
     [[nodiscard]] inline bool isOneUser() const

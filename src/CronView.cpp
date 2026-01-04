@@ -90,7 +90,7 @@ void CronView::removeTCommand()
 {
     QModelIndex index = currentIndex();
 
-    QModelIndex next = cronModel->removeCComand(index);
+    QModelIndex next = cronModel->removeCommand(index);
     if (next.isValid()) {
         setCurrentIndex(next);
     } else {
