@@ -135,7 +135,7 @@ bool Crontab::putCrontab(const QString &text)
             estr = "crontab update error\n\n" + err;
             return false;
         }
-        //		QFile::remove(fname);
+        QFile::remove(fname);
     }
 
     return true;
