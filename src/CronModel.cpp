@@ -327,8 +327,7 @@ bool CronModel::dropMimeData(const QMimeData * /*data*/, Qt::DropAction /*action
     }
     //	dumpIndex(ins, "CronModel::dropMimeData insert : ");
 
-    if (reinterpret_cast<uintptr_t>(getTCommand(ins)) == reinterpret_cast<uintptr_t>(drag)
-        || reinterpret_cast<uintptr_t>(getTCommand(next)) == reinterpret_cast<uintptr_t>(drag)) {
+    if (getTCommand(ins) == drag || getTCommand(next) == drag) {
         return false;
     }
 
