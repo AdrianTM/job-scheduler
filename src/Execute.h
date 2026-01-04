@@ -27,8 +27,8 @@ public:
 
     ~Execute() = default;
 
-    TCommand *tCommands;
-    QString exeTime;
-    int flag; // 0:Normal, -1:Time format error,
-    int sel;  // 1:Selecting(Cron) 2:Selecting(Command)
+    TCommand *tCommands = nullptr;
+    QString exeTime{};
+    int flag = 0; // 0:Normal, -1:Time format error,
+    int sel = 0;  // 1:Selecting(Cron) 2:Selecting(Command)
 };

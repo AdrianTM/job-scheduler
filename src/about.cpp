@@ -8,6 +8,7 @@
 #include <QTextEdit>
 #include <QVBoxLayout>
 
+#include "constants.h"
 
 #include <unistd.h>
 
@@ -60,8 +61,8 @@ void displayDoc(const QString &url, const QString &title)
 void displayAboutMsgBox(const QString &title, const QString &message, const QString &licence_url,
                         const QString &license_title)
 {
-    const auto width = 600;
-    const auto height = 500;
+    const auto width = JobScheduler::ABOUT_DIALOG_WIDTH;
+    const auto height = JobScheduler::ABOUT_DIALOG_HEIGHT;
     QMessageBox msgBox(QMessageBox::NoIcon, title, message);
     auto *btnLicense = msgBox.addButton(QObject::tr("License"), QMessageBox::HelpRole);
     auto *btnChangelog = msgBox.addButton(QObject::tr("Changelog"), QMessageBox::HelpRole);

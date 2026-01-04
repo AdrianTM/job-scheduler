@@ -87,12 +87,12 @@ public:
     static QString list2String(const QStringList &list);
     QString cronText();
 
-    QString estr;
+    QString estr{};
 
     // private:
-    QString cronOwner;
-    QString comment;
-    bool changed;
+    QString cronOwner{};
+    QString comment{};
+    bool changed = false;
     std::vector<std::unique_ptr<Variable>> variables;
     std::vector<std::unique_ptr<TCommand>> tCommands;
 };

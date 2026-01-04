@@ -22,6 +22,7 @@
 #include <utility>
 
 #include "CronTime.h"
+#include "constants.h"
 
 TimeButton::TimeButton(const QString &label, QWidget *parent)
     : QPushButton(label, parent)
@@ -85,7 +86,7 @@ TimeDialog::TimeDialog(QString time, QWidget *parent)
             minuteBGroup->setExclusive(false);
             {
                 g->setSpacing(0);
-                for (int i : std::views::iota(0, 60)) {
+                for (int i : std::views::iota(0, JobScheduler::MINUTES_PER_HOUR)) {
                     auto *btn = new TimeButton(i);
                     g->addWidget(btn, i / 10, i % 10, 1, 1);
                     minuteBGroup->addButton(btn);
@@ -98,13 +99,13 @@ TimeDialog::TimeDialog(QString time, QWidget *parent)
             {
                 g->setSpacing(0);
                 g->addWidget(new QLabel(tr("AM ")), 0, 0, 1, 6, Qt::AlignRight);
-                for (int i : std::views::iota(0, 12)) {
+                for (int i : std::views::iota(0, JobScheduler::HOURS_PER_DAY / 2)) {
                     QPushButton *btn = new TimeButton(i);
                     g->addWidget(btn, i / 6 + 1, i % 6, 1, 1);
                     hourBGroup->addButton(btn);
                 }
                 g->addWidget(new QLabel(tr("PM ")), 3, 0, 1, 6, Qt::AlignRight);
-                for (int i : std::views::iota(12, 24)) {
+                for (int i : std::views::iota(JobScheduler::HOURS_PER_DAY / 2, JobScheduler::HOURS_PER_DAY)) {
                     QPushButton *btn = new TimeButton(i);
                     g->addWidget(btn, i / 6 + 2, i % 6, 1, 1);
                     hourBGroup->addButton(btn);
@@ -116,9 +117,9 @@ TimeDialog::TimeDialog(QString time, QWidget *parent)
             dayBGroup->setExclusive(false);
             {
                 g->setSpacing(0);
-                for (int i : std::views::iota(0, 31)) {
+                for (int i : std::views::iota(0, JobScheduler::DAYS_PER_MONTH)) {
                     QPushButton *btn = new TimeButton(i + 1);
-                    g->addWidget(btn, i / 7, i % 7, 1, 1);
+                    g->addWidget(btn, i / JobScheduler::DAYS_PER_WEEK, i % JobScheduler::DAYS_PER_WEEK, 1, 1);
                     dayBGroup->addButton(btn);
                 }
             }
@@ -130,9 +131,9 @@ TimeDialog::TimeDialog(QString time, QWidget *parent)
             monthBGroup = new QButtonGroup();
             monthBGroup->setExclusive(false);
             {
-                g->setColumnMinimumWidth(0, 120);
-                g->setColumnMinimumWidth(1, 120);
-                for (int i : std::views::iota(0, 12)) {
+                g->setColumnMinimumWidth(0, JobScheduler::MONTH_BUTTON_COLUMN_WIDTH);
+                g->setColumnMinimumWidth(1, JobScheduler::MONTH_BUTTON_COLUMN_WIDTH);
+                for (int i : std::views::iota(0, JobScheduler::MONTHS_PER_YEAR)) {
                     QString str = QStringLiteral("%1(%2)").arg(MonthName.at(i)).arg(i + 1);
                     QPushButton *btn = new TimeButton(str);
                     g->addWidget(btn, i % 6, i / 6);
@@ -144,7 +145,7 @@ TimeDialog::TimeDialog(QString time, QWidget *parent)
             weekBGroup = new QButtonGroup();
             weekBGroup->setExclusive(false);
             {
-                for (int i : std::views::iota(0, 7)) {
+                for (int i : std::views::iota(0, JobScheduler::DAYS_PER_WEEK)) {
                     QString str = QStringLiteral("%1(%2)").arg(WeekName.at(i)).arg(i);
                     auto *btn = new TimeButton(str);
                     v->addWidget(btn);
