@@ -21,6 +21,7 @@
 #include "Execute.h"
 #include "ExecuteModel.h"
 #include "ExecuteView.h"
+#include "constants.h"
 
 ExecuteList::ExecuteList(int maxN, int maxD, std::vector<std::unique_ptr<Crontab>> *cron, QWidget *parent)
     : QWidget(parent),
@@ -54,10 +55,10 @@ ExecuteList::ExecuteList(int maxN, int maxD, std::vector<std::unique_ptr<Crontab
     //	mainLayout->setMargin(0);
     setLayout(mainLayout);
 
-    numSpinBox->setRange(1, 999);
-    numSpinBox->setSingleStep(10);
+    numSpinBox->setRange(JobScheduler::EXECUTE_LIST_MIN, JobScheduler::EXECUTE_LIST_MAX);
+    numSpinBox->setSingleStep(JobScheduler::EXECUTE_LIST_STEP);
     numSpinBox->setValue(maxNum);
-    dateSpinBox->setRange(1, 999);
+    dateSpinBox->setRange(JobScheduler::EXECUTE_LIST_MIN, JobScheduler::EXECUTE_LIST_MAX);
     dateSpinBox->setValue(maxDate);
     countLabel->setFrameStyle(QFrame::Panel | QFrame::Sunken);
 

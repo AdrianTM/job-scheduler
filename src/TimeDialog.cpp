@@ -33,7 +33,7 @@ TimeButton::TimeButton(int label, QWidget *parent)
     : QPushButton(parent)
 {
     setText(QString::number(label));
-    setFixedSize(27, 27);
+    setFixedSize(JobScheduler::TIME_BUTTON_SIZE, JobScheduler::TIME_BUTTON_SIZE);
     init();
 }
 void TimeButton::init()

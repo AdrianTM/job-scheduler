@@ -14,6 +14,7 @@
 #include <QPushButton>
 #include <QtGui>
 
+#include "constants.h"
 SaveDialog::SaveDialog(const QString &user, const QString &text, QWidget *parent)
     : QDialog(parent)
 {
@@ -51,5 +52,5 @@ SaveDialog::SaveDialog(const QString &user, const QString &text, QWidget *parent
     connect(okButton, &QPushButton::clicked, this, &SaveDialog::accept);
     connect(cancelButton, &QPushButton::clicked, this, &SaveDialog::reject);
 
-    resize(410, 500);
+    resize(JobScheduler::SAVE_DIALOG_WIDTH, JobScheduler::SAVE_DIALOG_HEIGHT);
 }

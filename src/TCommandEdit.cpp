@@ -23,6 +23,7 @@
 #include "CronTime.h"
 #include "Crontab.h"
 #include "TimeDialog.h"
+#include "constants.h"
 #include <chrono>
 
 using namespace std::chrono_literals;
@@ -52,7 +53,8 @@ TCommandEdit::TCommandEdit(QWidget *parent)
             h->addWidget((timeButton = new QPushButton(
                               QIcon::fromTheme(QStringLiteral("edit-symbolic"), QIcon(":/images/edit_small.png")),
                               tr("Time String E&ditor"))));
-            timeButton->setMinimumSize(QSize(150, timeButton->maximumHeight()));
+            timeButton->setMinimumSize(
+                QSize(JobScheduler::COMMAND_TIME_BUTTON_MIN_WIDTH, timeButton->maximumHeight()));
         }
         mainLayout->addSpacing(5);
         mainLayout->addWidget(new QLabel(tr("Command:")));

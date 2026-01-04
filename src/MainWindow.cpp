@@ -33,6 +33,7 @@
 #include "VariableEdit.h"
 
 #include "about.h"
+#include "constants.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -96,7 +97,7 @@ MainWindow::MainWindow(QWidget *parent)
     initCron();
 
     if (isMaximized()) {
-        resize(QSize(670, 480)); // reset size if started maximized
+        resize(QSize(JobScheduler::MAINWINDOW_DEFAULT_WIDTH, JobScheduler::MAINWINDOW_DEFAULT_HEIGHT));
     }
     cronView->resize(viewSize);
 
@@ -297,9 +298,12 @@ void MainWindow::changeCurrent(Crontab * /*unused*/, TCommand *cmnd)
 void MainWindow::readSettings()
 {
     settings.beginGroup(QStringLiteral("Main"));
-    exeMaxNum = settings.value(QStringLiteral("MaxListNum"), 100).toInt();
-    exeMaxDate = settings.value(QStringLiteral("MaxListDate"), 1).toInt();
-    viewSize = settings.value(QStringLiteral("ViewSize"), QSize(200, 460)).toSize();
+    exeMaxNum = settings.value(QStringLiteral("MaxListNum"), JobScheduler::MAINWINDOW_DEFAULT_MAX_LIST_NUM).toInt();
+    exeMaxDate = settings.value(QStringLiteral("MaxListDate"), JobScheduler::MAINWINDOW_DEFAULT_MAX_LIST_DATE).toInt();
+    viewSize = settings.value(QStringLiteral("ViewSize"),
+                              QSize(JobScheduler::MAINWINDOW_DEFAULT_VIEW_WIDTH,
+                                    JobScheduler::MAINWINDOW_DEFAULT_VIEW_HEIGHT))
+                   .toSize();
     restoreGeometry(settings.value(QStringLiteral("Geometry")).toByteArray());
     settings.endGroup();
 }
