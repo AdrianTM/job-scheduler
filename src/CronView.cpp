@@ -43,6 +43,11 @@ CronView::CronView(CronModel *model, QWidget *parent)
     connect(cronModel, &CronModel::moveTCommand, this, &CronView::TCommandMoved);
 }
 
+CronView::~CronView()
+{
+    delete pasteData;
+}
+
 void CronView::resetView()
 {
 
