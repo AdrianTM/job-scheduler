@@ -38,28 +38,28 @@ public:
     }
     [[nodiscard]] QModelIndex index(int row, int column, const QModelIndex & /*parent*/) const override
     {
-        return createIndex(row, column, (*variables)[row]);
+        return createIndex(row, column, (*variables)[row].get());
     }
     [[nodiscard]] int columnCount(const QModelIndex & /*parent*/) const override
     {
         return 3;
     }
-    void resetData(QList<Variable *> *var)
+    void resetData(std::vector<std::unique_ptr<Variable>> *var)
     {
         variables = var;
     }
     [[nodiscard]] int rowCount(const QModelIndex &parent) const override
     {
-        return (parent.isValid() ? 0 : variables->count());
+        return (parent.isValid() ? 0 : static_cast<int>(variables->size()));
     }
 
     void varDataChanged(const QModelIndex &idx);
     static Variable *getVariable(const QModelIndex &idx);
     bool removeVariable(int row);
-    bool insertVariable(int row, Variable *var);
+    bool insertVariable(int row, std::unique_ptr<Variable> var);
 
-    QList<Variable *> *variables;
-    QList<Variable *> dummy;
+    std::vector<std::unique_ptr<Variable>> *variables;
+    std::vector<std::unique_ptr<Variable>> dummy;
 
 private:
     [[nodiscard]] QVariant headerData(int section, Qt::Orientation orientation, int role) const override;

@@ -47,21 +47,20 @@ bool VariableModel::removeVariable(int row)
 {
     beginRemoveRows(QModelIndex(), row, row);
 
-    delete variables->at(row);
-    variables->removeAt(row);
+    variables->erase(variables->begin() + row);
 
     endRemoveRows();
     return true;
 }
 
-bool VariableModel::insertVariable(int row, Variable *var)
+bool VariableModel::insertVariable(int row, std::unique_ptr<Variable> var)
 {
     beginInsertRows(QModelIndex(), row, row);
 
-    if (variables->count() > 0) {
-        variables->insert(row, var);
+    if (!variables->empty()) {
+        variables->insert(variables->begin() + row, std::move(var));
     } else {
-        *variables << var;
+        variables->push_back(std::move(var));
     }
 
     endInsertRows();

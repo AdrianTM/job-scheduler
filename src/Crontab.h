@@ -11,7 +11,9 @@
 
 #include <QList>
 #include <QString>
+#include <memory>
 #include <utility>
+#include <vector>
 
 class Crontab;
 
@@ -91,6 +93,6 @@ public:
     QString cronOwner;
     QString comment;
     bool changed;
-    QList<Variable *> variables;
-    QList<TCommand *> tCommands;
+    std::vector<std::unique_ptr<Variable>> variables;
+    std::vector<std::unique_ptr<TCommand>> tCommands;
 };

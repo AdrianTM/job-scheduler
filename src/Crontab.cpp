@@ -26,15 +26,7 @@ Crontab::Crontab(const QString &user)
     }
 }
 
-Crontab::~Crontab()
-{
-    for (auto &c : tCommands) {
-        delete c;
-    }
-    for (auto &v : variables) {
-        delete v;
-    }
-}
+Crontab::~Crontab() = default;
 
 QString Crontab::getCrontab(const QString &user)
 {
@@ -153,7 +145,7 @@ QString Crontab::cronText()
         ret += QStringLiteral("# %1\n\n").arg(s.replace('\n', QLatin1String("\n# ")));
     }
 
-    for (Variable *v : std::as_const(variables)) {
+    for (const auto &v : std::as_const(variables)) {
         if (!v->comment.isEmpty()) {
             ret += QStringLiteral("# %1\n").arg(v->comment.replace('\n', QLatin1String("\n# ")));
         }
@@ -162,7 +154,7 @@ QString Crontab::cronText()
     }
 
     ret += QLatin1String("\n");
-    for (TCommand *c : std::as_const(tCommands)) {
+    for (const auto &c : std::as_const(tCommands)) {
         if (!c->comment.isEmpty()) {
             ret += QStringLiteral("# %1\n").arg(c->comment.replace('\n', QLatin1String("\n# ")));
         }
@@ -224,7 +216,7 @@ void Crontab::setup(const QString &str)
                 QRegularExpression sep(QStringLiteral("\\s*=\\s*"));
                 QString name = s.section(sep, 0, 0);
                 QString val = s.section(sep, 1, 1);
-                variables << new Variable(name, val, list2String(cmnt));
+                variables.push_back(std::make_unique<Variable>(name, val, list2String(cmnt)));
             } else {
                 // Command
                 QRegularExpression sep(QStringLiteral("\\s+"));
@@ -244,7 +236,7 @@ void Crontab::setup(const QString &str)
                 }
 
                 QString cmnd = s.section(sep, n);
-                tCommands << new TCommand(time, user, cmnd, list2String(cmnt), this);
+                tCommands.push_back(std::make_unique<TCommand>(time, user, cmnd, list2String(cmnt), this));
             }
             cmnt.clear();
         }

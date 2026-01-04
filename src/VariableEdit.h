@@ -9,6 +9,9 @@
 */
 #pragma once
 
+#include <memory>
+#include <vector>
+
 #include <QWidget>
 
 class QVBoxLayout;
@@ -49,7 +52,7 @@ signals:
 
 private:
     void setMailVar(int flag);
-    void setMailCombo(const QList<Variable *> &var);
+    void setMailCombo(const std::vector<std::unique_ptr<Variable>> &var);
 
     QVBoxLayout *varInputLayout {};
     QTextEdit *commentEdit;

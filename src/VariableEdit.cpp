@@ -20,6 +20,9 @@
 #include <QTextEdit>
 #include <QtGui>
 
+#include <algorithm>
+#include <memory>
+
 #include "Clib.h"
 #include "Crontab.h"
 #include "VariableModel.h"
@@ -221,10 +224,10 @@ void VariableEdit::setMailVar(int flag)
     // 0 = On, 1 = Off, 2 = To, -1 = User activated
     int curFlag = 0;
     Variable *v = nullptr;
-    for (auto &var : crontab->variables) {
+    for (const auto &var : crontab->variables) {
         if (var->name == QLatin1String("MAILTO")) {
             curFlag = (var->value == QLatin1String("\"\"")) ? 1 : 2;
-            v = var;
+            v = var.get();
             break;
         }
     }
@@ -240,13 +243,16 @@ void VariableEdit::setMailVar(int flag)
     }
     if (flag == 0) {
         if (curFlag == 1 || curFlag == 2) {
-            int i = crontab->variables.indexOf(v);
-            crontab->variables.removeAt(i);
+            auto it = std::find_if(crontab->variables.begin(), crontab->variables.end(),
+                                   [v](const auto &item) { return item.get() == v; });
+            if (it != crontab->variables.end()) {
+                crontab->variables.erase(it);
+            }
         }
     } else if (flag == 1) {
         if (curFlag == 0) {
-            crontab->variables << new Variable(QStringLiteral("MAILTO"), QStringLiteral("\"\""),
-                                               QStringLiteral("Don't send mail to anyone"));
+            crontab->variables.push_back(std::make_unique<Variable>(QStringLiteral("MAILTO"), QStringLiteral("\"\""),
+                                               QStringLiteral("Don't send mail to anyone")));
         } else if (curFlag == 2) {
             v->value = QStringLiteral("\"\"");
             v->comment = QStringLiteral("Don't send mail to anyone");
@@ -255,7 +261,7 @@ void VariableEdit::setMailVar(int flag)
         QString u = userCombo->currentText();
         if (curFlag == 0) {
             QString c = "Send mail to \"" + u + "\"";
-            crontab->variables << new Variable(QStringLiteral("MAILTO"), u, c);
+            crontab->variables.push_back(std::make_unique<Variable>(QStringLiteral("MAILTO"), u, c));
         } else if (curFlag == 1) {
             v->value = u;
             v->comment = "Send mail to \"" + u + "\"";
@@ -272,7 +278,7 @@ void VariableEdit::setMailVar(int flag)
     emit dataChanged();
 }
 
-void VariableEdit::setMailCombo(const QList<Variable *> &var)
+void VariableEdit::setMailCombo(const std::vector<std::unique_ptr<Variable>> &var)
 {
     bool mvar = false;
     for (const auto &v : var) {

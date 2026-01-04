@@ -12,6 +12,8 @@
 #include <QScrollBar>
 #include <QtGui>
 
+#include <memory>
+
 #include "Crontab.h"
 #include "VariableModel.h"
 
@@ -59,7 +61,7 @@ void VariableView::varDataChanged()
 
 void VariableView::insertVariable()
 {
-    auto *v = new Variable(QStringLiteral("*"), QStringLiteral("*"), QLatin1String(""));
+    auto v = std::make_unique<Variable>(QStringLiteral("*"), QStringLiteral("*"), QLatin1String(""));
     QModelIndex index = currentIndex();
     int pos = 0;
     if (index.isValid()) {
@@ -67,7 +69,7 @@ void VariableView::insertVariable()
     } else {
         pos = 0;
     }
-    variableModel->insertVariable(pos, v);
+    variableModel->insertVariable(pos, std::move(v));
     setCurrentIndex(variableModel->index(pos, 0, QModelIndex()));
 }
 

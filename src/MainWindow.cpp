@@ -18,6 +18,7 @@
 #include <QProcess>
 #include <QSplitter>
 #include <QToolBar>
+#include <memory>
 
 #include "Clib.h"
 #include "CronModel.h"
@@ -203,11 +204,11 @@ void MainWindow::initCron()
 
     QString user = Clib::uName();
     auto *cron = new Crontab(user);
-    if (cron->tCommands.count() == 0 && cron->comment.isEmpty() && cron->variables.count() == 0) {
+    if (cron->tCommands.empty() && cron->comment.isEmpty() && cron->variables.empty()) {
         cron->comment = QLatin1String("");
-        cron->variables << new Variable(QStringLiteral("HOME"), Clib::uHome(), QStringLiteral("Home"));
-        cron->variables << new Variable(QStringLiteral("PATH"), Clib::getEnv("PATH"), QStringLiteral("Path"));
-        cron->variables << new Variable(QStringLiteral("SHELL"), Clib::uShell(), QStringLiteral("Shell"));
+        cron->variables.push_back(std::make_unique<Variable>(QStringLiteral("HOME"), Clib::uHome(), QStringLiteral("Home")));
+        cron->variables.push_back(std::make_unique<Variable>(QStringLiteral("PATH"), Clib::getEnv("PATH"), QStringLiteral("Path")));
+        cron->variables.push_back(std::make_unique<Variable>(QStringLiteral("SHELL"), Clib::uShell(), QStringLiteral("Shell")));
     }
     crontabs << cron;
     if (Clib::uId() == 0) {
@@ -219,7 +220,7 @@ void MainWindow::initCron()
             }
 
             cron = new Crontab(s);
-            if (cron->tCommands.count() == 0) {
+            if (cron->tCommands.empty()) {
                 delete cron;
             } else {
                 crontabs << cron;
