@@ -101,11 +101,11 @@ void ExecuteList::dataChanged()
         }
     }
     itemCount = 0;
-    if (cmnd.count() > 0) {
+    if (!cmnd.isEmpty()) {
         for (int i : std::views::iota(0, maxNum)) {
             int p = 0;
             QDateTime cur = date.at(0);
-            for (int j : std::views::iota(1, cmnd.count())) {
+            for (int j : std::views::iota(1, cmnd.size())) {
                 if (cur > date.at(j)) {
                     cur = date.at(j);
                     p = j;

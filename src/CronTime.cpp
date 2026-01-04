@@ -62,8 +62,8 @@ CronTime::CronTime(const QString &tstr)
     }
     QStringList slist = str.split(' ');
 
-    if (slist.count() != 5) {
-        qDebug() << "CronTime::CronTime Invalid Item count:" << slist.count();
+    if (slist.size() != 5) {
+        qDebug() << "CronTime::CronTime Invalid Item count:" << slist.size();
         return;
     }
     minute = toBit(0, 60, slist.at(0));

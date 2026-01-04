@@ -1,6 +1,7 @@
 #include "about.h"
 
 #include <QApplication>
+#include <QDialog>
 #include <QFileInfo>
 #include <QMessageBox>
 #include <QProcess>
@@ -73,28 +74,26 @@ void displayAboutMsgBox(const QString &title, const QString &message, const QStr
     if (msgBox.clickedButton() == btnLicense) {
         displayDoc(licence_url, license_title);
     } else if (msgBox.clickedButton() == btnChangelog) {
-        auto *changelog = new QDialog;
-        changelog->setWindowTitle(QObject::tr("Changelog"));
-        changelog->resize(width, height);
+        QDialog changelog;
+        changelog.setWindowTitle(QObject::tr("Changelog"));
+        changelog.resize(width, height);
 
-        auto *text = new QTextEdit(changelog);
-        text->setReadOnly(true);
+        QTextEdit text(&changelog);
+        text.setReadOnly(true);
         QProcess proc;
         proc.start(
             QStringLiteral("zless"),
             {"/usr/share/doc/" + QFileInfo(QCoreApplication::applicationFilePath()).fileName() + "/changelog.gz"});
         proc.waitForFinished();
-        text->setText(QString::fromLatin1(proc.readAllStandardOutput()));
+        text.setText(QString::fromLatin1(proc.readAllStandardOutput()));
 
-        auto *btnClose = new QPushButton(QObject::tr("&Close"), changelog);
-        btnClose->setIcon(QIcon::fromTheme(QStringLiteral("window-close")));
-        QObject::connect(btnClose, &QPushButton::clicked, changelog, &QDialog::close);
+        QPushButton btnClose(QObject::tr("&Close"), &changelog);
+        btnClose.setIcon(QIcon::fromTheme(QStringLiteral("window-close")));
+        QObject::connect(&btnClose, &QPushButton::clicked, &changelog, &QDialog::close);
 
-        auto *layout = new QVBoxLayout(changelog);
-        layout->addWidget(text);
-        layout->addWidget(btnClose);
-        changelog->setLayout(layout);
-        changelog->exec();
-        delete changelog;
+        QVBoxLayout layout(&changelog);
+        layout.addWidget(&text);
+        layout.addWidget(&btnClose);
+        changelog.exec();
     }
 }

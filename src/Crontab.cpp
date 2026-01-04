@@ -188,7 +188,7 @@ void Crontab::setup(const QString &str)
         s = s.simplified();
         if (s.isEmpty()) {
             if (headflag == 0) {
-                if (head.count() > 0) {
+                if (!head.isEmpty()) {
                     head << s;
                 }
                 head << cmnt;
