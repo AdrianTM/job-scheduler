@@ -27,10 +27,24 @@ void displayDoc(const QString &url, const QString &title)
         } else {
             QProcess proc;
             proc.start(QStringLiteral("logname"), {}, QIODevice::ReadOnly);
-            proc.waitForFinished();
+            if (!proc.waitForFinished()) {
+                qWarning() << "Failed to run logname";
+                return;
+            }
+            if (proc.exitCode() != 0) {
+                qWarning() << "logname exited with error";
+                return;
+            }
             QByteArray user = proc.readAllStandardOutput().trimmed();
             proc.start(QStringLiteral("id"), {"-u", user});
-            proc.waitForFinished();
+            if (!proc.waitForFinished()) {
+                qWarning() << "Failed to run id";
+                return;
+            }
+            if (proc.exitCode() != 0) {
+                qWarning() << "id exited with error";
+                return;
+            }
             QByteArray id = proc.readAllStandardOutput().trimmed();
 
             qunsetenv("KDE_FULL_SESSION");
