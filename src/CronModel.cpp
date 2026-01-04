@@ -46,12 +46,17 @@ QModelIndex CronModel::parent(const QModelIndex &index) const
         return {};
     }
 
-    if (crontabs->count() > 1) {
+    if (crontabs->size() > 1) {
         auto *t = static_cast<CronType *>(index.internalPointer());
         if (t->type == CronType::COMMAND) {
             auto *cmnd = static_cast<TCommand *>(t);
             Crontab *cron = cmnd->parent;
-            return createIndex(crontabs->indexOf(cron), 0, cron);
+            for (size_t i = 0; i < crontabs->size(); ++i) {
+                if ((*crontabs)[i].get() == cron) {
+                    return createIndex(static_cast<int>(i), 0, cron);
+                }
+            }
+            return {};
         }
     }
 
@@ -67,8 +72,8 @@ QModelIndex CronModel::index(int row, int column, const QModelIndex &parent) con
                 return createIndex(row, column, (*crontabs).at(0)->tCommands.at(row).get());
             }
         } else {
-            if (row >= 0 && row < crontabs->count()) {
-                return createIndex(row, column, (*crontabs).at(row));
+            if (row >= 0 && row < static_cast<int>(crontabs->size())) {
+                return createIndex(row, column, (*crontabs).at(row).get());
             }
         }
     } else {
@@ -109,7 +114,7 @@ int CronModel::rowCount(const QModelIndex &parent) const
         if (isOneUser()) {
             return static_cast<int>((*crontabs).at(0)->tCommands.size());
         } else {
-            return crontabs->count();
+            return static_cast<int>(crontabs->size());
         }
     }
 
@@ -155,7 +160,7 @@ QModelIndex CronModel::removeCComand(const QModelIndex &idx)
 
     beginRemoveRows(del, cmndPos, cmndPos);
 
-    auto &commands = crontabs->at(cronPos)->tCommands;
+    auto &commands = (*crontabs)[cronPos]->tCommands;
     commands.erase(commands.begin() + cmndPos);
 
     endRemoveRows();
@@ -204,7 +209,7 @@ QModelIndex CronModel::insertTCommand(const QModelIndex &idx, TCommand *cmnd)
 
     beginInsertRows(ins, cmndPos, cmndPos);
 
-    auto &commands = crontabs->at(cronPos)->tCommands;
+    auto &commands = (*crontabs)[cronPos]->tCommands;
     commands.insert(commands.begin() + cmndPos, std::unique_ptr<TCommand>(cmnd));
 
     endInsertRows();
@@ -239,12 +244,12 @@ TCommand *CronModel::getTCommand(const QModelIndex &idx) const
 
 Crontab *CronModel::getCrontab(const QModelIndex &idx) const
 {
-    if (!idx.isValid() && crontabs->count() == 0) {
+    if (!idx.isValid() && crontabs->empty()) {
         return nullptr;
     }
 
     if (isOneUser()) {
-        return (*crontabs)[0];
+        return (*crontabs)[0].get();
     }
 
     if (idx.parent().isValid()) {

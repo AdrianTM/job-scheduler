@@ -11,6 +11,9 @@
 
 #include <QAbstractItemModel>
 
+#include <memory>
+#include <vector>
+
 class Crontab;
 class TCommand;
 
@@ -19,7 +22,7 @@ class CronModel : public QAbstractItemModel
     Q_OBJECT
 
 public:
-    explicit CronModel(QList<Crontab *> *cron, QObject *parent = nullptr)
+    explicit CronModel(std::vector<std::unique_ptr<Crontab>> *cron, QObject *parent = nullptr)
         : QAbstractItemModel(parent),
           crontabs(cron)
     {
@@ -47,13 +50,13 @@ public:
     QModelIndex searchTCommand(TCommand *cmnd) const;
     [[nodiscard]] inline bool isOneUser() const
     {
-        return (crontabs->count() == 1);
+        return (crontabs->size() == 1);
     }
     [[nodiscard]] TCommand *getTCommand(const QModelIndex &idx) const;
     [[nodiscard]] Crontab *getCrontab(const QModelIndex &idx) const;
 
 private:
-    QList<Crontab *> *crontabs;
+    std::vector<std::unique_ptr<Crontab>> *crontabs;
     TCommand *drag {};
 
 signals:

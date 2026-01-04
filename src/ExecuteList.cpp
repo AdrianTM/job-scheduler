@@ -13,6 +13,7 @@
 #include <QPushButton>
 #include <QSpinBox>
 #include <QVBoxLayout>
+#include <memory>
 #include <ranges>
 
 #include "CronTime.h"
@@ -21,7 +22,7 @@
 #include "ExecuteModel.h"
 #include "ExecuteView.h"
 
-ExecuteList::ExecuteList(int maxN, int maxD, QList<Crontab *> *cron, QWidget *parent)
+ExecuteList::ExecuteList(int maxN, int maxD, std::vector<std::unique_ptr<Crontab>> *cron, QWidget *parent)
     : QWidget(parent),
       maxNum(maxN),
       maxDate(maxD),
@@ -68,6 +69,8 @@ ExecuteList::ExecuteList(int maxN, int maxD, QList<Crontab *> *cron, QWidget *pa
     curTCommand = nullptr;
 }
 
+ExecuteList::~ExecuteList() = default;
+
 void ExecuteList::dataChanged()
 {
 
@@ -78,9 +81,6 @@ void ExecuteList::dataChanged()
     QDateTime stopTime = QDateTime::currentDateTime().addDays(maxDate);
 
     executeView->clearSelection();
-    for (auto *e : std::as_const(executes)) {
-        delete e;
-    }
     executes.clear();
     QList<TCommand *> cmnd;
     QList<QDateTime> date;
@@ -93,10 +93,10 @@ void ExecuteList::dataChanged()
                     cmnd << cc.get();
                     date << next;
                 } else {
-                    executes << new Execute(cc.get(), QStringLiteral("No matching schedule"), -1);
+                    executes.push_back(std::make_unique<Execute>(cc.get(), QStringLiteral("No matching schedule"), -1));
                 }
             } else {
-                executes << new Execute(cc.get(), QStringLiteral("Time Format Error"), -1);
+                executes.push_back(std::make_unique<Execute>(cc.get(), QStringLiteral("Time Format Error"), -1));
             }
         }
     }
@@ -114,13 +114,13 @@ void ExecuteList::dataChanged()
             if (cur > stopTime) {
                 break;
             }
-            executes << new Execute(cmnd.at(p), cur.toString(QStringLiteral("yyyy-MM-dd(ddd) hh:mm")));
+            executes.push_back(std::make_unique<Execute>(cmnd.at(p), cur.toString(QStringLiteral("yyyy-MM-dd(ddd) hh:mm"))));
             itemCount++;
             date[p] = CronTime(cmnd.at(p)->time).getNextTime(cur);
         }
     }
 
-    executeView->hideUser(crontabs->count() == 1);
+    executeView->hideUser(crontabs->size() == 1);
 
     changeCurrent(curCrontab, curTCommand);
     executeView->resetView();
@@ -134,13 +134,13 @@ void ExecuteList::changeCurrent(Crontab *cron, TCommand *cmnd)
         return;
     }
 
-    for (auto &e : executes) {
+    for (const auto &e : executes) {
         e->sel = 0;
     }
 
     int sel = 0;
-    if (crontabs->count() > 1 && cron != nullptr) {
-        for (auto &e : executes) {
+    if (crontabs->size() > 1 && cron != nullptr) {
+        for (const auto &e : executes) {
             if (e->tCommands->parent == cron) {
                 e->sel = 1;
             }
@@ -148,7 +148,7 @@ void ExecuteList::changeCurrent(Crontab *cron, TCommand *cmnd)
     }
 
     if (cmnd != nullptr) {
-        for (auto &e : executes) {
+        for (const auto &e : executes) {
             if (e->tCommands == cmnd) {
                 e->sel = 2;
                 sel++;

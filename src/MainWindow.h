@@ -9,6 +9,9 @@
 */
 #pragma once
 
+#include <memory>
+#include <vector>
+
 #include <QMainWindow>
 #include <QSettings>
 
@@ -27,6 +30,7 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
+    ~MainWindow() override;
 
 private slots:
     void changeUser();
@@ -75,5 +79,5 @@ private:
     QSize viewSize;
     QSettings settings;
 
-    QList<Crontab *> crontabs;
+    std::vector<std::unique_ptr<Crontab>> crontabs;
 };

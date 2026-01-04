@@ -9,6 +9,9 @@
 */
 #pragma once
 
+#include <memory>
+#include <vector>
+
 #include <QWidget>
 
 class QLabel;
@@ -23,9 +26,10 @@ class ExecuteList : public QWidget
     Q_OBJECT
 
 public:
-    ExecuteList(int maxN, int maxD, QList<Crontab *> *cron, QWidget *parent = nullptr);
+    ExecuteList(int maxN, int maxD, std::vector<std::unique_ptr<Crontab>> *cron, QWidget *parent = nullptr);
+    ~ExecuteList() override;
 
-    QList<Execute *> executes;
+    std::vector<std::unique_ptr<Execute>> executes;
 
     int maxNum;
     int maxDate;
@@ -43,7 +47,7 @@ private:
     int itemCount {};
     QLabel *countLabel;
     ExecuteModel *executeModel;
-    QList<Crontab *> *crontabs;
+    std::vector<std::unique_ptr<Crontab>> *crontabs;
     Crontab *curCrontab;
     TCommand *curTCommand;
 };

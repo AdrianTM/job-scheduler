@@ -14,6 +14,8 @@
 #include "Crontab.h"
 #include "Execute.h"
 
+ExecuteModel::~ExecuteModel() = default;
+
 QVariant ExecuteModel::data(const QModelIndex &index, int role) const
 {
     if (index.isValid()) {
@@ -150,7 +152,10 @@ void ExecuteModel::doSort()
             return;
         }
     }
-    std::sort(executes->begin(), executes->end(), cmp);
+    std::sort(executes->begin(), executes->end(),
+              [cmp](const std::unique_ptr<Execute> &lhs, const std::unique_ptr<Execute> &rhs) {
+                  return cmp(lhs.get(), rhs.get());
+              });
 
     emit layoutChanged();
 }

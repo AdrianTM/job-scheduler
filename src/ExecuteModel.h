@@ -11,6 +11,9 @@
 
 #include <QAbstractItemModel>
 
+#include <memory>
+#include <vector>
+
 class Execute;
 
 class ExecuteModel : public QAbstractItemModel
@@ -18,13 +21,13 @@ class ExecuteModel : public QAbstractItemModel
     Q_OBJECT
 
 public:
-    explicit ExecuteModel(QList<Execute *> *exe, QObject *parent = nullptr)
+    explicit ExecuteModel(std::vector<std::unique_ptr<Execute>> *exe, QObject *parent = nullptr)
         : QAbstractItemModel(parent),
           executes(exe)
     {
     }
 
-    ~ExecuteModel() override = default;
+    ~ExecuteModel() override;
 
     enum Col { ExeTime, CronTime, User, Command };
     static Execute *getExecute(const QModelIndex &idx);
@@ -45,18 +48,18 @@ private:
     }
     [[nodiscard]] int rowCount(const QModelIndex &parent) const override
     {
-        return (parent.isValid() ? 0 : executes->count());
+        return (parent.isValid() ? 0 : static_cast<int>(executes->size()));
     }
     [[nodiscard]] QModelIndex index(int row, int column, const QModelIndex & /*parent*/) const override
     {
-        return createIndex(row, column, (*executes).at(row));
+        return createIndex(row, column, executes->at(row).get());
     }
 
     [[nodiscard]] QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
     [[nodiscard]] QVariant data(const QModelIndex &index, int role) const override;
     void sort(int column, Qt::SortOrder order = Qt::AscendingOrder) override;
 
-    QList<Execute *> *executes;
+    std::vector<std::unique_ptr<Execute>> *executes;
     int sortColumn {0};
     Qt::SortOrder sortOrder {Qt::AscendingOrder};
 };

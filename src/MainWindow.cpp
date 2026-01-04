@@ -19,6 +19,7 @@
 #include <QSplitter>
 #include <QToolBar>
 #include <memory>
+#include <vector>
 
 #include "Clib.h"
 #include "CronModel.h"
@@ -104,6 +105,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     setCentralWidget(spl);
 }
+
+MainWindow::~MainWindow() = default;
 
 void MainWindow::changeUser()
 {
@@ -197,33 +200,28 @@ void MainWindow::displayHelp()
 
 void MainWindow::initCron()
 {
-    for (auto *d : std::as_const(crontabs)) {
-        delete d;
-    }
     crontabs.clear();
 
     QString user = Clib::uName();
-    auto *cron = new Crontab(user);
+    auto cron = std::make_unique<Crontab>(user);
     if (cron->tCommands.empty() && cron->comment.isEmpty() && cron->variables.empty()) {
         cron->comment = QLatin1String("");
         cron->variables.push_back(std::make_unique<Variable>(QStringLiteral("HOME"), Clib::uHome(), QStringLiteral("Home")));
         cron->variables.push_back(std::make_unique<Variable>(QStringLiteral("PATH"), Clib::getEnv("PATH"), QStringLiteral("Path")));
         cron->variables.push_back(std::make_unique<Variable>(QStringLiteral("SHELL"), Clib::uShell(), QStringLiteral("Shell")));
     }
-    crontabs << cron;
+    crontabs.push_back(std::move(cron));
     if (Clib::uId() == 0) {
-        cron = new Crontab(QStringLiteral("/etc/crontab"));
-        crontabs << cron;
+        auto etcCron = std::make_unique<Crontab>(QStringLiteral("/etc/crontab"));
+        crontabs.push_back(std::move(etcCron));
         for (const auto &s : Clib::allUsers()) {
             if (s == user) {
                 continue;
             }
 
-            cron = new Crontab(s);
-            if (cron->tCommands.empty()) {
-                delete cron;
-            } else {
-                crontabs << cron;
+            auto userCron = std::make_unique<Crontab>(s);
+            if (!userCron->tCommands.empty()) {
+                crontabs.push_back(std::move(userCron));
             }
         }
     } else {
@@ -254,7 +252,8 @@ void MainWindow::saveCron()
     bool saved = false;
     bool notSaved = false;
 
-    for (auto *cron : std::as_const(crontabs)) {
+    for (size_t i = 0; i < crontabs.size(); ++i) {
+        auto &cron = crontabs[i];
         if (cron->changed) {
             SaveDialog dialog(cron->cronOwner, cron->cronText());
             if (dialog.exec() == QDialog::Accepted) {
@@ -263,10 +262,7 @@ void MainWindow::saveCron()
                     QMessageBox::critical(this, tr("Job Scheduler"), cron->estr);
                     notSaved = true;
                 } else {
-                    auto *newCron = new Crontab(cron->cronOwner);
-                    int p = crontabs.indexOf(cron);
-                    crontabs.replace(p, newCron);
-                    delete cron;
+                    crontabs[i] = std::make_unique<Crontab>(cron->cronOwner);
                     saved = true;
                 }
             } else {
@@ -322,7 +318,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
 
     bool changed = false;
-    for (const auto &cron : std::as_const(crontabs)) {
+    for (const auto &cron : crontabs) {
         if (cron->changed) {
             changed = true;
             break;
