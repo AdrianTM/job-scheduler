@@ -22,7 +22,7 @@ Crontab::Crontab(const QString &user)
         setup(str);
     }
     if (!estr.isEmpty()) {
-        qWarning() << "Crontab initialization error for user" << user << ":" << estr;
+        qWarning().noquote() << "Crontab initialization error for user" << user << ":" << estr;
     }
 }
 
