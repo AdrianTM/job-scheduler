@@ -29,6 +29,10 @@ sudo apt install cmake ninja-build qt6-base-dev qt6-base-dev-tools qt6-tools-dev
 
 # Fedora
 sudo dnf install cmake ninja-build qt6-qtbase-devel qt6-qttools-devel
+
+# Arch/Manjaro
+sudo pacman -S --needed base-devel cmake ninja qt6-base qt6-tools cronie
+makepkg -si  # builds with the provided PKGBUILD
 ```
 
 ### Build Commands
@@ -45,6 +49,7 @@ sudo dnf install cmake ninja-build qt6-qtbase-devel qt6-qttools-devel
 ./build.sh --debug              # Debug build
 ./build.sh --clang              # Use clang compiler
 ./build.sh --debian             # Build Debian package
+./build.sh --arch               # Build Arch Linux package
 ```
 
 #### Manual Build
@@ -62,6 +67,15 @@ Build and install the Debian package:
 ```bash
 ./build.sh --debian
 sudo dpkg -i debs/job-scheduler_*.deb
+
+### Arch Package
+
+Build and install the Arch package:
+
+```bash
+./build.sh --arch
+sudo pacman -U job-scheduler-*.pkg.tar.zst
+```
 ```
 
 ## Project Structure
