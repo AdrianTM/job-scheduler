@@ -10,6 +10,7 @@
 #include "CronTime.h"
 
 #include <QtCore>
+#include <ranges>
 
 static const QStringList WeekNames = {"sun", "mon", "tue", "wed", "thu", "fri", "sat", "sun"};
 static const QStringList MonthNames
@@ -23,7 +24,7 @@ inline QString upcaseHead(const QString &str)
 QString toNumeric(const QString &str, const QStringList &names, int start)
 {
     QString ret = str;
-    for (int i = 0; i < names.size(); ++i) {
+    for (int i : std::views::iota(0, static_cast<int>(names.size()))) {
         ret = ret.replace(names.at(i), QString::number(i + start));
     }
     return ret;
@@ -215,7 +216,7 @@ QString CronTime::toString(const QBitArray &bit, int start)
     int space_cnt = 0;
     int interval_cnt = 0;
     int first_pnt = 0;
-    for (int i = 0; i < size; i++) {
+    for (int i : std::views::iota(0, size)) {
         if (bit.at(i)) {
             if (cnt == 0) {
                 first_pnt = i;
@@ -253,7 +254,7 @@ QString CronTime::toString(const QBitArray &bit, int start)
 bool CronTime::isFill(const QBitArray &bit)
 {
     bool ret = true;
-    for (int i = 0; i < bit.size(); i++) {
+    for (int i : std::views::iota(0, bit.size())) {
         if (!bit.at(i)) {
             ret = false;
             break;

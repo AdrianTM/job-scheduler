@@ -18,6 +18,7 @@
 #include <QPalette>
 #include <QStyle>
 #include <QtGui>
+#include <ranges>
 #include <utility>
 
 #include "CronTime.h"
@@ -84,7 +85,7 @@ TimeDialog::TimeDialog(QString time, QWidget *parent)
             minuteBGroup->setExclusive(false);
             {
                 g->setSpacing(0);
-                for (int i = 0; i < 60; ++i) {
+                for (int i : std::views::iota(0, 60)) {
                     auto *btn = new TimeButton(i);
                     g->addWidget(btn, i / 10, i % 10, 1, 1);
                     minuteBGroup->addButton(btn);
@@ -97,13 +98,13 @@ TimeDialog::TimeDialog(QString time, QWidget *parent)
             {
                 g->setSpacing(0);
                 g->addWidget(new QLabel(tr("AM ")), 0, 0, 1, 6, Qt::AlignRight);
-                for (int i = 0; i < 12; ++i) {
+                for (int i : std::views::iota(0, 12)) {
                     QPushButton *btn = new TimeButton(i);
                     g->addWidget(btn, i / 6 + 1, i % 6, 1, 1);
                     hourBGroup->addButton(btn);
                 }
                 g->addWidget(new QLabel(tr("PM ")), 3, 0, 1, 6, Qt::AlignRight);
-                for (int i = 12; i < 24; ++i) {
+                for (int i : std::views::iota(12, 24)) {
                     QPushButton *btn = new TimeButton(i);
                     g->addWidget(btn, i / 6 + 2, i % 6, 1, 1);
                     hourBGroup->addButton(btn);
@@ -115,7 +116,7 @@ TimeDialog::TimeDialog(QString time, QWidget *parent)
             dayBGroup->setExclusive(false);
             {
                 g->setSpacing(0);
-                for (int i = 0; i < 31; ++i) {
+                for (int i : std::views::iota(0, 31)) {
                     QPushButton *btn = new TimeButton(i + 1);
                     g->addWidget(btn, i / 7, i % 7, 1, 1);
                     dayBGroup->addButton(btn);
@@ -131,7 +132,7 @@ TimeDialog::TimeDialog(QString time, QWidget *parent)
             {
                 g->setColumnMinimumWidth(0, 120);
                 g->setColumnMinimumWidth(1, 120);
-                for (int i = 0; i < 12; ++i) {
+                for (int i : std::views::iota(0, 12)) {
                     QString str = QStringLiteral("%1(%2)").arg(MonthName.at(i)).arg(i + 1);
                     QPushButton *btn = new TimeButton(str);
                     g->addWidget(btn, i % 6, i / 6);
@@ -143,7 +144,7 @@ TimeDialog::TimeDialog(QString time, QWidget *parent)
             weekBGroup = new QButtonGroup();
             weekBGroup->setExclusive(false);
             {
-                for (int i = 0; i < 7; ++i) {
+                for (int i : std::views::iota(0, 7)) {
                     QString str = QStringLiteral("%1(%2)").arg(WeekName.at(i)).arg(i);
                     auto *btn = new TimeButton(str);
                     v->addWidget(btn);
@@ -155,7 +156,7 @@ TimeDialog::TimeDialog(QString time, QWidget *parent)
             simpleBGroup = new QButtonGroup();
             simpleBGroup->setExclusive(false);
             {
-                for (int i = 0; i < 6; ++i) {
+                for (int i : std::views::iota(0, 6)) {
                     QPushButton *btn = new TimeButton(SimpleName.at(i));
                     v->addWidget(btn);
                     simpleBGroup->addButton(btn);
@@ -216,7 +217,7 @@ void TimeDialog::initButtons(const QString &time)
             i->setChecked(false);
         }
     } else {
-        for (int i = 0; i < btn.size(); ++i) {
+        for (int i : std::views::iota(0, static_cast<int>(btn.size()))) {
             btn.at(i)->setChecked(ctime.minute.at(i));
         }
     }
@@ -227,7 +228,7 @@ void TimeDialog::initButtons(const QString &time)
             i->setChecked(false);
         }
     } else {
-        for (int i = 0; i < btn.size(); ++i) {
+        for (int i : std::views::iota(0, static_cast<int>(btn.size()))) {
             btn.at(i)->setChecked(ctime.hour.at(i));
         }
     }
@@ -238,7 +239,7 @@ void TimeDialog::initButtons(const QString &time)
             i->setChecked(false);
         }
     } else {
-        for (int i = 0; i < btn.size(); ++i) {
+        for (int i : std::views::iota(0, static_cast<int>(btn.size()))) {
             btn.at(i)->setChecked(ctime.day.at(i));
         }
     }
@@ -249,7 +250,7 @@ void TimeDialog::initButtons(const QString &time)
             i->setChecked(false);
         }
     } else {
-        for (int i = 0; i < btn.size(); ++i) {
+        for (int i : std::views::iota(0, static_cast<int>(btn.size()))) {
             btn.at(i)->setChecked(ctime.month.at(i));
         }
     }
@@ -260,7 +261,7 @@ void TimeDialog::initButtons(const QString &time)
             i->setChecked(false);
         }
     } else {
-        for (int i = 0; i < btn.size(); ++i) {
+        for (int i : std::views::iota(0, static_cast<int>(btn.size()))) {
             btn.at(i)->setChecked(ctime.week.at(i));
         }
     }
@@ -276,7 +277,7 @@ void TimeDialog::minuteButtonClicked(QAbstractButton * /*unused*/)
             cnt++;
         }
     }
-    for (int i = 0; i < btn.size(); ++i) {
+    for (int i : std::views::iota(0, static_cast<int>(btn.size()))) {
         if (cnt == 0) {
             ctime.minute[i] = true;
         } else {
@@ -302,7 +303,7 @@ void TimeDialog::hourButtonClicked(QAbstractButton * /*unused*/)
             cnt++;
         }
     }
-    for (int i = 0; i < btn.size(); ++i) {
+    for (int i : std::views::iota(0, static_cast<int>(btn.size()))) {
         if (cnt == 0) {
             ctime.hour[i] = true;
         } else {
@@ -330,7 +331,7 @@ void TimeDialog::dayButtonClicked(QAbstractButton * /*unused*/)
             cnt++;
         }
     }
-    for (int i = 0; i < btn.size(); ++i) {
+    for (int i : std::views::iota(0, static_cast<int>(btn.size()))) {
         if (cnt == 0) {
             ctime.day[i] = true;
         } else {
@@ -358,7 +359,7 @@ void TimeDialog::monthButtonClicked(QAbstractButton * /*unused*/)
             cnt++;
         }
     }
-    for (int i = 0; i < btn.size(); ++i) {
+    for (int i : std::views::iota(0, static_cast<int>(btn.size()))) {
         if (cnt == 0) {
             ctime.month[i] = true;
         } else {
@@ -386,7 +387,7 @@ void TimeDialog::weekButtonClicked(QAbstractButton * /*unused*/)
             cnt++;
         }
     }
-    for (int i = 0; i < btn.size(); ++i) {
+    for (int i : std::views::iota(0, static_cast<int>(btn.size()))) {
         if (cnt == 0) {
             ctime.week[i] = true;
         } else {

@@ -11,6 +11,7 @@
 
 #include <QScrollBar>
 #include <QtGui>
+#include <ranges>
 
 #include "CronModel.h"
 #include "Crontab.h"
@@ -56,11 +57,11 @@ void CronView::resetView()
 
     setRootIsDecorated(!cronModel->isOneUser());
 
-    for (int i = 0; i < cronModel->rowCount(QModelIndex()); ++i) {
+    for (int i : std::views::iota(0, cronModel->rowCount(QModelIndex()))) {
         setExpanded(cronModel->index(i, 0), true);
     }
 
-    for (int i = 0; i < cronModel->columnCount(QModelIndex()); ++i) {
+    for (int i : std::views::iota(0, cronModel->columnCount(QModelIndex()))) {
         resizeColumnToContents(i);
     }
 
@@ -96,7 +97,7 @@ void CronView::removeTCommand()
         emit viewSelected(getCurrentCrontab(), nullptr);
     }
 
-    for (int i = 0; i < cronModel->columnCount(QModelIndex()); ++i) {
+    for (int i : std::views::iota(0, cronModel->columnCount(QModelIndex()))) {
         resizeColumnToContents(i);
     }
 
@@ -111,7 +112,7 @@ void CronView::insertTCommand(TCommand *cmnd)
     //	dumpIndex(next, "insert next");
     setCurrentIndex(next);
 
-    for (int i = 0; i < cronModel->columnCount(QModelIndex()); ++i) {
+    for (int i : std::views::iota(0, cronModel->columnCount(QModelIndex()))) {
         resizeColumnToContents(i);
     }
 

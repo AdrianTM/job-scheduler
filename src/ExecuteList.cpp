@@ -13,6 +13,7 @@
 #include <QPushButton>
 #include <QSpinBox>
 #include <QVBoxLayout>
+#include <ranges>
 
 #include "CronTime.h"
 #include "Crontab.h"
@@ -101,10 +102,10 @@ void ExecuteList::dataChanged()
     }
     itemCount = 0;
     if (cmnd.count() > 0) {
-        for (int i = 0; i < maxNum; ++i) {
+        for (int i : std::views::iota(0, maxNum)) {
             int p = 0;
             QDateTime cur = date.at(0);
-            for (int j = 1; j < cmnd.count(); j++) {
+            for (int j : std::views::iota(1, cmnd.count())) {
                 if (cur > date.at(j)) {
                     cur = date.at(j);
                     p = j;

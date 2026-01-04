@@ -11,6 +11,7 @@
 
 #include <QHeaderView>
 #include <QScrollBar>
+#include <ranges>
 
 #include "Execute.h"
 #include "ExecuteModel.h"
@@ -31,7 +32,7 @@ ExecuteView::ExecuteView(ExecuteModel *model, QWidget *parent)
 
 void ExecuteView::resetView()
 {
-    for (int i = 0; i < 4; ++i) {
+    for (int i : std::views::iota(0, 4)) {
         resizeColumnToContents(i);
     }
 }

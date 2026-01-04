@@ -17,6 +17,7 @@
 #include <QTextEdit>
 #include <QVBoxLayout>
 #include <QtGui>
+#include <ranges>
 
 #include "Clib.h"
 #include "CronTime.h"
@@ -133,7 +134,7 @@ void TCommandEdit::setExecuteList(const QString &time)
     QDateTime cur(QDateTime::currentDateTime());
     QDateTime dt = cur;
     QString str;
-    for (int i = 0; i < 7; ++i) {
+    for (int i : std::views::iota(0, 7)) {
         if (!str.isEmpty()) {
             str += '\n';
         }

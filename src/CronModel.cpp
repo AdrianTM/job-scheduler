@@ -8,6 +8,7 @@
    of the License, or (at your option) any later version.
 */
 #include <memory>
+#include <ranges>
 
 #include "CronModel.h"
 #include "Crontab.h"
@@ -256,16 +257,16 @@ QModelIndex CronModel::searchTCommand(TCommand *cmnd) const
 {
 
     if (isOneUser()) {
-        for (int i = 0; i < rowCount(QModelIndex()); ++i) {
+        for (int i : std::views::iota(0, rowCount(QModelIndex()))) {
             QModelIndex idx = index(i, 0, QModelIndex());
             if (reinterpret_cast<uintptr_t>(getTCommand(idx)) == reinterpret_cast<uintptr_t>(cmnd)) {
                 return idx;
             }
         }
     } else {
-        for (int i = 0; i < rowCount(QModelIndex()); ++i) {
+        for (int i : std::views::iota(0, rowCount(QModelIndex()))) {
             QModelIndex pidx = index(i, 0, QModelIndex());
-            for (int j = 0; j < rowCount(pidx); j++) {
+            for (int j : std::views::iota(0, rowCount(pidx))) {
                 QModelIndex idx = index(j, 0, pidx);
                 if (reinterpret_cast<uintptr_t>(getTCommand(idx)) == reinterpret_cast<uintptr_t>(cmnd)) {
                     return idx;
@@ -341,15 +342,15 @@ bool CronModel::dropMimeData(const QMimeData * /*data*/, Qt::DropAction /*action
     }
     t->parent = c;
 
-    insertTCommand(ins, t.get());
-    t.release();
+    TCommand *raw_ptr = t.release();
+    insertTCommand(ins, raw_ptr);
 
     QModelIndex del = searchTCommand(drag);
     removeCComand(del);
 
     drag = nullptr;
 
-    emit moveTCommand(t);
+    emit moveTCommand(raw_ptr);
 
     return false;
 }
