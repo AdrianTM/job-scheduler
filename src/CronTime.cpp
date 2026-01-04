@@ -10,6 +10,7 @@
 #include "CronTime.h"
 
 #include <QtCore>
+#include <algorithm>
 #include <ranges>
 
 static const QStringList WeekNames = {"sun", "mon", "tue", "wed", "thu", "fri", "sat", "sun"};
@@ -176,8 +177,11 @@ QBitArray CronTime::toBit(int start, int num, const QString &str)
         if (fp < 0) {
             return NG;
         }
-        for (int i = fp; i <= ep && i < num; i += deg) {
-            ret[i] = true;
+        const int end = std::min(ep + 1, num);
+        for (int i : std::views::iota(fp, end)) {
+            if ((i - fp) % deg == 0) {
+                ret[i] = true;
+            }
         }
     }
     return ret;
@@ -272,7 +276,7 @@ QDateTime CronTime::getNextTime(const QDateTime &dtime) const
     QDateTime tm = dtime.addSecs(60 - dtime.time().second());
     QTime clear(0, 0);
     const int maxIterations = 10000;
-    for (int i = 0; i < maxIterations; ++i) {
+    for (int i : std::views::iota(0, maxIterations)) {
         if (!month.at(tm.date().month() - 1)) {
             tm = tm.addMonths(1);
             tm.setTime(clear);
