@@ -21,6 +21,9 @@ Crontab::Crontab(const QString &user)
     if (!str.isEmpty()) {
         setup(str);
     }
+    if (!estr.isEmpty()) {
+        qWarning() << "Crontab initialization error for user" << user << ":" << estr;
+    }
 }
 
 Crontab::~Crontab()
