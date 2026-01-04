@@ -270,7 +270,8 @@ QDateTime CronTime::getNextTime(const QDateTime &dtime) const
 {
     QDateTime tm = dtime.addSecs(60 - dtime.time().second());
     QTime clear(0, 0);
-    while (true) {
+    const int maxIterations = 10000;
+    for (int i = 0; i < maxIterations; ++i) {
         if (!month.at(tm.date().month() - 1)) {
             tm = tm.addMonths(1);
             tm.setTime(clear);
@@ -285,11 +286,11 @@ QDateTime CronTime::getNextTime(const QDateTime &dtime) const
             continue;
         } else if (!minute.at(tm.time().minute())) {
             tm = tm.addSecs(60);
-        } else {
-            break;
+            continue;
         }
+        return tm;
     }
-    return tm;
+    return QDateTime();
 }
 
 QString CronTime::toWeekLiteral(const QString &str)

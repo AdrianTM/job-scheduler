@@ -138,6 +138,10 @@ void TCommandEdit::setExecuteList(const QString &time)
             str += '\n';
         }
         dt = cronTime.getNextTime(dt);
+        if (!dt.isValid()) {
+            exeLabel->setText("\n\n   " + tr("No matching schedule") + "\n\n\n");
+            return;
+        }
         qint64 sec = cur.secsTo(dt);
         str += QStringLiteral("%1 - %2:%3 later")
                    .arg(dt.toString(QStringLiteral("yyyy-MM-dd(ddd) hh:mm")))

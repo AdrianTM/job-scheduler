@@ -87,8 +87,13 @@ void ExecuteList::dataChanged()
         for (const auto &cc : std::as_const(cron->tCommands)) {
             CronTime ct(cc->time);
             if (ct.isValid()) {
-                cmnd << cc;
-                date << ct.getNextTime(QDateTime::currentDateTime());
+                QDateTime next = ct.getNextTime(QDateTime::currentDateTime());
+                if (next.isValid()) {
+                    cmnd << cc;
+                    date << next;
+                } else {
+                    executes << new Execute(cc, QStringLiteral("No matching schedule"), -1);
+                }
             } else {
                 executes << new Execute(cc, QStringLiteral("Time Format Error"), -1);
             }
