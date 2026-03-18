@@ -1,66 +1,72 @@
 #include "about.h"
 
-#include <QApplication>
+#include <QCoreApplication>
+#include <QDebug>
 #include <QDialog>
+#include <QFile>
 #include <QFileInfo>
 #include <QMessageBox>
 #include <QProcess>
 #include <QPushButton>
+#include <QTextBrowser>
 #include <QTextEdit>
+#include <QUrl>
 #include <QVBoxLayout>
 
 #include "constants.h"
 
-#include <unistd.h>
-
-extern const QString starting_home;
-
-// display doc as nomal user when run as root
-void displayDoc(const QString &url, const QString &title)
+namespace
 {
-    qputenv("HOME", starting_home.toUtf8());
-    // prefer mx-viewer otherwise use xdg-open (use runuser to run that as logname user) "gio open" would also work here
-    if (QFile::exists(QStringLiteral("/usr/bin/mx-viewer"))) {
-        QProcess::startDetached(QStringLiteral("mx-viewer"), {url, title});
+void setupDocDialog(QDialog &dialog, QTextBrowser *browser, const QString &title, bool largeWindow)
+{
+    dialog.setWindowTitle(title);
+    if (largeWindow) {
+        dialog.setWindowFlags(Qt::Window);
+        dialog.resize(1000, 800);
     } else {
-        if (getuid() != 0) {
-            QProcess::startDetached(QStringLiteral("xdg-open"), {url});
-            return;
-        } else {
-            QProcess proc;
-            proc.start(QStringLiteral("logname"), {}, QIODevice::ReadOnly);
-            if (!proc.waitForFinished()) {
-                qWarning() << "Failed to run logname";
-                return;
-            }
-            if (proc.exitCode() != 0) {
-                qWarning() << "logname exited with error";
-                return;
-            }
-            QByteArray user = proc.readAllStandardOutput().trimmed();
-            proc.start(QStringLiteral("id"), {"-u", user});
-            if (!proc.waitForFinished()) {
-                qWarning() << "Failed to run id";
-                return;
-            }
-            if (proc.exitCode() != 0) {
-                qWarning() << "id exited with error";
-                return;
-            }
-            QByteArray id = proc.readAllStandardOutput().trimmed();
-
-            qunsetenv("KDE_FULL_SESSION");
-            qunsetenv("XDG_CURRENT_DESKTOP");
-            qputenv("XDG_RUNTIME_DIR", "/run/user/" + id);
-            QProcess::startDetached(QStringLiteral("runuser"), {"-u", user, "--", "xdg-open", url});
-            qputenv("XDG_RUNTIME_DIR", "/run/user/0");
-        }
+        dialog.resize(700, 600);
     }
-    qputenv("HOME", "/root");
+
+    browser->setOpenExternalLinks(true);
+
+    auto *btnClose = new QPushButton(QObject::tr("&Close"), &dialog);
+    btnClose->setIcon(QIcon::fromTheme(QStringLiteral("window-close")));
+    QObject::connect(btnClose, &QPushButton::clicked, &dialog, &QDialog::close);
+
+    auto *layout = new QVBoxLayout(&dialog);
+    layout->addWidget(browser);
+    layout->addWidget(btnClose);
 }
 
-void displayAboutMsgBox(const QString &title, const QString &message, const QString &licence_url,
-                        const QString &license_title)
+void showHtmlDoc(const QString &url, const QString &title, bool largeWindow)
+{
+    QDialog dialog;
+    auto *browser = new QTextBrowser(&dialog);
+    setupDocDialog(dialog, browser, title, largeWindow);
+
+    const QUrl sourceUrl = QUrl::fromUserInput(url);
+    const QString localPath = sourceUrl.isLocalFile() ? sourceUrl.toLocalFile() : url;
+    if (sourceUrl.isLocalFile() ? QFileInfo::exists(localPath) : QFileInfo::exists(url)) {
+        browser->setSource(sourceUrl.isLocalFile() ? sourceUrl : QUrl::fromLocalFile(url));
+    } else {
+        browser->setText(QObject::tr("Could not load %1").arg(url));
+        qDebug() << "Could not load HTML document" << url;
+    }
+    dialog.exec();
+}
+} // namespace
+
+void displayDoc(const QString &url, const QString &title, bool largeWindow)
+{
+    showHtmlDoc(url, title, largeWindow);
+}
+
+void displayHelpDoc(const QString &path, const QString &title)
+{
+    showHtmlDoc(path, title, true);
+}
+
+void displayAboutMsgBox(const QString &title, const QString &message, const QString &licence_url, const QString &license_title)
 {
     const auto width = JobScheduler::ABOUT_DIALOG_WIDTH;
     const auto height = JobScheduler::ABOUT_DIALOG_HEIGHT;
@@ -78,22 +84,25 @@ void displayAboutMsgBox(const QString &title, const QString &message, const QStr
         changelog.setWindowTitle(QObject::tr("Changelog"));
         changelog.resize(width, height);
 
-        QTextEdit text(&changelog);
-        text.setReadOnly(true);
+        auto *text = new QTextEdit(&changelog);
+        text->setReadOnly(true);
         QProcess proc;
-        proc.start(
-            QStringLiteral("zless"),
-            {"/usr/share/doc/" + QFileInfo(QCoreApplication::applicationFilePath()).fileName() + "/changelog.gz"});
-        proc.waitForFinished();
-        text.setText(QString::fromLatin1(proc.readAllStandardOutput()));
+        const QString appName = QFileInfo(QCoreApplication::applicationFilePath()).fileName();
+        const QString changelogPath = QStringLiteral("/usr/share/doc/") + appName + QStringLiteral("/changelog.gz");
+        proc.start(QStringLiteral("zcat"), {changelogPath}, QIODevice::ReadOnly);
+        if (proc.waitForStarted(3000) && proc.waitForFinished(3000)) {
+            text->setText(proc.readAllStandardOutput());
+        } else {
+            text->setText(QObject::tr("Could not load changelog."));
+        }
 
-        QPushButton btnClose(QObject::tr("&Close"), &changelog);
-        btnClose.setIcon(QIcon::fromTheme(QStringLiteral("window-close")));
-        QObject::connect(&btnClose, &QPushButton::clicked, &changelog, &QDialog::close);
+        auto *btnClose = new QPushButton(QObject::tr("&Close"), &changelog);
+        btnClose->setIcon(QIcon::fromTheme(QStringLiteral("window-close")));
+        QObject::connect(btnClose, &QPushButton::clicked, &changelog, &QDialog::close);
 
-        QVBoxLayout layout(&changelog);
-        layout.addWidget(&text);
-        layout.addWidget(&btnClose);
+        auto *layout = new QVBoxLayout(&changelog);
+        layout->addWidget(text);
+        layout->addWidget(btnClose);
         changelog.exec();
     }
 }

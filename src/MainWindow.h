@@ -47,7 +47,7 @@ private:
     void createActions();
     void createMenus();
     void createToolBar();
-    static void displayHelp();
+    void displayHelp();
     void initCron();
 
     void readSettings();

@@ -189,8 +189,8 @@ void MainWindow::createActions()
 
 void MainWindow::displayHelp()
 {
-    QString url = QStringLiteral("file:///usr/share/doc/job-scheduler/help.html");
-    displayDoc(url, tr("Job Scheduler"));
+    const QString helpPath = QStringLiteral("/usr/share/doc/job-scheduler/help.html");
+    displayHelpDoc(helpPath, tr("Job Scheduler"));
 }
 
 void MainWindow::initCron()
