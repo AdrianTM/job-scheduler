@@ -1,20 +1,20 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh_TW">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="en_US">
 <context>
     <name>CronModel</name>
     <message>
         <location filename="../CronModel.cpp" line="122"/>
         <source>Time</source>
-        <translation type="unfinished"/>
+        <translation>Time</translation>
     </message>
     <message>
         <location filename="../CronModel.cpp" line="124"/>
         <source>User</source>
-        <translation>一般用戶</translation>
+        <translation>User</translation>
     </message>
     <message>
         <location filename="../CronModel.cpp" line="126"/>
         <source>Command</source>
-        <translation>指令</translation>
+        <translation>Command</translation>
     </message>
 </context>
 <context>
@@ -22,22 +22,22 @@
     <message>
         <location filename="../ExecuteList.cpp" line="40"/>
         <source>Max Item</source>
-        <translation type="unfinished"/>
+        <translation>Max Item</translation>
     </message>
     <message>
         <location filename="../ExecuteList.cpp" line="42"/>
         <source>Max Date</source>
-        <translation type="unfinished"/>
+        <translation>Max Date</translation>
     </message>
     <message>
         <location filename="../ExecuteList.cpp" line="44"/>
         <source>Select</source>
-        <translation type="unfinished"/>
+        <translation>Select</translation>
     </message>
     <message>
         <location filename="../ExecuteList.cpp" line="49"/>
         <source>&amp;Update</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Update</translation>
     </message>
 </context>
 <context>
@@ -45,22 +45,22 @@
     <message>
         <location filename="../ExecuteModel.cpp" line="63"/>
         <source>Execute Time</source>
-        <translation type="unfinished"/>
+        <translation>Execute Time</translation>
     </message>
     <message>
         <location filename="../ExecuteModel.cpp" line="65"/>
         <source>Time</source>
-        <translation type="unfinished"/>
+        <translation>Time</translation>
     </message>
     <message>
         <location filename="../ExecuteModel.cpp" line="67"/>
         <source>User</source>
-        <translation>一般用戶</translation>
+        <translation>User</translation>
     </message>
     <message>
         <location filename="../ExecuteModel.cpp" line="69"/>
         <source>Command</source>
-        <translation>指令</translation>
+        <translation>Command</translation>
     </message>
 </context>
 <context>
@@ -68,17 +68,17 @@
     <message>
         <location filename="../MainWindow.cpp" line="52"/>
         <source>&amp;Command</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Command</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="55"/>
         <source>&amp;Variables</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Variables</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="58"/>
         <source>&amp;Job List</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Job List</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="101"/>
@@ -87,22 +87,22 @@
         <location filename="../MainWindow.cpp" line="262"/>
         <location filename="../MainWindow.cpp" line="331"/>
         <source>Job Scheduler</source>
-        <translation type="unfinished"/>
+        <translation>Job Scheduler</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="126"/>
         <source>&amp;File</source>
-        <translation type="unfinished"/>
+        <translation>&amp;File</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="127"/>
         <source>File</source>
-        <translation type="unfinished"/>
+        <translation>File</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="130"/>
         <source>&amp;New Item</source>
-        <translation type="unfinished"/>
+        <translation>&amp;New Item</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="131"/>
@@ -112,7 +112,7 @@
     <message>
         <location filename="../MainWindow.cpp" line="134"/>
         <source>&amp;Reload</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Reload</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="135"/>
@@ -122,7 +122,7 @@
     <message>
         <location filename="../MainWindow.cpp" line="137"/>
         <source>&amp;Save</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Save</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="138"/>
@@ -132,22 +132,22 @@
     <message>
         <location filename="../MainWindow.cpp" line="141"/>
         <source>Start as &amp;Root</source>
-        <translation type="unfinished"/>
+        <translation>Start as &amp;Root</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="143"/>
         <source>Start as &amp;Regular user</source>
-        <translation type="unfinished"/>
+        <translation>Start as &amp;Regular user</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="145"/>
         <source>Ctrl+U</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+U</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="148"/>
         <source>E&amp;xit</source>
-        <translation type="unfinished"/>
+        <translation>E&amp;xit</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="149"/>
@@ -157,17 +157,17 @@
     <message>
         <location filename="../MainWindow.cpp" line="156"/>
         <source>&amp;Edit</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Edit</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="157"/>
         <source>Edit</source>
-        <translation>編輯</translation>
+        <translation>Edit</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="159"/>
         <source>Cu&amp;t</source>
-        <translation type="unfinished"/>
+        <translation>Cu&amp;t</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="160"/>
@@ -177,7 +177,7 @@
     <message>
         <location filename="../MainWindow.cpp" line="162"/>
         <source>&amp;Copy</source>
-        <translation>複製（&amp;C）</translation>
+        <translation>&amp;Copy</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="163"/>
@@ -187,7 +187,7 @@
     <message>
         <location filename="../MainWindow.cpp" line="165"/>
         <source>&amp;Paste</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Paste</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="166"/>
@@ -197,70 +197,72 @@
     <message>
         <location filename="../MainWindow.cpp" line="169"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Delete</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="170"/>
         <source>Del</source>
-        <translation>刪除</translation>
+        <translation>Del</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="181"/>
         <location filename="../MainWindow.cpp" line="183"/>
         <source>&amp;Help</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Help</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="182"/>
         <source>&amp;About</source>
-        <translation type="unfinished"/>
+        <translation>&amp;About</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="243"/>
         <source>Not saved since last change.
 Are you OK to reload?</source>
-        <translation type="unfinished"/>
+        <translation>Not saved since last change.
+Are you OK to reload?</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="331"/>
         <source>Not saved since last change.
 Are you OK to exit?</source>
-        <translation type="unfinished"/>
+        <translation>Not saved since last change.
+Are you OK to exit?</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="344"/>
         <source>About Job Scheduler</source>
-        <translation type="unfinished"/>
+        <translation>About Job Scheduler</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="345"/>
         <source>&lt;b&gt;Job Scheduler&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Job Scheduler&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="345"/>
         <source>Version: %1</source>
-        <translation type="unfinished"/>
+        <translation>Version: %1</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="346"/>
         <source>Job Scheduler is based upon qroneko 0.5.4, released in 2005 by korewaisai (&lt;a href=&quot;mailto:korewaisai@yahoo.co.jp&quot;&gt;korewaisai@yahoo.co.jp&lt;/a&gt;)</source>
-        <translation type="unfinished"/>
+        <translation>Job Scheduler is based upon qroneko 0.5.4, released in 2005 by korewaisai (&lt;a href=&quot;mailto:korewaisai@yahoo.co.jp&quot;&gt;korewaisai@yahoo.co.jp&lt;/a&gt;)</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="349"/>
         <source>Original project page: %1</source>
-        <translation type="unfinished"/>
+        <translation>Original project page: %1</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="353"/>
         <source>MX project page: %1</source>
-        <translation type="unfinished"/>
+        <translation>MX project page: %1</translation>
     </message>
     <message>
         <location filename="../MainWindow.cpp" line="358"/>
         <source>%1 License</source>
-        <translation>%1 許可</translation>
+        <translation>%1 License</translation>
     </message>
 </context>
 <context>
@@ -268,23 +270,23 @@ Are you OK to exit?</source>
     <message>
         <location filename="../about.cpp" line="52"/>
         <source>License</source>
-        <translation>授權條款</translation>
+        <translation>License</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="53"/>
         <location filename="../about.cpp" line="62"/>
         <source>Changelog</source>
-        <translation>變更紀錄</translation>
+        <translation>Changelog</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="54"/>
         <source>Cancel</source>
-        <translation>取消</translation>
+        <translation>Cancel</translation>
     </message>
     <message>
         <location filename="../about.cpp" line="74"/>
         <source>&amp;Close</source>
-        <translation>關閉（&amp;C）</translation>
+        <translation>&amp;Close</translation>
     </message>
 </context>
 <context>
@@ -292,22 +294,22 @@ Are you OK to exit?</source>
     <message>
         <location filename="../SaveDialog.cpp" line="20"/>
         <source>Save New Schedule</source>
-        <translation type="unfinished"/>
+        <translation>Save New Schedule</translation>
     </message>
     <message>
         <location filename="../SaveDialog.cpp" line="33"/>
         <source>User:</source>
-        <translation type="unfinished"/>
+        <translation>User:</translation>
     </message>
     <message>
         <location filename="../SaveDialog.cpp" line="41"/>
         <source>&amp;OK</source>
-        <translation type="unfinished"/>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <location filename="../SaveDialog.cpp" line="42"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Cancel</translation>
     </message>
 </context>
 <context>
@@ -315,47 +317,47 @@ Are you OK to exit?</source>
     <message>
         <location filename="../TCommandEdit.cpp" line="41"/>
         <source>User:</source>
-        <translation type="unfinished"/>
+        <translation>User:</translation>
     </message>
     <message>
         <location filename="../TCommandEdit.cpp" line="49"/>
         <source>Time:</source>
-        <translation type="unfinished"/>
+        <translation>Time:</translation>
     </message>
     <message>
         <location filename="../TCommandEdit.cpp" line="53"/>
         <source>Time String E&amp;ditor</source>
-        <translation type="unfinished"/>
+        <translation>Time String E&amp;ditor</translation>
     </message>
     <message>
         <location filename="../TCommandEdit.cpp" line="57"/>
         <source>Command:</source>
-        <translation>命令：</translation>
+        <translation>Command:</translation>
     </message>
     <message>
         <location filename="../TCommandEdit.cpp" line="63"/>
         <source>Comment:</source>
-        <translation>說明：</translation>
+        <translation>Comment:</translation>
     </message>
     <message>
         <location filename="../TCommandEdit.cpp" line="66"/>
         <source>Job Schedule:</source>
-        <translation type="unfinished"/>
+        <translation>Job Schedule:</translation>
     </message>
     <message>
         <location filename="../TCommandEdit.cpp" line="128"/>
         <source>Time Format Error</source>
-        <translation type="unfinished"/>
+        <translation>Time Format Error</translation>
     </message>
     <message>
         <location filename="../TCommandEdit.cpp" line="147"/>
         <source>Today</source>
-        <translation type="unfinished"/>
+        <translation>Today</translation>
     </message>
     <message>
         <location filename="../TCommandEdit.cpp" line="149"/>
         <source>Tomorrow</source>
-        <translation type="unfinished"/>
+        <translation>Tomorrow</translation>
     </message>
 </context>
 <context>
@@ -363,67 +365,67 @@ Are you OK to exit?</source>
     <message>
         <location filename="../TimeDialog.cpp" line="76"/>
         <source>time</source>
-        <translation type="unfinished"/>
+        <translation>time</translation>
     </message>
     <message>
         <location filename="../TimeDialog.cpp" line="81"/>
         <source>Minute</source>
-        <translation type="unfinished"/>
+        <translation>Minute</translation>
     </message>
     <message>
         <location filename="../TimeDialog.cpp" line="93"/>
         <source>Hour</source>
-        <translation type="unfinished"/>
+        <translation>Hour</translation>
     </message>
     <message>
         <location filename="../TimeDialog.cpp" line="99"/>
         <source>AM </source>
-        <translation type="unfinished"/>
+        <translation>AM </translation>
     </message>
     <message>
         <location filename="../TimeDialog.cpp" line="105"/>
         <source>PM </source>
-        <translation type="unfinished"/>
+        <translation>PM </translation>
     </message>
     <message>
         <location filename="../TimeDialog.cpp" line="112"/>
         <source>Day</source>
-        <translation>日</translation>
+        <translation>Day</translation>
     </message>
     <message>
         <location filename="../TimeDialog.cpp" line="127"/>
         <source>Month</source>
-        <translation>月</translation>
+        <translation>Month</translation>
     </message>
     <message>
         <location filename="../TimeDialog.cpp" line="141"/>
         <source>Week</source>
-        <translation type="unfinished"/>
+        <translation>Week</translation>
     </message>
     <message>
         <location filename="../TimeDialog.cpp" line="153"/>
         <source>Simple</source>
-        <translation type="unfinished"/>
+        <translation>Simple</translation>
     </message>
     <message>
         <location filename="../TimeDialog.cpp" line="167"/>
         <source>Enable Literal</source>
-        <translation type="unfinished"/>
+        <translation>Enable Literal</translation>
     </message>
     <message>
         <location filename="../TimeDialog.cpp" line="169"/>
         <source>&amp;Reset</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Reset</translation>
     </message>
     <message>
         <location filename="../TimeDialog.cpp" line="170"/>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Cancel</translation>
     </message>
     <message>
         <location filename="../TimeDialog.cpp" line="171"/>
         <source>&amp;Ok</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Ok</translation>
     </message>
 </context>
 <context>
@@ -431,52 +433,52 @@ Are you OK to exit?</source>
     <message>
         <location filename="../VariableEdit.cpp" line="47"/>
         <source>Variables</source>
-        <translation type="unfinished"/>
+        <translation>Variables</translation>
     </message>
     <message>
         <location filename="../VariableEdit.cpp" line="52"/>
         <source>Mail:</source>
-        <translation type="unfinished"/>
+        <translation>Mail:</translation>
     </message>
     <message>
         <location filename="../VariableEdit.cpp" line="53"/>
         <source>Don&apos;t send</source>
-        <translation type="unfinished"/>
+        <translation>Don&apos;t send</translation>
     </message>
     <message>
         <location filename="../VariableEdit.cpp" line="54"/>
         <source>Send</source>
-        <translation type="unfinished"/>
+        <translation>Send</translation>
     </message>
     <message>
         <location filename="../VariableEdit.cpp" line="55"/>
         <source>To</source>
-        <translation type="unfinished"/>
+        <translation>To</translation>
     </message>
     <message>
         <location filename="../VariableEdit.cpp" line="67"/>
         <source>&amp;New</source>
-        <translation type="unfinished"/>
+        <translation>&amp;New</translation>
     </message>
     <message>
         <location filename="../VariableEdit.cpp" line="70"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Delete</translation>
     </message>
     <message>
         <location filename="../VariableEdit.cpp" line="78"/>
         <source>Name:</source>
-        <translation>名稱：</translation>
+        <translation>Name:</translation>
     </message>
     <message>
         <location filename="../VariableEdit.cpp" line="83"/>
         <source>Value:</source>
-        <translation type="unfinished"/>
+        <translation>Value:</translation>
     </message>
     <message>
         <location filename="../VariableEdit.cpp" line="86"/>
         <source>Comment:</source>
-        <translation>說明：</translation>
+        <translation>Comment:</translation>
     </message>
 </context>
 <context>
@@ -484,12 +486,12 @@ Are you OK to exit?</source>
     <message>
         <location filename="../VariableModel.cpp" line="37"/>
         <source>Name</source>
-        <translation>名稱</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="../VariableModel.cpp" line="39"/>
         <source>Value</source>
-        <translation type="unfinished"/>
+        <translation>Value</translation>
     </message>
 </context>
 </TS>
