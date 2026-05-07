@@ -9,13 +9,12 @@
 */
 #pragma once
 
+#include "Crontab.h"
+
 #include <QAbstractItemModel>
 
 #include <memory>
 #include <vector>
-
-class Crontab;
-class TCommand;
 
 class CronModel : public QAbstractItemModel
 {
