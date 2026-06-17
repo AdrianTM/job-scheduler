@@ -280,7 +280,34 @@ QDateTime CronTime::getNextTime(const QDateTime &dtime) const
     // restricted (the other is "*"), only that field applies; since a "*"
     // field always matches, AND of both fields covers those cases. These two
     // flags depend only on the (const) bit arrays, so compute them once.
-    const bool bothDayFieldsRestricted = !isFill(day) && !isFill(week);
+    const bool dowRestricted = !isFill(week);
+    const bool bothDayFieldsRestricted = !isFill(day) && dowRestricted;
+
+    // Bail out early on schedules that can never fire. When day-of-week is
+    // unrestricted, a match depends solely on the day-of-month landing inside a
+    // selected month; if no selected day fits any selected month (e.g. "30 2 *",
+    // February 30th), spinning to maxIterations would only waste CPU before
+    // returning an invalid time. (When day-of-week is restricted, the OR rule
+    // means a weekday match can still fire, so the schedule is satisfiable.)
+    if (!dowRestricted) {
+        static constexpr int maxDaysInMonth[12] = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        bool possible = false;
+        for (int m = 0; m < 12 && !possible; ++m) {
+            if (!month.at(m)) {
+                continue;
+            }
+            for (int d = 0; d < maxDaysInMonth[m]; ++d) {
+                if (day.at(d)) {
+                    possible = true;
+                    break;
+                }
+            }
+        }
+        if (!possible) {
+            return QDateTime();
+        }
+    }
+
     const int maxIterations = 10000;
     for (int i : std::views::iota(0, maxIterations)) {
         if (!month.at(tm.date().month() - 1)) {
