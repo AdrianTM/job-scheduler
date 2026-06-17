@@ -45,12 +45,14 @@ void TimeButton::init()
 void TimeButton::buttonToggled(bool chk)
 {
     if (chk) {
-        QPalette plt = palette();
-        plt.setColor(QPalette::Button, QColor(163, 194, 186));
-        plt.setColor(QPalette::ButtonText, QColor(0, 66, 0));
-        setPalette(plt);
+        // Qt style sheets have no palette() function, so resolve the theme's
+        // highlight colours to concrete values; this stays theme-aware while
+        // still rendering (unlike a literal "palette(highlight)" which Qt drops).
+        const QPalette pal = palette();
+        setStyleSheet(QStringLiteral("TimeButton { background-color: %1; color: %2; }")
+                          .arg(pal.color(QPalette::Highlight).name(), pal.color(QPalette::HighlightedText).name()));
     } else {
-        setPalette(style()->standardPalette());
+        setStyleSheet(QString());
     }
 }
 
@@ -178,8 +180,13 @@ TimeDialog::TimeDialog(QString time, QWidget *parent)
 
     outTime = inTime;
     if (!CronTime(outTime).isValid()) {
+        // Show the error in the input field but keep outTime as-is;
+        // OK button will re-validate before accepting.
+        QPalette errPal = timeEdit->palette();
+        errPal.setColor(QPalette::Text, QColor(189, 55, 44));
+        timeEdit->setPalette(errPal);
         timeEdit->setText(QStringLiteral("Time format error"));
-        outTime = QStringLiteral("* * * * *");
+        timeEdit->setToolTip(tr("The current time expression is invalid. Please fix it or cancel."));
     } else {
         timeEdit->setText(outTime);
     }
@@ -205,7 +212,12 @@ TimeDialog::TimeDialog(QString time, QWidget *parent)
     connect(litCheckBox, &QCheckBox::stateChanged, this, &TimeDialog::litCheckBoxChanged);
 #endif
     connect(resetButton, &QPushButton::clicked, this, &TimeDialog::resetClicked);
-    connect(okButton, &QPushButton::clicked, this, &TimeDialog::accept);
+    connect(okButton, &QPushButton::clicked, this, [this]() {
+        if (CronTime(timeEdit->text()).isValid()) {
+            outTime = timeEdit->text();
+            accept();
+        }
+    });
     connect(cancelButton, &QPushButton::clicked, this, &TimeDialog::reject);
 }
 
