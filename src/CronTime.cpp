@@ -275,6 +275,12 @@ QDateTime CronTime::getNextTime(const QDateTime &dtime) const
 {
     QDateTime tm = dtime.addSecs(60 - dtime.time().second());
     QTime clear(0, 0);
+    // Standard cron semantics: when both day-of-month and day-of-week are
+    // restricted, the day matches if EITHER field matches. When only one is
+    // restricted (the other is "*"), only that field applies; since a "*"
+    // field always matches, AND of both fields covers those cases. These two
+    // flags depend only on the (const) bit arrays, so compute them once.
+    const bool bothDayFieldsRestricted = !isFill(day) && !isFill(week);
     const int maxIterations = 10000;
     for (int i : std::views::iota(0, maxIterations)) {
         if (!month.at(tm.date().month() - 1)) {
@@ -282,7 +288,13 @@ QDateTime CronTime::getNextTime(const QDateTime &dtime) const
             tm.setTime(clear);
             tm.setDate(QDate(tm.date().year(), tm.date().month(), 1));
             continue;
-        } else if (!day.at(tm.date().day() - 1) || !week.at(tm.date().dayOfWeek())) {
+        }
+
+        const bool domMatch = day.at(tm.date().day() - 1);
+        const bool dowMatch = week.at(tm.date().dayOfWeek());
+        const bool dayMatch = bothDayFieldsRestricted ? (domMatch || dowMatch) : (domMatch && dowMatch);
+
+        if (!dayMatch) {
             tm = tm.addDays(1);
             tm.setTime(clear);
             continue;
