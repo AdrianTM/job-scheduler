@@ -132,7 +132,7 @@ void TCommandEdit::setExecuteList(const QString &time)
         return;
     }
     QDate today = QDate::currentDate();
-    QDate tommorow = today.addDays(1);
+    QDate tomorrow = today.addDays(1);
     QDateTime cur(QDateTime::currentDateTime());
     QDateTime dt = cur;
     QString str;
@@ -152,7 +152,7 @@ void TCommandEdit::setExecuteList(const QString &time)
                    .arg((sec / 60) % 60, 2, 10, QChar('0'));
         if (dt.date() == today) {
             str += QStringLiteral(" - %1").arg(tr("Today"));
-        } else if (dt.date() == tommorow) {
+        } else if (dt.date() == tomorrow) {
             str += QStringLiteral(" - %1").arg(tr("Tomorrow"));
         }
     }

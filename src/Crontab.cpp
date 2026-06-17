@@ -212,8 +212,6 @@ void Crontab::setup(const QString &str)
         } else {
             if (headflag == 0) {
                 headflag = 1;
-                //				if (head.count() == 0)
-                //					head << cmnt;
 
                 comment = list2String(head);
             }

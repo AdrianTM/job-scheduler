@@ -208,7 +208,7 @@ QString CronTime::toTimeString(int start, int cnt, int interval)
 QString CronTime::toString(const QBitArray &bit, int start)
 {
     if (isFill(bit)) {
-        return ("*");
+        return "*";
     }
 
     QStringList lst;

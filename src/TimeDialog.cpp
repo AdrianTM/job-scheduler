@@ -433,18 +433,6 @@ void TimeDialog::simpleButtonClicked(QAbstractButton *b)
         }
     }
 
-    //	QString numeric;
-    //	if ( outTime == "@Hourly" ) numeric = "0 * * * *";
-    //	else if (outTime == "@Daily") numeric = "0 0 * * *";
-    //	else if (outTime == "@Weekly") numeric = "0 0 * * 0";
-    //	else if (outTime == "@Monthly") numeric = "0 0 1 * *";
-    //	else if (outTime == "@Yearly") numeric = "0 0 1 1 *";
-    //	else if (outTime == "@Reboot") numeric = "0 0 * * *";
-    //
-    //	initButtons(numeric);
-    //	if (!useLiteral) {
-    //		outTime = numeric;
-    //	}
     if (!useLiteral) {
         outTime = CronTime(outTime).toString(false);
     }
