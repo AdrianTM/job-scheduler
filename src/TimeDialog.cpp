@@ -280,115 +280,51 @@ void TimeDialog::initButtons(const QString &time)
     }
 }
 
-void TimeDialog::minuteButtonClicked(QAbstractButton * /*unused*/)
+void TimeDialog::handleButtonClicked(QButtonGroup *group, QBitArray (CronTime::*bitField))
 {
     CronTime ctime(outTime);
-    auto btn = minuteBGroup->buttons();
+    auto btn = group->buttons();
     int cnt = 0;
     for (auto *i : btn) {
         if (i->isChecked()) {
             cnt++;
         }
     }
+    auto &bits = ctime.*bitField;
     for (int i : std::views::iota(0, static_cast<int>(btn.size()))) {
         if (cnt == 0) {
-            ctime.minute[i] = true;
+            bits[i] = true;
         } else {
-            ctime.minute[i] = btn.at(i)->isChecked();
+            bits[i] = btn.at(i)->isChecked();
         }
     }
 
-    btn = simpleBGroup->buttons();
-    for (auto *i : std::as_const(btn)) {
-        i->setChecked(false);
+    auto simple = simpleBGroup->buttons();
+    for (auto *i : std::as_const(simple)) {
+        if (i->isChecked()) {
+            i->setChecked(false);
+        }
     }
 
     outTime = ctime.toString(useLiteral);
     timeEdit->setText(outTime);
+}
+
+void TimeDialog::minuteButtonClicked(QAbstractButton * /*unused*/)
+{
+    handleButtonClicked(minuteBGroup, &CronTime::minute);
 }
 void TimeDialog::hourButtonClicked(QAbstractButton * /*unused*/)
 {
-    CronTime ctime(outTime);
-    auto btn = hourBGroup->buttons();
-    int cnt = 0;
-    for (auto *i : btn) {
-        if (i->isChecked()) {
-            cnt++;
-        }
-    }
-    for (int i : std::views::iota(0, static_cast<int>(btn.size()))) {
-        if (cnt == 0) {
-            ctime.hour[i] = true;
-        } else {
-            ctime.hour[i] = btn.at(i)->isChecked();
-        }
-    }
-
-    btn = simpleBGroup->buttons();
-    for (auto *i : std::as_const(btn)) {
-        if (i->isChecked()) {
-            i->setChecked(false);
-        }
-    }
-
-    outTime = ctime.toString(useLiteral);
-    timeEdit->setText(outTime);
+    handleButtonClicked(hourBGroup, &CronTime::hour);
 }
 void TimeDialog::dayButtonClicked(QAbstractButton * /*unused*/)
 {
-    CronTime ctime(outTime);
-    auto btn = dayBGroup->buttons();
-    int cnt = 0;
-    for (auto *i : btn) {
-        if (i->isChecked()) {
-            cnt++;
-        }
-    }
-    for (int i : std::views::iota(0, static_cast<int>(btn.size()))) {
-        if (cnt == 0) {
-            ctime.day[i] = true;
-        } else {
-            ctime.day[i] = btn.at(i)->isChecked();
-        }
-    }
-
-    btn = simpleBGroup->buttons();
-    for (auto *i : std::as_const(btn)) {
-        if (i->isChecked()) {
-            i->setChecked(false);
-        }
-    }
-
-    outTime = ctime.toString(useLiteral);
-    timeEdit->setText(outTime);
+    handleButtonClicked(dayBGroup, &CronTime::day);
 }
 void TimeDialog::monthButtonClicked(QAbstractButton * /*unused*/)
 {
-    CronTime ctime(outTime);
-    auto btn = monthBGroup->buttons();
-    int cnt = 0;
-    for (auto *i : btn) {
-        if (i->isChecked()) {
-            cnt++;
-        }
-    }
-    for (int i : std::views::iota(0, static_cast<int>(btn.size()))) {
-        if (cnt == 0) {
-            ctime.month[i] = true;
-        } else {
-            ctime.month[i] = btn.at(i)->isChecked();
-        }
-    }
-
-    btn = simpleBGroup->buttons();
-    for (auto *i : std::as_const(btn)) {
-        if (i->isChecked()) {
-            i->setChecked(false);
-        }
-    }
-
-    outTime = ctime.toString(useLiteral);
-    timeEdit->setText(outTime);
+    handleButtonClicked(monthBGroup, &CronTime::month);
 }
 void TimeDialog::weekButtonClicked(QAbstractButton * /*unused*/)
 {
@@ -412,8 +348,8 @@ void TimeDialog::weekButtonClicked(QAbstractButton * /*unused*/)
         ctime.week[7] = true;
     }
 
-    btn = simpleBGroup->buttons();
-    for (auto *i : std::as_const(btn)) {
+    auto simple = simpleBGroup->buttons();
+    for (auto *i : std::as_const(simple)) {
         if (i->isChecked()) {
             i->setChecked(false);
         }
