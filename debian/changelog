@@ -1,3 +1,9 @@
+job-scheduler (26.06.1) mx; urgency=medium
+
+  * Add support for /etc/cron.d/ directory fragment files
+
+ -- Adrian <adrian@mxlinux.org>  Sun, 21 Jun 2026 01:19:43 -0400
+
 job-scheduler (26.06) mx; urgency=medium
 
   * Jobs scheduled for both a day of the month and a weekday (for example

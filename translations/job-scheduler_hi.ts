@@ -2,17 +2,17 @@
 <context>
     <name>CronModel</name>
     <message>
-        <location filename="../src/CronModel.cpp" line="130"/>
+        <location filename="../src/CronModel.cpp" line="128"/>
         <source>Time</source>
         <translation>समय</translation>
     </message>
     <message>
-        <location filename="../src/CronModel.cpp" line="132"/>
+        <location filename="../src/CronModel.cpp" line="130"/>
         <source>User</source>
         <translation>उपयोक्ता</translation>
     </message>
     <message>
-        <location filename="../src/CronModel.cpp" line="134"/>
+        <location filename="../src/CronModel.cpp" line="132"/>
         <source>Command</source>
         <translation>कमांड</translation>
     </message>
@@ -356,22 +356,22 @@ Are you OK to exit?</source>
         <translation>कार्य अनुसूचक :</translation>
     </message>
     <message>
-        <location filename="../src/TCommandEdit.cpp" line="131"/>
+        <location filename="../src/TCommandEdit.cpp" line="132"/>
         <source>Time Format Error</source>
         <translation>समय प्रारूप त्रुटि</translation>
     </message>
     <message>
-        <location filename="../src/TCommandEdit.cpp" line="145"/>
+        <location filename="../src/TCommandEdit.cpp" line="146"/>
         <source>No matching schedule</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/TCommandEdit.cpp" line="154"/>
+        <location filename="../src/TCommandEdit.cpp" line="155"/>
         <source>Today</source>
         <translation>आज</translation>
     </message>
     <message>
-        <location filename="../src/TCommandEdit.cpp" line="156"/>
+        <location filename="../src/TCommandEdit.cpp" line="157"/>
         <source>Tomorrow</source>
         <translation>आने वाला कल</translation>
     </message>
@@ -379,69 +379,74 @@ Are you OK to exit?</source>
 <context>
     <name>TimeDialog</name>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="78"/>
+        <location filename="../src/TimeDialog.cpp" line="80"/>
         <source>time</source>
         <translation>समय</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="83"/>
+        <location filename="../src/TimeDialog.cpp" line="85"/>
         <source>Minute</source>
         <translation>मिनट</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="95"/>
+        <location filename="../src/TimeDialog.cpp" line="97"/>
         <source>Hour</source>
         <translation>घंटा</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="101"/>
+        <location filename="../src/TimeDialog.cpp" line="103"/>
         <source>AM </source>
         <translation>पूर्वाह्न</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="107"/>
+        <location filename="../src/TimeDialog.cpp" line="109"/>
         <source>PM </source>
         <translation>अपराह्न</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="114"/>
+        <location filename="../src/TimeDialog.cpp" line="116"/>
         <source>Day</source>
         <translation>दिन</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="129"/>
+        <location filename="../src/TimeDialog.cpp" line="131"/>
         <source>Month</source>
         <translation>मास</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="143"/>
+        <location filename="../src/TimeDialog.cpp" line="145"/>
         <source>Week</source>
         <translation>सप्ताह</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="155"/>
+        <location filename="../src/TimeDialog.cpp" line="157"/>
         <source>Simple</source>
         <translation>सरल</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="169"/>
+        <location filename="../src/TimeDialog.cpp" line="171"/>
         <source>Enable Literal</source>
         <translation>मूल रूप सक्रिय</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="171"/>
+        <location filename="../src/TimeDialog.cpp" line="173"/>
         <source>&amp;Reset</source>
         <translation>पुनः सेट (&amp;R)</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="172"/>
+        <location filename="../src/TimeDialog.cpp" line="174"/>
         <source>&amp;Cancel</source>
         <translation>रद्द करें (&amp;C)</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="173"/>
+        <location filename="../src/TimeDialog.cpp" line="175"/>
         <source>&amp;Ok</source>
         <translation>ठीक है (&amp;O)</translation>
+    </message>
+    <message>
+        <location filename="../src/TimeDialog.cpp" line="189"/>
+        <source>The current time expression is invalid. Please fix it or cancel.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

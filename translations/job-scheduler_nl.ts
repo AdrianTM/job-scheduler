@@ -2,17 +2,17 @@
 <context>
     <name>CronModel</name>
     <message>
-        <location filename="../src/CronModel.cpp" line="130"/>
+        <location filename="../src/CronModel.cpp" line="128"/>
         <source>Time</source>
         <translation>Tijd</translation>
     </message>
     <message>
-        <location filename="../src/CronModel.cpp" line="132"/>
+        <location filename="../src/CronModel.cpp" line="130"/>
         <source>User</source>
         <translation>Gebruiker</translation>
     </message>
     <message>
-        <location filename="../src/CronModel.cpp" line="134"/>
+        <location filename="../src/CronModel.cpp" line="132"/>
         <source>Command</source>
         <translation>Commando</translation>
     </message>
@@ -356,22 +356,22 @@ Is het OK om te sluiten?</translation>
         <translation>Taken Schema:</translation>
     </message>
     <message>
-        <location filename="../src/TCommandEdit.cpp" line="131"/>
+        <location filename="../src/TCommandEdit.cpp" line="132"/>
         <source>Time Format Error</source>
         <translation>Tijd Formaat Fout</translation>
     </message>
     <message>
-        <location filename="../src/TCommandEdit.cpp" line="145"/>
+        <location filename="../src/TCommandEdit.cpp" line="146"/>
         <source>No matching schedule</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/TCommandEdit.cpp" line="154"/>
+        <location filename="../src/TCommandEdit.cpp" line="155"/>
         <source>Today</source>
         <translation>Vandaag</translation>
     </message>
     <message>
-        <location filename="../src/TCommandEdit.cpp" line="156"/>
+        <location filename="../src/TCommandEdit.cpp" line="157"/>
         <source>Tomorrow</source>
         <translation>Morgen</translation>
     </message>
@@ -379,69 +379,74 @@ Is het OK om te sluiten?</translation>
 <context>
     <name>TimeDialog</name>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="78"/>
+        <location filename="../src/TimeDialog.cpp" line="80"/>
         <source>time</source>
         <translation>tijd</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="83"/>
+        <location filename="../src/TimeDialog.cpp" line="85"/>
         <source>Minute</source>
         <translation>Minuut</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="95"/>
+        <location filename="../src/TimeDialog.cpp" line="97"/>
         <source>Hour</source>
         <translation>Uur</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="101"/>
+        <location filename="../src/TimeDialog.cpp" line="103"/>
         <source>AM </source>
         <translation>AM </translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="107"/>
+        <location filename="../src/TimeDialog.cpp" line="109"/>
         <source>PM </source>
         <translation>PM </translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="114"/>
+        <location filename="../src/TimeDialog.cpp" line="116"/>
         <source>Day</source>
         <translation>Dag</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="129"/>
+        <location filename="../src/TimeDialog.cpp" line="131"/>
         <source>Month</source>
         <translation>Maand</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="143"/>
+        <location filename="../src/TimeDialog.cpp" line="145"/>
         <source>Week</source>
         <translation>Week</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="155"/>
+        <location filename="../src/TimeDialog.cpp" line="157"/>
         <source>Simple</source>
         <translation>Simpel</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="169"/>
+        <location filename="../src/TimeDialog.cpp" line="171"/>
         <source>Enable Literal</source>
         <translation>Letterlijk Inschakelen</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="171"/>
+        <location filename="../src/TimeDialog.cpp" line="173"/>
         <source>&amp;Reset</source>
         <translation>&amp;Terugzetten</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="172"/>
+        <location filename="../src/TimeDialog.cpp" line="174"/>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancel</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="173"/>
+        <location filename="../src/TimeDialog.cpp" line="175"/>
         <source>&amp;Ok</source>
         <translation>&amp;Ok</translation>
+    </message>
+    <message>
+        <location filename="../src/TimeDialog.cpp" line="189"/>
+        <source>The current time expression is invalid. Please fix it or cancel.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

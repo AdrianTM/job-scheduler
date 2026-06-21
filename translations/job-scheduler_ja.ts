@@ -2,17 +2,17 @@
 <context>
     <name>CronModel</name>
     <message>
-        <location filename="../src/CronModel.cpp" line="130"/>
+        <location filename="../src/CronModel.cpp" line="128"/>
         <source>Time</source>
         <translation>時刻</translation>
     </message>
     <message>
-        <location filename="../src/CronModel.cpp" line="132"/>
+        <location filename="../src/CronModel.cpp" line="130"/>
         <source>User</source>
         <translation>ユーザ</translation>
     </message>
     <message>
-        <location filename="../src/CronModel.cpp" line="134"/>
+        <location filename="../src/CronModel.cpp" line="132"/>
         <source>Command</source>
         <translation>コマンド</translation>
     </message>
@@ -356,22 +356,22 @@ Are you OK to exit?</source>
         <translation>スケジュール管理:</translation>
     </message>
     <message>
-        <location filename="../src/TCommandEdit.cpp" line="131"/>
+        <location filename="../src/TCommandEdit.cpp" line="132"/>
         <source>Time Format Error</source>
         <translation>時刻形式エラー</translation>
     </message>
     <message>
-        <location filename="../src/TCommandEdit.cpp" line="145"/>
+        <location filename="../src/TCommandEdit.cpp" line="146"/>
         <source>No matching schedule</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/TCommandEdit.cpp" line="154"/>
+        <location filename="../src/TCommandEdit.cpp" line="155"/>
         <source>Today</source>
         <translation>今日</translation>
     </message>
     <message>
-        <location filename="../src/TCommandEdit.cpp" line="156"/>
+        <location filename="../src/TCommandEdit.cpp" line="157"/>
         <source>Tomorrow</source>
         <translation>明日</translation>
     </message>
@@ -379,69 +379,74 @@ Are you OK to exit?</source>
 <context>
     <name>TimeDialog</name>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="78"/>
+        <location filename="../src/TimeDialog.cpp" line="80"/>
         <source>time</source>
         <translation>時刻</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="83"/>
+        <location filename="../src/TimeDialog.cpp" line="85"/>
         <source>Minute</source>
         <translation>分</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="95"/>
+        <location filename="../src/TimeDialog.cpp" line="97"/>
         <source>Hour</source>
         <translation>時</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="101"/>
+        <location filename="../src/TimeDialog.cpp" line="103"/>
         <source>AM </source>
         <translation>午前</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="107"/>
+        <location filename="../src/TimeDialog.cpp" line="109"/>
         <source>PM </source>
         <translation>午後</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="114"/>
+        <location filename="../src/TimeDialog.cpp" line="116"/>
         <source>Day</source>
         <translation>日</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="129"/>
+        <location filename="../src/TimeDialog.cpp" line="131"/>
         <source>Month</source>
         <translation>月</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="143"/>
+        <location filename="../src/TimeDialog.cpp" line="145"/>
         <source>Week</source>
         <translation>週</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="155"/>
+        <location filename="../src/TimeDialog.cpp" line="157"/>
         <source>Simple</source>
         <translation>簡易</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="169"/>
+        <location filename="../src/TimeDialog.cpp" line="171"/>
         <source>Enable Literal</source>
         <translation>リテラルの有効化</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="171"/>
+        <location filename="../src/TimeDialog.cpp" line="173"/>
         <source>&amp;Reset</source>
         <translation>リセット(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="172"/>
+        <location filename="../src/TimeDialog.cpp" line="174"/>
         <source>&amp;Cancel</source>
         <translation>キャンセル(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../src/TimeDialog.cpp" line="173"/>
+        <location filename="../src/TimeDialog.cpp" line="175"/>
         <source>&amp;Ok</source>
         <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <location filename="../src/TimeDialog.cpp" line="189"/>
+        <source>The current time expression is invalid. Please fix it or cancel.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
