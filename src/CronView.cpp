@@ -132,7 +132,7 @@ void CronView::newTCommand()
 {
     auto *cron = getCurrentCrontab();
     QString u;
-    if (cron->cronOwner == QLatin1String("/etc/crontab")) {
+    if (Crontab::isSystemCron(cron->cronOwner)) {
         u = QStringLiteral("root");
     } else {
         u = cron->cronOwner;
@@ -147,7 +147,7 @@ void CronView::pasteTCommand()
     auto *cron = getCurrentCrontab();
     auto cmnd = std::make_unique<TCommand>();
     *cmnd = *pasteData;
-    if (cron->cronOwner != QLatin1String("/etc/crontab")) {
+    if (!Crontab::isSystemCron(cron->cronOwner)) {
         cmnd->user = cron->cronOwner;
     }
 

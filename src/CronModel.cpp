@@ -313,7 +313,7 @@ bool CronModel::dropMimeData(const QMimeData * /*data*/, Qt::DropAction /*action
     auto t = std::make_unique<TCommand>();
     *t = *drag;
     Crontab *c = getCrontab(ins);
-    if (c->cronOwner != QLatin1String("/etc/crontab")) {
+    if (!Crontab::isSystemCron(c->cronOwner)) {
         t->user = c->cronOwner;
     }
     t->parent = c;
