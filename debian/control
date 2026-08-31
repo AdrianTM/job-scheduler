@@ -16,7 +16,8 @@ Depends: ${misc:Depends},
          cron | cronie
 Recommends: x-terminal-emulator
 Description: Graphical job scheduling utility for Linux
- Job Scheduler is a user-friendly graphical utility for managing scheduled tasks
- on Linux systems. It provides an intuitive interface to create, edit, and remove
- cron jobs, leveraging crontab as the backend. Suitable for both novice and
- advanced users, it simplifies task automation and scheduling.
+ Job Scheduler is a user-friendly graphical utility for managing
+ scheduled tasks on Linux systems. It provides an intuitive interface
+ to create, edit, and remove cron jobs, leveraging crontab as the backend.
+ Suitable for both novice and advanced users, it simplifies task automation
+ and scheduling.

@@ -1,0 +1,14 @@
+# Keep local build and release workspaces out of the native source archive.
+tar-ignore = aur
+tar-ignore = build
+tar-ignore = debs
+tar-ignore = .agents
+tar-ignore = .cache
+tar-ignore = .claude
+tar-ignore = .codex
+tar-ignore = .qtc_clangd
+tar-ignore = debian/job-scheduler
+tar-ignore = debian/debhelper-build-stamp
+tar-ignore = debian/files
+tar-ignore = debian/*.substvars
+tar-ignore = translations-desktop-file/build

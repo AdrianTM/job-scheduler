@@ -1,0 +1,22 @@
+.TH JOB-SCHEDULER-LAUNCHER 1 "" "job-scheduler" "User Commands"
+.SH NAME
+job-scheduler-launcher \- start Job Scheduler with administrative privileges
+.SH SYNOPSIS
+.B job-scheduler-launcher
+.SH DESCRIPTION
+.B job-scheduler-launcher
+is a wrapper used by Job Scheduler to request administrative privileges through
+.BR pkexec (1).
+It preserves the desktop environment needed by the graphical application and
+then starts
+.BR job-scheduler (1)
+as root.
+.PP
+Most users should start Job Scheduler from the desktop menu instead of invoking
+this wrapper directly.
+.SH SEE ALSO
+.BR job-scheduler (1),
+.BR pkexec (1),
+.BR crontab (1)
+.SH AUTHOR
+Written by the MX Linux contributors.

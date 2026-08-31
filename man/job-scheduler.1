@@ -1,0 +1,27 @@
+.TH JOB-SCHEDULER 1 "" "job-scheduler" "User Commands"
+.SH NAME
+job-scheduler \- graphically manage cron jobs
+.SH SYNOPSIS
+.B job-scheduler
+.SH DESCRIPTION
+.B job-scheduler
+is a graphical utility for creating, editing, and removing scheduled tasks.
+It reads and writes cron jobs through the system
+.BR crontab (1)
+command.
+.PP
+The application can manage the current user's crontab or, when started through
+the privileged launcher, the root crontab and files in system cron directories.
+.SH FILES
+.TP
+.I /var/spool/cron/crontabs
+System crontab spool directory on Debian-based systems.
+.TP
+.I /etc/cron.d
+Directory containing system cron fragments.
+.SH SEE ALSO
+.BR crontab (1),
+.BR cron (8),
+.BR job-scheduler-launcher (1)
+.SH AUTHOR
+Written by korewaisai, Adrian, and the MX Linux contributors.

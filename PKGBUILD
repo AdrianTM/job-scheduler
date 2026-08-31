@@ -41,6 +41,10 @@ package() {
     install -Dm644 job-scheduler.desktop "${pkgdir}/usr/share/applications/job-scheduler.desktop"
     install -Dm644 images/job-scheduler.svg "${pkgdir}/usr/share/icons/hicolor/scalable/apps/job-scheduler.svg"
 
+    install -Dm644 man/job-scheduler.1 "${pkgdir}/usr/share/man/man1/job-scheduler.1"
+    install -Dm644 man/job-scheduler-launcher.1 \
+        "${pkgdir}/usr/share/man/man1/job-scheduler-launcher.1"
+
     install -dm755 "${pkgdir}/usr/share/doc/job-scheduler"
     if [ -d help ]; then
         cp -r help/* "${pkgdir}/usr/share/doc/job-scheduler/" 2>/dev/null || true
