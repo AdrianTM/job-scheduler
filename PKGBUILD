@@ -1,6 +1,6 @@
 # Maintainer: Adrian <adrian@mxlinux.org>
 pkgname=job-scheduler
-pkgver=26.06.1
+pkgver=26.07
 pkgrel=1
 pkgdesc="Graphical job scheduling utility for cron"
 arch=('x86_64' 'i686')
