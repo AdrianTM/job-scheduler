@@ -8,8 +8,8 @@ url="https://mxlinux.org"
 license=('GPL3')
 depends=('qt6-base' 'polkit' 'cronie')
 makedepends=('cmake' 'ninja' 'qt6-tools')
-source=("https://github.com/MX-Linux/job-scheduler/archive/refs/tags/26.06.1.tar.gz")
-sha256sums=('123777a734f4ede96127dae2a593127062aa55957267c908f6d112de2c63a7c0')
+source=("https://github.com/MX-Linux/job-scheduler/archive/refs/tags/${pkgver}.tar.gz")
+sha256sums=('217370520cbbde0d280d7ddc983dc4669af6d84829137e9f7c31415601b78b2d')
 
 build() {
     cd "${srcdir}/${pkgname}-${pkgver}"
