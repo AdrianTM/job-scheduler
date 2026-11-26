@@ -42,6 +42,7 @@ public:
     bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column,
                       const QModelIndex &parent) override;
 
+    void replaceTables(std::vector<std::unique_ptr<Crontab>> &tables);
     void tCommandChanged(const QModelIndex &idx);
     void dragTCommand(const QModelIndex &idx);
     QModelIndex removeCommand(const QModelIndex &idx);

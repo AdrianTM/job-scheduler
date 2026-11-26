@@ -17,6 +17,7 @@
 #include <QMainWindow>
 #include <QSettings>
 
+class CronModel;
 class CronView;
 class ExecuteList;
 class QModelIndex;
@@ -49,6 +50,7 @@ private:
     void createToolBar();
     void displayHelp();
     void initCron();
+    void replaceTables(std::vector<std::unique_ptr<Crontab>> &tables);
 
     void readSettings();
     void writeSettings();
@@ -68,6 +70,7 @@ private:
     QAction *reloadAction {};
     QAction *saveAction {};
 
+    CronModel *cronModel;
     CronView *cronView;
     ExecuteList *executeList;
 

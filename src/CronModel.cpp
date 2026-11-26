@@ -13,6 +13,20 @@
 #include "CronModel.h"
 #include "Crontab.h"
 
+void CronModel::replaceTables(std::vector<std::unique_ptr<Crontab>> &tables)
+{
+    beginResetModel();
+    drag = nullptr;
+    for (size_t i = 0; i < tables.size(); ++i) {
+        // During a partial save an empty slot retains that table's pending edits.
+        if (!tables[i]) {
+            tables[i] = std::move(crontabs->at(i));
+        }
+    }
+    crontabs->swap(tables);
+    endResetModel();
+}
+
 QVariant CronModel::data(const QModelIndex &idx, int role) const
 {
     if (!idx.isValid() || role != Qt::DisplayRole) {

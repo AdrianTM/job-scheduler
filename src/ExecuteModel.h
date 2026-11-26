@@ -32,6 +32,7 @@ public:
     enum Col { ExeTime, CronTime, User, Command };
     static Execute *getExecute(const QModelIndex &idx);
     void doSort();
+    void replaceRows(std::vector<std::unique_ptr<Execute>> rows);
 
 private:
     [[nodiscard]] Qt::ItemFlags flags(const QModelIndex & /*index*/) const override

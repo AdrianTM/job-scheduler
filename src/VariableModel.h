@@ -46,7 +46,9 @@ public:
     }
     void resetData(std::vector<std::unique_ptr<Variable>> *var)
     {
-        variables = var;
+        beginResetModel();
+        variables = var ? var : &dummy;
+        endResetModel();
     }
     [[nodiscard]] int rowCount(const QModelIndex &parent) const override
     {

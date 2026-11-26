@@ -116,6 +116,9 @@ VariableEdit::VariableEdit(QWidget *parent)
 void VariableEdit::changeCurrent(Crontab *cron, TCommand * /*unused*/)
 {
     if (cron == nullptr) {
+        crontab = nullptr;
+        variable = nullptr;
+        variableModel->resetData(nullptr);
         setEnabled(false);
         return;
     }

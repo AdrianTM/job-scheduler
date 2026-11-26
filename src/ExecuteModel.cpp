@@ -81,6 +81,13 @@ void ExecuteModel::sort(int column, Qt::SortOrder order)
     doSort();
 }
 
+void ExecuteModel::replaceRows(std::vector<std::unique_ptr<Execute>> rows)
+{
+    beginResetModel();
+    executes->swap(rows);
+    endResetModel();
+}
+
 void ExecuteModel::doSort()
 {
     if (sortColumn < Col::ExeTime || sortColumn > Col::Command) {

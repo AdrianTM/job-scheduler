@@ -25,6 +25,7 @@ class TstCronModel : public QObject
 
 private slots:
     void oneUserIndexRejectsNegativeRow();
+    void replaceTablesInvalidatesIndexes();
     void oneUserIndexRejectsOutOfRangeRow();
     void multiUserChildIndexRejectsNegativeRow();
     void insertAddsRowAtRequestedPosition();
@@ -165,6 +166,23 @@ void TstCronModel::refuseMovesInvolvingRestrictedTables()
         QCOMPARE(tables[row]->getTCommands().size(), size_t(1));
         QVERIFY(!tables[row]->isChanged());
     }
+}
+
+void TstCronModel::replaceTablesInvalidatesIndexes()
+{
+    std::vector<std::unique_ptr<Crontab>> tables;
+    tables.push_back(std::make_unique<Crontab>());
+    tables.push_back(std::make_unique<Crontab>());
+    CronModel model(&tables);
+    auto *old = tables[0].get();
+    auto *retained = tables[1].get();
+    QPersistentModelIndex index(model.index(0, 0));
+    std::vector<std::unique_ptr<Crontab>> replacements(2);
+    replacements[0] = std::make_unique<Crontab>();
+    model.replaceTables(replacements);
+    QVERIFY(!index.isValid());
+    QCOMPARE(tables[1].get(), retained);
+    QCOMPARE(replacements[0].get(), old);
 }
 
 QTEST_GUILESS_MAIN(TstCronModel)

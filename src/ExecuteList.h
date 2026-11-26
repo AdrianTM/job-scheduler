@@ -37,6 +37,7 @@ public:
     ExecuteView *executeView;
 
 public slots:
+    void clearForReload();
     void dataChanged();
     void changeCurrent(Crontab *cron, TCommand *cmnd);
     void numChanged(int num);

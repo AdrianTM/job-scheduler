@@ -71,6 +71,13 @@ ExecuteList::ExecuteList(int maxN, int maxD, std::vector<std::unique_ptr<Crontab
 
 ExecuteList::~ExecuteList() = default;
 
+void ExecuteList::clearForReload()
+{
+    curCrontab = nullptr;
+    curTCommand = nullptr;
+    executeModel->replaceRows({});
+}
+
 void ExecuteList::dataChanged()
 {
 
@@ -80,25 +87,24 @@ void ExecuteList::dataChanged()
 
     QDateTime stopTime = QDateTime::currentDateTime().addDays(maxDate);
 
-    executeView->clearSelection();
-    executes.clear();
+    std::vector<std::unique_ptr<Execute>> rows;
     QList<TCommand *> cmnd;
     QList<QDateTime> date;
     for (const auto &cron : std::as_const(*crontabs)) {
         for (const auto &cc : std::as_const(cron->getTCommands())) {
             CronTime ct(cc->getTime());
             if (ct.isReboot()) {
-                executes.push_back(std::make_unique<Execute>(cc.get(), tr("At startup")));
+                rows.push_back(std::make_unique<Execute>(cc.get(), tr("At startup")));
             } else if (ct.isValid()) {
                 QDateTime next = ct.getNextTime(QDateTime::currentDateTime());
                 if (next.isValid()) {
                     cmnd << cc.get();
                     date << next;
                 } else {
-                    executes.push_back(std::make_unique<Execute>(cc.get(), tr("No matching schedule"), -1));
+                    rows.push_back(std::make_unique<Execute>(cc.get(), tr("No matching schedule"), -1));
                 }
             } else {
-                executes.push_back(std::make_unique<Execute>(cc.get(), tr("Time Format Error"), -1));
+                rows.push_back(std::make_unique<Execute>(cc.get(), tr("Time Format Error"), -1));
             }
         }
     }
@@ -116,12 +122,13 @@ void ExecuteList::dataChanged()
             if (cur > stopTime) {
                 break;
             }
-            executes.push_back(std::make_unique<Execute>(cmnd.at(p), cur.toString(QStringLiteral("yyyy-MM-dd(ddd) hh:mm"))));
+            rows.push_back(std::make_unique<Execute>(cmnd.at(p), cur.toString(QStringLiteral("yyyy-MM-dd(ddd) hh:mm"))));
             itemCount++;
             date[p] = CronTime(cmnd.at(p)->getTime()).getNextTime(cur);
         }
     }
 
+    executeModel->replaceRows(std::move(rows));
     executeView->hideUser(crontabs->size() == 1);
 
     changeCurrent(curCrontab, curTCommand);

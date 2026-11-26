@@ -44,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     //	statusBar();
 
-    auto *cronModel = new CronModel(&crontabs, this);
+    cronModel = new CronModel(&crontabs, this);
     auto *spl = new QSplitter(this);
     cronView = new CronView(cronModel, spl);
     auto *tab = new QTabWidget(spl);
@@ -209,7 +209,7 @@ void MainWindow::displayHelp()
 
 void MainWindow::initCron()
 {
-    crontabs.clear();
+    std::vector<std::unique_ptr<Crontab>> tables;
 
     QString user = Clib::uName();
     auto cron = std::make_unique<Crontab>(user);
@@ -222,10 +222,10 @@ void MainWindow::initCron()
         cron->getVariables().push_back(
             std::make_unique<Variable>(QStringLiteral("SHELL"), Clib::uShell(), QStringLiteral("Shell")));
     }
-    crontabs.push_back(std::move(cron));
+    tables.push_back(std::move(cron));
     if (Clib::uId() == 0) {
         auto etcCron = std::make_unique<Crontab>(QStringLiteral("/etc/crontab"));
-        crontabs.push_back(std::move(etcCron));
+        tables.push_back(std::move(etcCron));
 
         // Scan /etc/cron.d/ for system cron fragment files
         QDir cronDdir(QStringLiteral("/etc/cron.d"));
@@ -239,7 +239,7 @@ void MainWindow::initCron()
                 qWarning().noquote() << "Failed to load" << cronFile->getCronOwner() << ":" << cronFile->estr;
             }
             if (!cronFile->getTCommands().empty() || !cronFile->getVariables().empty()) {
-                crontabs.push_back(std::move(cronFile));
+                tables.push_back(std::move(cronFile));
             }
         }
 
@@ -250,16 +250,24 @@ void MainWindow::initCron()
 
             auto userCron = std::make_unique<Crontab>(s);
             if (!userCron->getTCommands().empty()) {
-                crontabs.push_back(std::move(userCron));
+                tables.push_back(std::move(userCron));
             }
         }
     } else {
         cronView->hideUser();
     }
-    executeList->dataChanged();
-    cronView->resetView();
+    replaceTables(tables);
 
     saveAction->setEnabled(false);
+}
+
+void MainWindow::replaceTables(std::vector<std::unique_ptr<Crontab>> &tables)
+{
+    executeList->clearForReload();
+    cronModel->replaceTables(tables);
+    cronView->resetView();
+    executeList->dataChanged();
+    // The caller retains the old tables until all dependent views have rebound.
 }
 
 void MainWindow::reloadCron()
@@ -278,6 +286,7 @@ void MainWindow::reloadCron()
 void MainWindow::saveCron()
 {
 
+    std::vector<std::unique_ptr<Crontab>> replacements(crontabs.size());
     bool saved = false;
     bool notSaved = false;
 
@@ -296,7 +305,7 @@ void MainWindow::saveCron()
                     QMessageBox::critical(this, tr("Job Scheduler"), cron->estr);
                     notSaved = true;
                 } else {
-                    crontabs[i] = std::make_unique<Crontab>(cron->getCronOwner());
+                    replacements[i] = std::make_unique<Crontab>(cron->getCronOwner());
                     saved = true;
                 }
             } else {
@@ -306,8 +315,7 @@ void MainWindow::saveCron()
     }
 
     if (saved) {
-        executeList->dataChanged();
-        cronView->resetView();
+        replaceTables(replacements);
     }
     saveAction->setEnabled(notSaved);
 }
