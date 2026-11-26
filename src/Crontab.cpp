@@ -228,7 +228,7 @@ QString Crontab::cronText() const
         }
     }
 
-    return ret;
+    return ret + trailingComments;
 }
 
 void Crontab::setup(const QString &str)
@@ -248,6 +248,31 @@ void Crontab::setup(const QString &str)
             }
         }
     }
+
+    // Leave the suffix after the last active entry intact, including disabled
+    // commands and their original spacing. A comment-only file is editable
+    // through the table's header comment field.
+    qsizetype end = slist.size();
+    while (end > 0) {
+        const QString line = slist.at(end - 1).trimmed();
+        if (!line.isEmpty() && !line.startsWith('#')) {
+            break;
+        }
+        --end;
+    }
+    if (end == 0) {
+        while (!slist.isEmpty() && slist.last().trimmed().isEmpty()) {
+            slist.removeLast();
+        }
+        static const QRegularExpression prefix(QStringLiteral(R"(^[ \t]*# ?)"));
+        for (auto &line : slist) {
+            line.remove(prefix);
+        }
+        comment = slist.join('\n');
+        return;
+    }
+    trailingComments = slist.mid(end).join('\n');
+    slist.resize(end);
 
     QStringList cmnt;
     QStringList head;

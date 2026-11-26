@@ -15,6 +15,7 @@ private slots:
     void commandWhitespaceSurvivesSave();
     void assignmentValuesSurviveSave();
     void scopedVariablesPreventLossySave();
+    void trailingAndStandaloneCommentsSurviveSave();
 };
 
 // A fresh user crontab always has HOME/PATH/SHELL variables (MainWindow adds
@@ -102,6 +103,22 @@ void TstCrontab::scopedVariablesPreventLossySave()
     QVERIFY(!cron.saveRestriction().isEmpty());
     QVERIFY(!cron.putCrontab());
     QCOMPARE(cron.estr, cron.saveRestriction());
+}
+
+void TstCrontab::trailingAndStandaloneCommentsSurviveSave()
+{
+    const QString suffix = QStringLiteral("\n# disabled\n# @daily echo 'two  words'\n");
+    Crontab cron;
+    cron.setup(QStringLiteral("@daily echo live\n") + suffix);
+    QVERIFY(cron.cronText().endsWith(QStringLiteral("echo live\n") + suffix));
+    Crontab again;
+    again.setup(cron.cronText());
+    QCOMPARE(again.cronText(), cron.cronText());
+
+    Crontab comments;
+    comments.setup(QStringLiteral("# disabled\n# @daily echo later\n"));
+    QCOMPARE(comments.getComment(), QStringLiteral("disabled\n@daily echo later"));
+    QVERIFY(comments.cronText().contains(QStringLiteral("# @daily echo later\n")));
 }
 
 QTEST_GUILESS_MAIN(TstCrontab)
