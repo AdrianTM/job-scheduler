@@ -39,7 +39,9 @@ CronTime::CronTime(const QString &tstr)
         } else if (s == QLatin1String("yearly") || s == QLatin1String("annually")) {
             str = QStringLiteral("0 0 1 1 *");
         } else if (s == QLatin1String("reboot")) {
-            str = QStringLiteral("0 0 * * *");
+            reboot = true;
+            bValid = true;
+            return;
         }
     }
     static const QRegularExpression separator(QStringLiteral("[ \\t]+"));
@@ -98,6 +100,9 @@ bool CronTime::isValid() const
 
 QString CronTime::toString(bool literal) const
 {
+    if (reboot) {
+        return QStringLiteral("@reboot");
+    }
 
     const QString dom = day == originalDayBits ? originalDay : toString(day, 1);
     const QString dow = week == originalWeekBits ? originalWeek : toString(week, 0);
@@ -235,6 +240,9 @@ bool CronTime::isFill(const QBitArray &bit)
 //
 QDateTime CronTime::getNextTime(const QDateTime &dtime) const
 {
+    if (reboot || !bValid) {
+        return {};
+    }
     QDateTime tm = dtime.addSecs(60 - dtime.time().second());
     QTime clear(0, 0);
     // Cron uses the spelling of the two day fields to choose OR versus AND.

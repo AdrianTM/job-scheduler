@@ -8,6 +8,7 @@ class TstCronTime : public QObject
 
 private slots:
     void emptyStringIsInvalid();
+    void rebootIsAnEvent();
     void outOfRangeFieldsAreInvalid_data();
     void outOfRangeFieldsAreInvalid();
     void validFieldsAreAccepted_data();
@@ -137,6 +138,16 @@ void TstCronTime::preserveDayFieldSemantics()
     CronTime fullRange(QStringLiteral("0 0 1-31 * mon"));
     QCOMPARE(fullRange.getNextTime(start).date(), QDate(2026, 7, 2));
     QCOMPARE(fullRange.toString(), QStringLiteral("0 0 1-31 * 1"));
+}
+
+void TstCronTime::rebootIsAnEvent()
+{
+    CronTime startup(QStringLiteral("@reboot"));
+    QVERIFY(startup.isValid());
+    QVERIFY(startup.isReboot());
+    QVERIFY(!startup.getNextTime(QDateTime::currentDateTime()).isValid());
+    QCOMPARE(startup.toString(false), QStringLiteral("@reboot"));
+    QCOMPARE(startup.toString(true), QStringLiteral("@reboot"));
 }
 
 QTEST_GUILESS_MAIN(TstCronTime)

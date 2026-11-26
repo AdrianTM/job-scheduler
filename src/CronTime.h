@@ -20,6 +20,7 @@ public:
 
     [[nodiscard]] QDateTime getNextTime(const QDateTime &dtime) const;
     [[nodiscard]] bool isValid() const;
+    [[nodiscard]] bool isReboot() const { return reboot; }
     [[nodiscard]] QString toString(bool literal = false) const;
 
     QBitArray minute;
@@ -30,6 +31,7 @@ public:
     static bool isFill(const QBitArray &bit);
 
 private:
+    bool reboot = false;
     bool bValid;
     QString originalDay;
     QString originalWeek;

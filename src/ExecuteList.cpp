@@ -87,7 +87,9 @@ void ExecuteList::dataChanged()
     for (const auto &cron : std::as_const(*crontabs)) {
         for (const auto &cc : std::as_const(cron->getTCommands())) {
             CronTime ct(cc->getTime());
-            if (ct.isValid()) {
+            if (ct.isReboot()) {
+                executes.push_back(std::make_unique<Execute>(cc.get(), tr("At startup")));
+            } else if (ct.isValid()) {
                 QDateTime next = ct.getNextTime(QDateTime::currentDateTime());
                 if (next.isValid()) {
                     cmnd << cc.get();

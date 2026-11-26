@@ -61,6 +61,14 @@ const QStringList MonthName = {"January", "February", "March",     "April",   "M
 const QStringList WeekName = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 const QStringList SimpleName = {"@hourly", "@daily", "@weekly", "@monthly", "@yearly", "@reboot"};
 
+// A startup event has no calendar fields. Clicking a calendar button starts
+// an explicit calendar schedule with all other fields unrestricted.
+static CronTime calendarFields(const QString &time)
+{
+    CronTime parsed(time);
+    return parsed.isReboot() ? CronTime(QStringLiteral("* * * * *")) : parsed;
+}
+
 TimeDialog::TimeDialog(QString time, QWidget *parent)
     : QDialog(parent),
       inTime(std::move(time))
@@ -223,7 +231,7 @@ TimeDialog::TimeDialog(QString time, QWidget *parent)
 
 void TimeDialog::initButtons(const QString &time)
 {
-    CronTime ctime(time);
+    CronTime ctime = calendarFields(time);
     auto btn = minuteBGroup->buttons();
     if (CronTime::isFill(ctime.minute)) {
         for (auto *i : btn) {
@@ -282,7 +290,7 @@ void TimeDialog::initButtons(const QString &time)
 
 void TimeDialog::handleButtonClicked(QButtonGroup *group, QBitArray (CronTime::*bitField))
 {
-    CronTime ctime(outTime);
+    CronTime ctime = calendarFields(outTime);
     auto btn = group->buttons();
     int cnt = 0;
     for (auto *i : btn) {
@@ -328,7 +336,7 @@ void TimeDialog::monthButtonClicked(QAbstractButton * /*unused*/)
 }
 void TimeDialog::weekButtonClicked(QAbstractButton * /*unused*/)
 {
-    CronTime ctime(outTime);
+    CronTime ctime = calendarFields(outTime);
     auto btn = weekBGroup->buttons();
     int cnt = 0;
     for (auto *i : btn) {

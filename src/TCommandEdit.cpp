@@ -183,6 +183,10 @@ void TCommandEdit::setExecuteList(const QString &time)
 {
 
     CronTime cronTime(time);
+    if (cronTime.isReboot()) {
+        exeLabel->setText(tr("At startup"));
+        return;
+    }
     if (!cronTime.isValid()) {
         exeLabel->setText("\n\n   " + tr("Time Format Error") + "\n\n\n");
         return;
