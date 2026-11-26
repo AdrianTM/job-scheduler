@@ -152,11 +152,16 @@ bool Crontab::putCrontab(const QString &text)
             return false;
         }
 
-        {
-            QTextStream stream(&file);
-            stream << text;
+        const QByteArray contents = text.toUtf8();
+        if (file.write(contents) != contents.size() || !file.flush()) {
+            estr = QStringLiteral("can't write temporary crontab\n\n%1").arg(file.errorString());
+            return false;
         }
         file.close();
+        if (file.error() != QFileDevice::NoError) {
+            estr = QStringLiteral("can't close temporary crontab\n\n%1").arg(file.errorString());
+            return false;
+        }
 
         QProcess p;
         if (Clib::uId() == 0) {
@@ -178,7 +183,7 @@ bool Crontab::putCrontab(const QString &text)
         }
 
         QString err = QString::fromUtf8(p.readAllStandardError());
-        if (p.exitCode() != 0) {
+        if (p.exitStatus() != QProcess::NormalExit || p.exitCode() != 0) {
             estr = "crontab update error\n\n" + err;
             return false;
         }
