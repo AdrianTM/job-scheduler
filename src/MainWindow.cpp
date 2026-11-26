@@ -12,7 +12,9 @@
 
 #include <QApplication>
 #include <QDir>
+#include <QFile>
 #include <QFileInfo>
+#include <QRegularExpression>
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
@@ -36,6 +38,39 @@
 
 #include "about.h"
 #include "constants.h"
+
+namespace {
+bool lsbCronNamesEnabled()
+{
+    QFile defaults(QStringLiteral("/etc/default/cron"));
+    if (!defaults.open(QIODevice::ReadOnly)) {
+        return false;
+    }
+    static const QRegularExpression assignment(QStringLiteral(
+        R"cron(^[ \t]*(?:export[ \t]+)?EXTRA_OPTS[ \t]*=[ \t]*(?:"([^"]*)"|'([^']*)'|([^#]*?))[ \t]*(?:#.*)?$)cron"));
+    bool enabled = false;
+    for (const QString &line : QString::fromUtf8(defaults.readAll()).split('\n')) {
+        const auto match = assignment.match(line);
+        if (match.hasMatch()) {
+            const QString options = match.captured(1) + match.captured(2) + match.captured(3);
+            enabled = QProcess::splitCommand(options).contains(QStringLiteral("-l"));
+        }
+    }
+    return enabled;
+}
+
+bool acceptsCronFragment(const QString &name, bool debian, bool lsb)
+{
+    if (!debian) {
+        return !name.startsWith('.') && !name.endsWith('~');
+    }
+    static const QRegularExpression usual(QStringLiteral(R"(\A[A-Za-z0-9_-]+\z)"));
+    static const QRegularExpression hierarchical(QStringLiteral(R"(\A_?([a-z0-9_.]+-)+[a-z0-9]+\z)"));
+    static const QRegularExpression backup(QStringLiteral(R"(\.dpkg-(old|dist|new|tmp)\z)"));
+    return usual.match(name).hasMatch()
+           || (lsb && hierarchical.match(name).hasMatch() && !backup.match(name).hasMatch());
+}
+} // namespace
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -241,8 +276,10 @@ void MainWindow::initCron()
         // Scan /etc/cron.d/ for system cron fragment files
         QDir cronDdir(QStringLiteral("/etc/cron.d"));
         const auto cronDFiles = cronDdir.entryList(QDir::Files | QDir::Readable);
+        const bool debian = QFileInfo::exists(QStringLiteral("/etc/debian_version"));
+        const bool lsb = debian && lsbCronNamesEnabled();
         for (const auto &cf : cronDFiles) {
-            if (cf.endsWith(QLatin1Char('~')) || cf.startsWith(QLatin1Char('.'))) {
+            if (!acceptsCronFragment(cf, debian, lsb)) {
                 continue;
             }
             auto cronFile = loadTable(QStringLiteral("/etc/cron.d/") + cf);
