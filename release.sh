@@ -170,6 +170,22 @@ create_tag() {
     git show "$version" --stat
 }
 
+check_aur_checkout() {
+    local aur_toplevel
+    aur_toplevel=$(git -C "$AUR_DIR" rev-parse --show-toplevel 2>/dev/null) || aur_toplevel=""
+    if [ "$aur_toplevel" != "$(realpath "$AUR_DIR")" ]; then
+        print_error "$AUR_DIR is not a separate git checkout"
+        return 1
+    fi
+
+    local current_branch
+    current_branch=$(git -C "$AUR_DIR" branch --show-current)
+    if [ "$current_branch" != "$AUR_LOCAL_BRANCH" ]; then
+        print_error "$AUR_DIR is on branch '$current_branch', expected '$AUR_LOCAL_BRANCH'"
+        return 1
+    fi
+}
+
 # Update AUR package
 update_aur_package() (
     local version=$1
@@ -269,16 +285,13 @@ update_aur_package() (
     # Check if there are any changes to commit
     print_step "Checking for AUR package changes..."
 
-    if git -C "$AUR_DIR" diff --quiet && git -C "$AUR_DIR" diff --staged --quiet; then
+    git -C "$AUR_DIR" add -- PKGBUILD .SRCINFO
+    if git -C "$AUR_DIR" diff --cached --quiet -- PKGBUILD .SRCINFO; then
         print_warning "No changes in AUR package - skipping commit"
     else
         print_step "Committing AUR package changes..."
 
-        # Add all changes
-        git -C "$AUR_DIR" add -A
-
-        # Commit changes
-        git -C "$AUR_DIR" commit -m "$annotation"
+        git -C "$AUR_DIR" commit --only -m "$annotation" -- PKGBUILD .SRCINFO
 
         print_success "AUR package updated and committed"
         echo
@@ -291,22 +304,10 @@ update_aur_package() (
 push_aur_package() {
     print_step "Pushing AUR package..."
 
-    local aur_toplevel
-    aur_toplevel=$(git -C "$AUR_DIR" rev-parse --show-toplevel 2>/dev/null) || aur_toplevel=""
-    if [ "$aur_toplevel" != "$(realpath "$AUR_DIR")" ]; then
-        print_error "$AUR_DIR is not a separate git checkout"
-        return 1
-    fi
+    check_aur_checkout || return 1
 
     if ! git -C "$AUR_DIR" diff --quiet HEAD -- PKGBUILD .SRCINFO; then
         print_error "$AUR_DIR has uncommitted PKGBUILD/.SRCINFO changes; commit them first"
-        return 1
-    fi
-
-    local current_branch
-    current_branch=$(git -C "$AUR_DIR" branch --show-current)
-    if [ "$current_branch" != "$AUR_LOCAL_BRANCH" ]; then
-        print_error "$AUR_DIR is on branch '$current_branch', expected '$AUR_LOCAL_BRANCH'"
         return 1
     fi
 
@@ -453,6 +454,8 @@ main() {
         prompt_annotation "$version"
     fi
     local annotation="$ANNOTATION"
+
+    check_aur_checkout || exit 1
 
     if [ "$tag_status" = "created" ]; then
         # Confirm before proceeding
