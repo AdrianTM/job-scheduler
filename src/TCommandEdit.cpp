@@ -122,7 +122,7 @@ void TCommandEdit::changeCurrent(Crontab *cron, TCommand *cmnd)
         timer.start(1min);
         timeEdit->setText(tCommand->getTime());
         timeEdit->setCursorPosition(0);
-        if (cron->getCronOwner() == QLatin1String("/etc/crontab")) {
+        if (Crontab::isSystemCron(cron->getCronOwner())) {
             userCombo->setCurrentIndex(userCombo->findText(tCommand->getUser()));
             userCombo->show();
             userLabel->hide();
