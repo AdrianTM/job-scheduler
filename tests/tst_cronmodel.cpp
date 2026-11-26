@@ -32,6 +32,7 @@ private slots:
     void removeShiftsToNextRowOrReturnsInvalid();
     void dropMimeDataMovesCommandAndReturnsTrue();
     void movingBetweenTablesMarksBothForSave();
+    void rejectDropsWithoutLiveSource();
     void refuseMovesInvolvingRestrictedTables();
 };
 
@@ -183,6 +184,21 @@ void TstCronModel::replaceTablesInvalidatesIndexes()
     QVERIFY(!index.isValid());
     QCOMPARE(tables[1].get(), retained);
     QCOMPARE(replacements[0].get(), old);
+}
+
+void TstCronModel::rejectDropsWithoutLiveSource()
+{
+    std::vector<std::unique_ptr<Crontab>> tables;
+    tables.push_back(std::make_unique<Crontab>());
+    addCommand(*tables[0], "@daily", "echo first");
+    addCommand(*tables[0], "@daily", "echo second");
+    CronModel model(&tables);
+    QCOMPARE(model.supportedDragActions(), Qt::MoveAction);
+    QVERIFY(!model.dropMimeData(nullptr, Qt::MoveAction, 1, 0, {}));
+    model.dragTCommand(model.index(0, 0));
+    QVERIFY(!model.dropMimeData(nullptr, Qt::CopyAction, 2, 0, {}));
+    model.removeCommand(model.index(0, 0));
+    QVERIFY(!model.dropMimeData(nullptr, Qt::MoveAction, 1, 0, {}));
 }
 
 QTEST_GUILESS_MAIN(TstCronModel)

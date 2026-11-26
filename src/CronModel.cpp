@@ -16,7 +16,7 @@
 void CronModel::replaceTables(std::vector<std::unique_ptr<Crontab>> &tables)
 {
     beginResetModel();
-    drag = nullptr;
+    dragIndex = QModelIndex();
     for (size_t i = 0; i < tables.size(); ++i) {
         // During a partial save an empty slot retains that table's pending edits.
         if (!tables[i]) {
@@ -103,7 +103,7 @@ QModelIndex CronModel::index(int row, int column, const QModelIndex &parent) con
 Qt::ItemFlags CronModel::flags(const QModelIndex &idx) const
 {
     if (!idx.isValid()) {
-        return {};
+        return isOneUser() && getCrontab({})->saveRestriction().isEmpty() ? Qt::ItemIsDropEnabled : Qt::NoItemFlags;
     }
 
     if (!getCrontab(idx)->saveRestriction().isEmpty()) {
@@ -296,64 +296,51 @@ QModelIndex CronModel::searchTCommand(TCommand *cmnd) const
     return {};
 }
 
-bool CronModel::dropMimeData(const QMimeData * /*data*/, Qt::DropAction /*action*/, int row, int /*column*/,
+bool CronModel::dropMimeData(const QMimeData * /*data*/, Qt::DropAction action, int row, int /*column*/,
                              const QModelIndex &parent)
 {
-    if (isOneUser()) {
-        if (row < 0 && !parent.isValid()) {
-            return false;
-        }
-    } else {
-        if (!parent.isValid()) {
-            return false;
-        }
+    if (action != Qt::MoveAction || !dragIndex.isValid() || (!isOneUser() && !parent.isValid())) {
+        return false;
     }
-
-    QModelIndex ins;
-    QModelIndex next;
-    if (row <= 0) {
-        ins = parent;
-        if (ins.isValid() && (isOneUser() || ins.parent().isValid())) {
-            next = index(ins.row() + 1, 0, ins.parent());
-        } else {
-            next = index(0, 0, ins);
-        }
-    } else {
-        ins = index(row - 1, 0, parent);
-        next = index(row, 0, parent);
+    const QModelIndex sourceIndex = dragIndex;
+    const QModelIndex sourceParent = sourceIndex.parent();
+    const int sourceRow = sourceIndex.row();
+    QModelIndex destinationParent = parent.siblingAtColumn(0);
+    if (getTCommand(parent)) {
+        destinationParent = parent.parent();
+        row = parent.row() + 1;
+    } else if (row < 0) {
+        row = parent.isValid() ? 0 : rowCount(destinationParent);
     }
-
-    Crontab *c = getCrontab(ins);
-    const QModelIndex sourceIndex = searchTCommand(drag);
     auto *source = getCrontab(sourceIndex);
-    if (!drag || !sourceIndex.isValid() || !source || !c || !source->saveRestriction().isEmpty()
-        || !c->saveRestriction().isEmpty() || getTCommand(ins) == drag || getTCommand(next) == drag) {
+    auto *destination = getCrontab(destinationParent);
+    if (!source || !destination || !source->saveRestriction().isEmpty() || !destination->saveRestriction().isEmpty()
+        || row > rowCount(destinationParent) || !beginMoveRows(sourceParent, sourceRow, sourceRow, destinationParent, row)) {
         return false;
     }
 
-    auto t = std::make_unique<TCommand>();
-    *t = *drag;
-    if (!Crontab::isSystemCron(c->getCronOwner())) {
-        t->setUser(c->getCronOwner());
+    auto &from = source->getTCommands();
+    auto command = std::move(from[sourceRow]);
+    from.erase(from.begin() + sourceRow);
+    if (source == destination && row > sourceRow) {
+        --row;
     }
-    t->setParent(c);
-
-    TCommand *raw_ptr = t.release();
-    insertTCommand(ins, raw_ptr);
-
-    QModelIndex del = searchTCommand(drag);
+    if (!Crontab::isSystemCron(destination->getCronOwner())) {
+        command->setUser(destination->getCronOwner());
+    }
+    command->setParent(destination);
+    TCommand *moved = command.get();
+    auto &to = destination->getTCommands();
+    to.insert(to.begin() + row, std::move(command));
     source->setChanged(true);
-    c->setChanged(true);
-    removeCommand(del);
-
-    drag = nullptr;
-
-    emit moveTCommand(raw_ptr);
-
+    destination->setChanged(true);
+    endMoveRows();
+    dragIndex = QModelIndex();
+    emit moveTCommand(moved);
     return true;
 }
 
-void CronModel::dragTCommand(const QModelIndex &idx)
+void CronModel::dragTCommand(const QModelIndex &index)
 {
-    drag = getTCommand(idx);
+    dragIndex = getTCommand(index) ? index.siblingAtColumn(0) : QModelIndex();
 }

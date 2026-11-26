@@ -33,10 +33,9 @@ CronView::CronView(CronModel *model, QWidget *parent)
     cronModel = model;
     pasteData = nullptr;
     setModel(cronModel);
-    setDragEnabled(true);
+    setDragDropMode(QAbstractItemView::InternalMove);
     setSelectionBehavior(QAbstractItemView::SelectRows);
     setSelectionMode(QAbstractItemView::SingleSelection);
-    setAcceptDrops(true);
 
     connect(selectionModel(), &QItemSelectionModel::currentChanged, this, &CronView::selectChanged);
     connect(cronModel, &CronModel::moveTCommand, this, &CronView::tCommandMoved);
@@ -184,4 +183,5 @@ void CronView::startDrag(Qt::DropActions supportedActions)
     cronModel->dragTCommand(currentIndex());
 
     QTreeView::startDrag(supportedActions);
+    cronModel->dragTCommand({});
 }

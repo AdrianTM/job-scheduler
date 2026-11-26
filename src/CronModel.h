@@ -39,6 +39,7 @@ public:
     [[nodiscard]] QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
     [[nodiscard]] QVariant data(const QModelIndex &idx, int role) const override;
     [[nodiscard]] QModelIndex parent(const QModelIndex &index) const override;
+    Qt::DropActions supportedDropActions() const override { return Qt::MoveAction; }
     bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column,
                       const QModelIndex &parent) override;
 
@@ -57,7 +58,7 @@ public:
 
 private:
     std::vector<std::unique_ptr<Crontab>> *crontabs;
-    TCommand *drag {};
+    QPersistentModelIndex dragIndex;
 
 signals:
     void moveTCommand(TCommand *cmd);
