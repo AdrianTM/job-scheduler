@@ -248,8 +248,9 @@ void Crontab::setup(const QString &str)
     QStringList cmnt;
     QStringList head;
     int headflag = 0;
+    static const QRegularExpression indentation(QStringLiteral("^[ \\t]+"));
     for (QString s : slist) {
-        s = s.simplified();
+        s.remove(indentation);
         if (s.isEmpty()) {
             if (headflag == 0) {
                 if (!head.isEmpty()) {
@@ -277,15 +278,16 @@ void Crontab::setup(const QString &str)
 
                 comment = list2String(head);
             }
-            if (s.contains(QRegularExpression(QStringLiteral("^\\S+\\s*=\\s*\\S*$")))) {
+            const QString variableLine = s.trimmed();
+            if (variableLine.contains(QRegularExpression(QStringLiteral("^\\S+\\s*=\\s*\\S*$")))) {
                 // Variable
                 QRegularExpression sep(QStringLiteral("\\s*=\\s*"));
-                QString name = s.section(sep, 0, 0);
-                QString val = s.section(sep, 1, 1);
+                QString name = variableLine.section(sep, 0, 0);
+                QString val = variableLine.section(sep, 1, 1);
                 variables.push_back(std::make_unique<Variable>(name, val, list2String(cmnt)));
             } else {
                 // Command
-                QRegularExpression sep(QStringLiteral("\\s+"));
+                static const QRegularExpression sep(QStringLiteral("[ \\t]+"));
                 int n = 0;
                 if (s.at(0) == '@') {
                     n = 0;
@@ -293,7 +295,7 @@ void Crontab::setup(const QString &str)
                     n = 4;
                 }
 
-                QString time = s.section(sep, 0, n);
+                QString time = s.section(sep, 0, n).simplified();
                 QString user = cronOwner;
                 n++;
                 if (isSystemCron(cronOwner)) {

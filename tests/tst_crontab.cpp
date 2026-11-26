@@ -12,6 +12,7 @@ private slots:
     void commandCommentRoundTripsAfterVariables();
     void commandCommentRoundTripsWithoutVariables();
     void multiLineCommentPreservesInternalBlankLines();
+    void commandWhitespaceSurvivesSave();
 };
 
 // A fresh user crontab always has HOME/PATH/SHELL variables (MainWindow adds
@@ -69,6 +70,17 @@ void TstCrontab::multiLineCommentPreservesInternalBlankLines()
 
     QCOMPARE(reparsed.getTCommands().size(), size_t(1));
     QCOMPARE(reparsed.getTCommands().at(0)->getComment(), QStringLiteral("first paragraph\n\nsecond paragraph"));
+}
+
+void TstCrontab::commandWhitespaceSurvivesSave()
+{
+    Crontab cron;
+    const QString command = QStringLiteral("printf 'two  spaces\tand a tab'  ");
+    cron.setup(QStringLiteral("SHELL=/bin/sh  \n  0\t  4 * * *\t") + command + '\n');
+    QCOMPARE(cron.getVariables().size(), size_t(1));
+    QCOMPARE(cron.getTCommands().front()->getTime(), QStringLiteral("0 4 * * *"));
+    QCOMPARE(cron.getTCommands().front()->getCommand(), command);
+    QVERIFY(cron.cronText().endsWith(command + '\n'));
 }
 
 QTEST_GUILESS_MAIN(TstCrontab)
