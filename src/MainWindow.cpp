@@ -273,14 +273,12 @@ void MainWindow::replaceTables(std::vector<std::unique_ptr<Crontab>> &tables)
 void MainWindow::reloadCron()
 {
 
-    if (saveAction->isEnabled()) {
-        if (QMessageBox::Ok
-            == QMessageBox::question(this, tr("Job Scheduler"),
-                                     tr("Not saved since last change.\nAre you OK to reload?"), QMessageBox::Ok,
-                                     QMessageBox::Cancel)) {
-            initCron();
-        }
+    if (saveAction->isEnabled()
+        && QMessageBox::question(this, tr("Job Scheduler"), tr("Not saved since last change.\nAre you OK to reload?"),
+                                 QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Cancel) != QMessageBox::Ok) {
+        return;
     }
+    initCron();
 }
 
 void MainWindow::saveCron()
