@@ -24,6 +24,7 @@ void TstCronTime::emptyStringIsInvalid()
 {
     CronTime t{QString()};
     QVERIFY(!t.isValid());
+    QVERIFY(t.toString().isEmpty());
 }
 
 void TstCronTime::outOfRangeFieldsAreInvalid_data()

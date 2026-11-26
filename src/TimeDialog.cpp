@@ -66,7 +66,7 @@ const QStringList SimpleName = {"@hourly", "@daily", "@weekly", "@monthly", "@ye
 static CronTime calendarFields(const QString &time)
 {
     CronTime parsed(time);
-    return parsed.isReboot() ? CronTime(QStringLiteral("* * * * *")) : parsed;
+    return parsed.isValid() && !parsed.isReboot() ? parsed : CronTime(QStringLiteral("* * * * *"));
 }
 
 TimeDialog::TimeDialog(QString time, QWidget *parent)
@@ -193,7 +193,7 @@ TimeDialog::TimeDialog(QString time, QWidget *parent)
         QPalette errPal = timeEdit->palette();
         errPal.setColor(QPalette::Text, QColor(189, 55, 44));
         timeEdit->setPalette(errPal);
-        timeEdit->setText(tr("Time format error"));
+        timeEdit->setText(outTime);
         timeEdit->setToolTip(tr("The current time expression is invalid. Please fix it or cancel."));
     } else {
         timeEdit->setText(outTime);
@@ -387,8 +387,11 @@ void TimeDialog::simpleButtonClicked(QAbstractButton *b)
 void TimeDialog::litCheckBoxChanged(int state)
 {
     useLiteral = (state == Qt::Checked);
-    outTime = CronTime(outTime).toString(useLiteral);
-    timeEdit->setText(outTime);
+    const CronTime current(outTime);
+    if (current.isValid()) {
+        outTime = current.toString(useLiteral);
+        timeEdit->setText(outTime);
+    }
 }
 void TimeDialog::resetClicked()
 {

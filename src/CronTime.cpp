@@ -100,6 +100,9 @@ bool CronTime::isValid() const
 
 QString CronTime::toString(bool literal) const
 {
+    if (!bValid) {
+        return {};
+    }
     if (reboot) {
         return QStringLiteral("@reboot");
     }
