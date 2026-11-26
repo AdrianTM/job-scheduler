@@ -118,7 +118,7 @@ void TCommandEdit::changeCurrent(Crontab *cron, TCommand *cmnd)
         setEnabled(false);
         timer.stop();
     } else {
-        setEnabled(true);
+        setEnabled(cron->saveRestriction().isEmpty());
         timer.start(1min);
         timeEdit->setText(tCommand->getTime());
         timeEdit->setCursorPosition(0);

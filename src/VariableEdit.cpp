@@ -123,7 +123,7 @@ void VariableEdit::changeCurrent(Crontab *cron, TCommand * /*unused*/)
         return;
     }
 
-    setEnabled(true);
+    setEnabled(cron->saveRestriction().isEmpty());
     viewChanging = true;
 
     crontab = cron;

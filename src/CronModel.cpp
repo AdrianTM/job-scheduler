@@ -106,6 +106,9 @@ Qt::ItemFlags CronModel::flags(const QModelIndex &idx) const
         return {};
     }
 
+    if (!getCrontab(idx)->saveRestriction().isEmpty()) {
+        return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+    }
     if (isOneUser() || idx.parent().isValid()) {
         return Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled;
     } else {

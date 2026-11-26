@@ -26,6 +26,7 @@ public:
     ~CronView();
 
     void resetView();
+    bool canPaste() const { return pasteData != nullptr; }
     void hideUser(bool flag = true)
     {
         setColumnHidden(1, flag);

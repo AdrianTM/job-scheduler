@@ -18,6 +18,7 @@
 #include <QMessageBox>
 #include <QProcess>
 #include <QSplitter>
+#include <QStatusBar>
 #include <QToolBar>
 #include <memory>
 #include <vector>
@@ -86,7 +87,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(reloadAction, &QAction::triggered, this, &MainWindow::reloadCron);
     connect(aboutAction, &QAction::triggered, this, &MainWindow::aboutJobScheduler);
     connect(helpAction, &QAction::triggered, this, &MainWindow::displayHelp);
-    connect(cronView, &CronView::pasted, pasteAction, &QAction::setEnabled);
+    connect(cronView, &CronView::pasted, this, [this]() {
+        changeCurrent(cronView->getCurrentCrontab(), cronView->getCurrentTCommand());
+    });
     connect(chuserAction, &QAction::triggered, this, &MainWindow::changeUser);
 
     initCron();
@@ -211,9 +214,17 @@ void MainWindow::initCron()
 {
     std::vector<std::unique_ptr<Crontab>> tables;
 
+    QStringList readErrors;
+    const auto loadTable = [&readErrors](const QString &owner) {
+        auto table = std::make_unique<Crontab>(owner);
+        if (!table->estr.isEmpty()) {
+            readErrors << QStringLiteral("%1: %2").arg(owner, table->estr);
+        }
+        return table;
+    };
     QString user = Clib::uName();
-    auto cron = std::make_unique<Crontab>(user);
-    if (cron->getTCommands().empty() && cron->getComment().isEmpty() && cron->getVariables().empty()) {
+    auto cron = loadTable(user);
+    if (cron->estr.isEmpty() && cron->getTCommands().empty() && cron->getComment().isEmpty() && cron->getVariables().empty()) {
         cron->setComment(QLatin1String(""));
         cron->getVariables().push_back(
             std::make_unique<Variable>(QStringLiteral("HOME"), Clib::uHome(), QStringLiteral("Home")));
@@ -224,7 +235,7 @@ void MainWindow::initCron()
     }
     tables.push_back(std::move(cron));
     if (Clib::uId() == 0) {
-        auto etcCron = std::make_unique<Crontab>(QStringLiteral("/etc/crontab"));
+        auto etcCron = loadTable(QStringLiteral("/etc/crontab"));
         tables.push_back(std::move(etcCron));
 
         // Scan /etc/cron.d/ for system cron fragment files
@@ -234,10 +245,7 @@ void MainWindow::initCron()
             if (cf.endsWith(QLatin1Char('~')) || cf.startsWith(QLatin1Char('.'))) {
                 continue;
             }
-            auto cronFile = std::make_unique<Crontab>(QStringLiteral("/etc/cron.d/") + cf);
-            if (!cronFile->estr.isEmpty()) {
-                qWarning().noquote() << "Failed to load" << cronFile->getCronOwner() << ":" << cronFile->estr;
-            }
+            auto cronFile = loadTable(QStringLiteral("/etc/cron.d/") + cf);
             if (!cronFile->getTCommands().empty() || !cronFile->getVariables().empty()) {
                 tables.push_back(std::move(cronFile));
             }
@@ -248,7 +256,7 @@ void MainWindow::initCron()
                 continue;
             }
 
-            auto userCron = std::make_unique<Crontab>(s);
+            auto userCron = loadTable(s);
             if (!userCron->getTCommands().empty()) {
                 tables.push_back(std::move(userCron));
             }
@@ -259,6 +267,9 @@ void MainWindow::initCron()
     replaceTables(tables);
 
     saveAction->setEnabled(false);
+    if (!readErrors.isEmpty()) {
+        QMessageBox::warning(this, tr("Could not load schedules"), readErrors.join(QStringLiteral("\n\n")));
+    }
 }
 
 void MainWindow::replaceTables(std::vector<std::unique_ptr<Crontab>> &tables)
@@ -326,12 +337,16 @@ void MainWindow::dataChanged()
     cronView->resizeColumnToContents(0);
 }
 
-void MainWindow::changeCurrent(Crontab * /*unused*/, TCommand *cmnd)
+void MainWindow::changeCurrent(Crontab *cron, TCommand *cmnd)
 {
     bool flg = (cmnd != nullptr);
-    cutAction->setEnabled(flg);
+    const bool editable = cron && cron->saveRestriction().isEmpty();
+    statusBar()->showMessage(cron ? cron->saveRestriction() : QString());
+    newAction->setEnabled(editable);
+    pasteAction->setEnabled(editable && cronView->canPaste());
+    cutAction->setEnabled(flg && editable);
     copyAction->setEnabled(flg);
-    deleteAction->setEnabled(flg);
+    deleteAction->setEnabled(flg && editable);
 }
 
 void MainWindow::readSettings()

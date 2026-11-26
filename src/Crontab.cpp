@@ -40,6 +40,7 @@ Crontab::Crontab(const QString &user)
         setup(str);
     }
     if (!estr.isEmpty()) {
+        readOnlyReason = estr;
         qWarning().noquote() << "Crontab initialization error for user" << user << ":" << estr;
     }
 }
@@ -57,9 +58,16 @@ QString Crontab::getCrontab(const QString &user)
             return ret;
         }
         ret = QString::fromUtf8(f.readAll());
+        if (f.error() != QFileDevice::NoError) {
+            estr = QObject::tr("Cannot read %1: %2").arg(user, f.errorString());
+            return {};
+        }
 
     } else {
         QProcess p;
+        auto environment = QProcessEnvironment::systemEnvironment();
+        environment.insert(QStringLiteral("LC_ALL"), QStringLiteral("C"));
+        p.setProcessEnvironment(environment);
         if (user == Clib::uName()) {
             p.start(QStringLiteral("crontab"), QStringList() << QStringLiteral("-l"));
         } else {
@@ -79,7 +87,11 @@ QString Crontab::getCrontab(const QString &user)
         }
 
         QString err = QString::fromUtf8(p.readAllStandardError());
-        if (p.exitCode() != 0) {
+        if (p.exitStatus() == QProcess::NormalExit && p.exitCode() == 1
+            && err.trimmed() == QStringLiteral("no crontab for %1").arg(user)) {
+            return {};
+        }
+        if (p.exitStatus() != QProcess::NormalExit || p.exitCode() != 0) {
             estr = "crontab read error\n\n" + err;
             return ret;
         }
