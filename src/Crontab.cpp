@@ -15,6 +15,7 @@
 
 #include "Clib.h"
 #include "Crontab.h"
+#include "CronTime.h"
 
 namespace {
 // Bound how long we'll block the calling (GUI) thread waiting on the
@@ -27,6 +28,65 @@ void killAndReap(QProcess &p)
         p.kill();
         p.waitForFinished(kCrontabProcessTimeoutMs);
     }
+}
+
+// Debian cron and Cronie offer different syntax-only flags. In particular,
+// Cronie's -n changes cluster settings, so only use Debian's advertised dry run.
+QString validateSystemCrontab(const QString &text, const QString &fileName)
+{
+    if (text.contains(QChar::Null) || (!text.isEmpty() && !text.endsWith('\n'))) {
+        return QObject::tr("The crontab must end with a newline and contain no NUL characters.");
+    }
+    QProcess checker;
+    auto env = QProcessEnvironment::systemEnvironment();
+    env.insert(QStringLiteral("LC_ALL"), QStringLiteral("C"));
+    checker.setProcessEnvironment(env);
+    checker.setProcessChannelMode(QProcess::MergedChannels);
+    checker.start(QStringLiteral("crontab"), {QStringLiteral("-h")});
+    if (!checker.waitForFinished(kCrontabProcessTimeoutMs)) {
+        killAndReap(checker);
+        return QObject::tr("Could not start the crontab syntax checker.");
+    }
+    const QString help = QString::fromUtf8(checker.readAll());
+    QString flag;
+    if (help.contains(QRegularExpression(QStringLiteral(R"((?m)^[ \t]*-T[ \t]+[^\n]*[Tt]est)")))) {
+        flag = QStringLiteral("-T");
+    } else if (help.contains(QRegularExpression(QStringLiteral(R"((?m)^[ \t]*-n[ \t]+\(dry run:)")))) {
+        flag = QStringLiteral("-n");
+    }
+
+    static const QRegularExpression separator(QStringLiteral("[ \\t]+"));
+    static const QRegularExpression assignment(QStringLiteral(R"(^[^= \t]+[ \t]*=)"));
+    int lineNumber = 0;
+    for (const auto &raw : text.split('\n')) {
+        ++lineNumber;
+        const QString line = raw.trimmed();
+        if (line.isEmpty() || line.startsWith('#') || assignment.match(line).hasMatch()) {
+            continue;
+        }
+        const auto fields = line.split(separator);
+        const int userField = line.startsWith('@') ? 1 : 5;
+        if (fields.size() < userField + 2) {
+            return QObject::tr("Line %1 needs a schedule, an execution user and a command.").arg(lineNumber);
+        }
+        if (!getpwnam(fields.at(userField).toLocal8Bit().constData())) {
+            return QObject::tr("Unknown execution user on line %1: %2").arg(lineNumber).arg(fields.at(userField));
+        }
+        if (flag.isEmpty() && !CronTime(fields.mid(0, userField).join(' ')).isValid()) {
+            return QObject::tr("Invalid schedule on line %1.").arg(lineNumber);
+        }
+    }
+    if (!flag.isEmpty()) {
+        checker.start(QStringLiteral("crontab"), {flag, fileName});
+        if (!checker.waitForFinished(kCrontabProcessTimeoutMs)) {
+            killAndReap(checker);
+            return QObject::tr("The crontab syntax check did not finish.");
+        }
+        if (checker.exitStatus() != QProcess::NormalExit || checker.exitCode() != 0) {
+            return QObject::tr("Invalid crontab: %1").arg(QString::fromUtf8(checker.readAll()).trimmed());
+        }
+    }
+    return {};
 }
 } // namespace
 
@@ -142,6 +202,12 @@ bool Crontab::putCrontab(const QString &text)
         tmp.close();
         if (!writeOk) {
             estr = QStringLiteral("can't write temporary file for %1\n\n%2").arg(cronOwner, tmp.errorString());
+            QFile::remove(tmpFileName);
+            return false;
+        }
+
+        estr = validateSystemCrontab(text, tmpFileName);
+        if (!estr.isEmpty()) {
             QFile::remove(tmpFileName);
             return false;
         }
