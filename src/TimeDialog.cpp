@@ -186,22 +186,26 @@ TimeDialog::TimeDialog(QString time, QWidget *parent)
     }
     setLayout(mainLayout);
 
-    outTime = inTime;
-    if (!CronTime(outTime).isValid()) {
-        // Show the error in the input field but keep outTime as-is;
-        // OK button will re-validate before accepting.
-        QPalette errPal = timeEdit->palette();
-        errPal.setColor(QPalette::Text, QColor(189, 55, 44));
-        timeEdit->setPalette(errPal);
-        timeEdit->setText(outTime);
-        timeEdit->setToolTip(tr("The current time expression is invalid. Please fix it or cancel."));
-    } else {
-        timeEdit->setText(outTime);
-    }
-
     useLiteral = true;
     litCheckBox->setChecked(useLiteral);
-    initButtons(outTime);
+    const auto syncTime = [this, okButton](const QString &text) {
+        outTime = text;
+        const bool valid = CronTime(text).isValid();
+        QPalette palette;
+        if (!valid) {
+            palette.setColor(QPalette::Text, QColor(189, 55, 44));
+        }
+        timeEdit->setPalette(palette);
+        timeEdit->setToolTip(valid ? QString() : tr("The current time expression is invalid. Please fix it or cancel."));
+        okButton->setEnabled(valid);
+        initButtons(text);
+        for (auto *button : simpleBGroup->buttons()) {
+            button->setChecked(button->text().compare(text, Qt::CaseInsensitive) == 0);
+        }
+    };
+    timeEdit->setText(inTime);
+    syncTime(inTime);
+    connect(timeEdit, &QLineEdit::textChanged, this, syncTime);
 
     connect(minuteBGroup, qOverload<QAbstractButton *>(&QButtonGroup::buttonClicked), this,
             &TimeDialog::minuteButtonClicked);
@@ -395,12 +399,5 @@ void TimeDialog::litCheckBoxChanged(int state)
 }
 void TimeDialog::resetClicked()
 {
-    outTime = inTime;
-    timeEdit->setText(outTime);
-    initButtons(outTime);
-
-    auto btn = simpleBGroup->buttons();
-    for (auto *i : btn) {
-        i->setChecked(false);
-    }
+    timeEdit->setText(inTime);
 }
