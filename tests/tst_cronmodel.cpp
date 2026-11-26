@@ -30,6 +30,8 @@ private slots:
     void insertAddsRowAtRequestedPosition();
     void removeShiftsToNextRowOrReturnsInvalid();
     void dropMimeDataMovesCommandAndReturnsTrue();
+    void movingBetweenTablesMarksBothForSave();
+    void refuseMovesInvolvingRestrictedTables();
 };
 
 void TstCronModel::oneUserIndexRejectsNegativeRow()
@@ -132,6 +134,37 @@ void TstCronModel::dropMimeDataMovesCommandAndReturnsTrue()
     QCOMPARE(model.rowCount(QModelIndex()), 2);
     QCOMPARE(model.data(model.index(1, CronModel::Command, QModelIndex()), Qt::DisplayRole).toString(),
              QStringLiteral("echo a"));
+}
+
+void TstCronModel::movingBetweenTablesMarksBothForSave()
+{
+    std::vector<std::unique_ptr<Crontab>> crontabs;
+    crontabs.push_back(std::make_unique<Crontab>());
+    crontabs.push_back(std::make_unique<Crontab>());
+    auto *job = addCommand(*crontabs[0], "@daily", "echo moved");
+    CronModel model(&crontabs);
+    model.dragTCommand(model.searchTCommand(job));
+    QVERIFY(model.dropMimeData(nullptr, Qt::MoveAction, -1, 0, model.index(1, 0)));
+    QVERIFY(crontabs[0]->isChanged());
+    QVERIFY(crontabs[1]->isChanged());
+    QVERIFY(crontabs[0]->getTCommands().empty());
+    QCOMPARE(crontabs[1]->getTCommands().size(), size_t(1));
+}
+
+void TstCronModel::refuseMovesInvolvingRestrictedTables()
+{
+    std::vector<std::unique_ptr<Crontab>> tables;
+    tables.push_back(std::make_unique<Crontab>());
+    tables.push_back(std::make_unique<Crontab>());
+    tables[0]->setup(QStringLiteral("@daily echo first\n"));
+    tables[1]->setup(QStringLiteral("@daily echo second\nMAILTO=ops\n"));
+    CronModel model(&tables);
+    for (int row = 0; row < 2; ++row) {
+        model.dragTCommand(model.index(0, 0, model.index(row, 0)));
+        QVERIFY(!model.dropMimeData(nullptr, Qt::MoveAction, -1, 0, model.index(1 - row, 0)));
+        QCOMPARE(tables[row]->getTCommands().size(), size_t(1));
+        QVERIFY(!tables[row]->isChanged());
+    }
 }
 
 QTEST_GUILESS_MAIN(TstCronModel)

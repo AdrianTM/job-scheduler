@@ -306,13 +306,16 @@ bool CronModel::dropMimeData(const QMimeData * /*data*/, Qt::DropAction /*action
         next = index(row, 0, parent);
     }
 
-    if (getTCommand(ins) == drag || getTCommand(next) == drag) {
+    Crontab *c = getCrontab(ins);
+    const QModelIndex sourceIndex = searchTCommand(drag);
+    auto *source = getCrontab(sourceIndex);
+    if (!drag || !sourceIndex.isValid() || !source || !c || !source->saveRestriction().isEmpty()
+        || !c->saveRestriction().isEmpty() || getTCommand(ins) == drag || getTCommand(next) == drag) {
         return false;
     }
 
     auto t = std::make_unique<TCommand>();
     *t = *drag;
-    Crontab *c = getCrontab(ins);
     if (!Crontab::isSystemCron(c->getCronOwner())) {
         t->setUser(c->getCronOwner());
     }
@@ -322,6 +325,8 @@ bool CronModel::dropMimeData(const QMimeData * /*data*/, Qt::DropAction /*action
     insertTCommand(ins, raw_ptr);
 
     QModelIndex del = searchTCommand(drag);
+    source->setChanged(true);
+    c->setChanged(true);
     removeCommand(del);
 
     drag = nullptr;
