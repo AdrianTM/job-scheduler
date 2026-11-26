@@ -33,6 +33,11 @@ void TstCronTime::outOfRangeFieldsAreInvalid_data()
     QTest::newRow("day-of-month too high") << "0 0 99 * *";
     QTest::newRow("month too high") << "0 0 1 99 *";
     QTest::newRow("day-of-week too high") << "0 0 * * 99";
+    QTest::newRow("two step delimiters") << "*/2/3 * * * *";
+    QTest::newRow("negative step") << "*/-2 * * * *";
+    QTest::newRow("trailing dash") << "10- * * * *";
+    QTest::newRow("unknown name suffix") << "0 0 * jan1 *";
+    QTest::newRow("integer overflow") << "4294967296 * * * *";
     QTest::newRow("wrong field count") << "0 0 * *";
     QTest::newRow("range end below range start") << "10-5 * * * *";
     QTest::newRow("non-numeric field") << "abc * * * *";
@@ -55,6 +60,7 @@ void TstCronTime::validFieldsAreAccepted_data()
     QTest::newRow("step values") << "*/15 * * * *";
     QTest::newRow("range") << "0 9-17 * * 1-5";
     QTest::newRow("list") << "0,30 * * * *";
+    QTest::newRow("tabs and spaces") << "0\t 4 * * mon";
     QTest::newRow("month name") << "0 0 1 jan *";
     QTest::newRow("day-of-week name") << "0 0 * * mon";
 }

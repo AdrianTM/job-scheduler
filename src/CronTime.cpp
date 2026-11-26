@@ -22,25 +22,6 @@ inline QString upcaseHead(const QString &str)
     return str.at(0).toUpper() + str.mid(1);
 }
 
-QString toNumeric(const QString &str, const QStringList &names, int start)
-{
-    QString ret = str;
-    for (int i : std::views::iota(0, static_cast<int>(names.size()))) {
-        ret = ret.replace(names.at(i), QString::number(i + start));
-    }
-    return ret;
-}
-
-inline QString toMonthNumeric(const QString &str)
-{
-    return toNumeric(str, MonthNames, 1);
-}
-
-inline QString toWeekNumeric(const QString &str)
-{
-    return toNumeric(str, WeekNames, 0);
-}
-
 CronTime::CronTime(const QString &tstr)
 {
     bValid = false;
@@ -61,7 +42,8 @@ CronTime::CronTime(const QString &tstr)
             str = QStringLiteral("0 0 * * *");
         }
     }
-    QStringList slist = str.split(' ');
+    static const QRegularExpression separator(QStringLiteral("[ \\t]+"));
+    QStringList slist = str.split(separator, Qt::SkipEmptyParts);
 
     if (slist.size() != 5) {
         qDebug() << "CronTime::CronTime Invalid Item count:" << slist.size();
@@ -82,12 +64,12 @@ CronTime::CronTime(const QString &tstr)
         qDebug() << "CronTime::CronTime Invalid Day Format:" << slist.at(2);
         return;
     }
-    month = toBit(1, 12, toMonthNumeric(slist.at(3)));
+    month = toBit(1, 12, slist.at(3), MonthNames);
     if (month.isEmpty()) {
         qDebug() << "CronTime::CronTime Invalid Month Format:" << slist.at(3);
         return;
     }
-    week = toBit(0, 8, toWeekNumeric(slist.at(4)));
+    week = toBit(0, 8, slist.at(4), WeekNames);
     if (week.isEmpty()) {
         qDebug() << "CronTime::CronTime Invalid Week Format:" << slist.at(4);
         return;
@@ -122,69 +104,47 @@ QString CronTime::toString(bool literal) const
     return ret;
 }
 
-QBitArray CronTime::toBit(int start, int num, const QString &str)
+QBitArray CronTime::toBit(int start, int num, const QString &field, const QStringList &names)
 {
-    QRegularExpression reg(QStringLiteral("^\\d+$"));
-    QBitArray ret(num);
-    QBitArray NG(0);
-    int fp = 0;
-    int ep = 0;
-    for (auto &s : str.split(',')) {
-        int deg = 1;
+    static const QRegularExpression term(
+        QStringLiteral(R"(\A(\*|[0-9]+|[a-z]{3})(?:-([0-9]+|[a-z]{3}))?(?:/([0-9]+))?\z)"));
+    const auto endpoint = [&](const QString &token) {
+        bool ok = false;
+        const int value = token.toInt(&ok);
+        if (ok) {
+            return value - start;
+        }
+        return static_cast<int>(names.indexOf(token));
+    };
 
-        if (s.contains('/')) {
-            deg = (s.section('/', 1, 1)).toInt();
-            if (deg == 0) {
-                return NG;
-            }
-            s = s.section('/', 0, 0);
-            if (s.isEmpty()) {
-                return NG;
-            }
+    QBitArray bits(num);
+    for (const QString &part : field.split(',')) {
+        const auto match = term.match(part);
+        if (!match.hasMatch()) {
+            return {};
         }
-        if (s.contains('-')) {
-            QString fs = s.section('-', 0, 0);
-            QString es = s.section('-', 1, 1);
-            if (fs.isEmpty() || fs == QLatin1String("*")) {
-                fp = 0;
-            } else {
-                if (!fs.contains(reg)) {
-                    return NG;
-                }
-                fp = fs.toInt() - start;
-            }
-            if (es.isEmpty() || es == QLatin1String("*")) {
-                ep = num - 1;
-            } else {
-                if (!es.contains(reg)) {
-                    return NG;
-                }
-                ep = es.toInt() - start;
-            }
-            if (fp > ep) {
-                return NG;
-            }
-        } else if (s == QLatin1String("*")) {
-            fp = 0;
-            ep = num - 1;
-        } else {
-            if (!s.contains(reg)) {
-                return NG;
-            }
-            fp = s.toInt() - start;
-            ep = fp;
+        const bool wildcard = match.captured(1) == QLatin1String("*");
+        const bool range = !match.captured(2).isEmpty();
+        const bool stepped = !match.captured(3).isEmpty();
+        if ((wildcard && range) || (stepped && !wildcard && !range)) {
+            return {};
         }
-        if (fp < 0 || fp >= num || ep < 0 || ep >= num) {
-            return NG;
+        const int first = wildcard ? 0 : endpoint(match.captured(1));
+        int last = wildcard ? num - 1 : first;
+        if (range) {
+            last = endpoint(match.captured(2));
         }
-        const int end = std::min(ep + 1, num);
-        for (int i : std::views::iota(fp, end)) {
-            if ((i - fp) % deg == 0) {
-                ret[i] = true;
+        const int step = stepped ? match.captured(3).toInt() : 1;
+        if (first < 0 || last < first || last >= num || step < 1) {
+            return {};
+        }
+        for (int i = first; i <= last; ++i) {
+            if ((i - first) % step == 0) {
+                bits.setBit(i);
             }
         }
     }
-    return ret;
+    return bits;
 }
 
 QString CronTime::toTimeString(int start, int cnt, int interval)
