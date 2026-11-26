@@ -91,6 +91,10 @@ QString Crontab::getCrontab(const QString &user)
 
 bool Crontab::putCrontab(const QString &text)
 {
+    if (!readOnlyReason.isEmpty()) {
+        estr = readOnlyReason;
+        return false;
+    }
     estr = QLatin1String("");
     if (isSystemCron(cronOwner)) {
         // Write to a temp file in the same directory (so the final rename is
@@ -281,6 +285,10 @@ void Crontab::setup(const QString &str)
             static const QRegularExpression assignment(QStringLiteral(R"(^([^= \t]+)[ \t]*=[ \t]*(.*)$)"));
             const auto match = assignment.match(s.trimmed());
             if (match.hasMatch()) {
+                if (!tCommands.empty()) {
+                    readOnlyReason = QObject::tr("This crontab contains environment settings after a job. "
+                                                 "Edit it with a text editor to preserve their order.");
+                }
                 variables.push_back(std::make_unique<Variable>(match.captured(1), match.captured(2), list2String(cmnt)));
             } else {
                 // Command

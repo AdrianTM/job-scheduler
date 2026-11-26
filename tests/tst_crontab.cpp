@@ -14,6 +14,7 @@ private slots:
     void multiLineCommentPreservesInternalBlankLines();
     void commandWhitespaceSurvivesSave();
     void assignmentValuesSurviveSave();
+    void scopedVariablesPreventLossySave();
 };
 
 // A fresh user crontab always has HOME/PATH/SHELL variables (MainWindow adds
@@ -92,6 +93,15 @@ void TstCrontab::assignmentValuesSurviveSave()
     QCOMPARE(cron.getVariables().size(), size_t(3));
     QVERIFY(cron.getTCommands().empty());
     QCOMPARE(cron.cronText(), QStringLiteral("LABEL=a=b=c\nTITLE=\"night  shift\"\nEMPTY=\n\n"));
+}
+
+void TstCrontab::scopedVariablesPreventLossySave()
+{
+    Crontab cron;
+    cron.setup(QStringLiteral("@daily echo first\nMAILTO=\"\"\n@daily echo second\n"));
+    QVERIFY(!cron.saveRestriction().isEmpty());
+    QVERIFY(!cron.putCrontab());
+    QCOMPARE(cron.estr, cron.saveRestriction());
 }
 
 QTEST_GUILESS_MAIN(TstCrontab)

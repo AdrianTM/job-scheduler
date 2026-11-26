@@ -284,6 +284,11 @@ void MainWindow::saveCron()
     for (size_t i = 0; i < crontabs.size(); ++i) {
         auto &cron = crontabs[i];
         if (cron->isChanged()) {
+            if (!cron->saveRestriction().isEmpty()) {
+                QMessageBox::warning(this, cron->getCronOwner(), cron->saveRestriction());
+                notSaved = true;
+                continue;
+            }
             SaveDialog dialog(cron->getCronOwner(), cron->cronText());
             if (dialog.exec() == QDialog::Accepted) {
                 bool ret = cron->putCrontab(dialog.getText());

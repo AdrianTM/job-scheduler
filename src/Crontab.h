@@ -159,6 +159,10 @@ public:
     }
 
     QString estr{};
+    [[nodiscard]] const QString &saveRestriction() const
+    {
+        return readOnlyReason;
+    }
 
     [[nodiscard]] const QString &getCronOwner() const
     {
@@ -198,6 +202,7 @@ public:
     }
 
 private:
+    QString readOnlyReason;
     QString cronOwner{};
     QString comment{};
     bool changed = false;
