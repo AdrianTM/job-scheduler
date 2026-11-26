@@ -5,10 +5,13 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 APPNAME="$(basename "$PROJECT_DIR")"
 
-echodo() {
-  echo "${@}"
-  ${@}
-}
+set -e
+cd "$SCRIPT_DIR"
+shopt -s nullglob
+if ! command -v tx >/dev/null; then
+    echo "Error: tx is required to refresh translations." >&2
+    exit 1
+fi
 
 # Prepare transifex
 if [ ! -s  .tx/config ]; then
@@ -31,17 +34,6 @@ if [ -z "$(grep minimum_perc .tx/config)" ]; then
         echo "minimum_perc = 25" >> .tx/config
 fi
 
-# Remove existing translations
-find . -type f -name '*.ts' -not -name '*en.ts' -delete
-
-# Get all translations
-if command -v tx >/dev/null; then
-   echodo tx pull -r antix-development.$APPNAME --all
-fi
-
-# en_US duplicates the English source catalog and should not be shipped.
-rm -f "${APPNAME}_en_US.ts"
-
 # Find lupdate command in common locations
 LUPDATE=""
 for cmd in lupdate lupdate-qt6 /usr/lib/qt6/bin/lupdate /usr/bin/lupdate /usr/local/bin/lupdate; do
@@ -58,8 +50,33 @@ fi
 
 echo "Using lupdate: $LUPDATE"
 
-# Update all .ts files from source files
-SOURCE_FILES=$(find ../src -name "*.cpp" -o -name "*.h" -o -name "*.ui" 2>/dev/null)
-if [ -n "$SOURCE_FILES" ]; then
-    "$LUPDATE" $SOURCE_FILES -ts *en.ts
+# Stage on the same filesystem so each completed catalog can be installed
+# with a rename. A failed pull or lupdate leaves the working catalogs intact.
+stage=$(mktemp -d "$PROJECT_DIR/.catalogs.XXXXXX")
+trap 'rm -rf -- "$stage"' EXIT
+mkdir "$stage/.tx"
+cp .tx/config "$stage/.tx/config"
+cp "${APPNAME}_en.ts" "$stage/"
+(cd "$stage" && tx pull -r "antix-development.$APPNAME" --all)
+rm -f -- "$stage/${APPNAME}_en_US.ts"
+
+catalogs=("$stage/${APPNAME}_"*.ts)
+if (( ${#catalogs[@]} < 2 )); then
+    echo "Error: the pull returned no translated catalogs." >&2
+    exit 1
+fi
+
+sources=(../src/*.cpp ../src/*.h ../src/*.ui)
+"$LUPDATE" "${sources[@]}" -ts "$stage/${APPNAME}_en.ts"
+
+# Capture stale names before moving the staged files into place.
+stale=()
+for catalog in "${APPNAME}_"*.ts; do
+    if [[ ! -f "$stage/$catalog" ]]; then
+        stale+=("$catalog")
+    fi
+done
+mv -f -- "${catalogs[@]}" .
+if (( ${#stale[@]} )); then
+    rm -f -- "${stale[@]}"
 fi
