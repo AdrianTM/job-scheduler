@@ -101,6 +101,10 @@ bool Crontab::putCrontab(const QString &text)
         // an atomic same-filesystem replace) instead of truncating the live
         // file in place, which could leave it empty/partial on interruption.
         QFileInfo targetInfo(cronOwner);
+        if (targetInfo.isSymLink()) {
+            estr = QObject::tr("Cannot replace the symbolic link %1. Edit its target directly.").arg(cronOwner);
+            return false;
+        }
         QTemporaryFile tmp(targetInfo.absolutePath() + "/." + targetInfo.fileName() + ".XXXXXX");
         tmp.setAutoRemove(false);
         if (!tmp.open()) {
