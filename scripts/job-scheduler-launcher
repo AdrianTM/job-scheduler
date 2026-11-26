@@ -31,40 +31,20 @@ else
     # add /usr/local/bin as first entry if not already
     [ -z "${PATH##/usr/local/bin:*}" ] || PATH="/usr/local/bin:$PATH"
 
-    # put pattern list of environment variables we want get
-    # from users environment into an array
-    __ENVIRONEMENT_PATTERN__=(
-    DESKTOP_SESSION=
-    HOME=
-    KDE_FULL_SESSION=
-    LANG=
-    LANGUAGE=
-    LC_[[:alpha:]]+=
-    PWD=
-    QT_[[:alnum:]_]+=
-    XDG_CURRENT_DESKTOP=
-    XDG_SESSION_TYPE=
-    WAYLAND_DISPLAY=
-    DBUS_SESSION_BUS_ADDRESS=
-    )
-    # combine array into a string of space separated entries
-    __ENVIRONEMENT_PATTERN__="${__ENVIRONEMENT_PATTERN__[*]}"
-    # replace spaces with pipe-symbole as pattern alternative
-    __ENVIRONEMENT_PATTERN__="^(${__ENVIRONEMENT_PATTERN__// /|})"
-    # read environment variables from users process environement table
-    while read -r; do
-        IFS='=' read -r  k v  <<<"$REPLY"
-        # remove any 'bad' special char's like back-quotes and dollar sign
-        v="${v//[\`\$]/}"
-        # change to user working dir
-        [ "$k" = "PWD" ] && cd "$v" && continue
-        # echo export $k="${v@Q}"
-        export $k="$v"
-    done < <( xargs -0 -L1 -a /proc/$PPID/environ \
-            | grep -E "${__ENVIRONEMENT_PATTERN__}")
-
-    unset k v
-    unset __ENVIRONEMENT_PATTERN__
+    # pkexec supplies the privileged process environment. Restore only the
+    # desktop settings required by the GUI, using entire environment records.
+    while IFS= read -r -d '' setting; do
+        key=${setting%%=*}
+        case "$key" in
+            LANG|LANGUAGE|LC_ALL|LC_ADDRESS|LC_COLLATE|LC_CTYPE|LC_IDENTIFICATION|\
+            LC_MEASUREMENT|LC_MESSAGES|LC_MONETARY|LC_NAME|LC_NUMERIC|LC_PAPER|LC_TELEPHONE|LC_TIME|\
+            DESKTOP_SESSION|KDE_FULL_SESSION|XDG_CURRENT_DESKTOP|XDG_SESSION_TYPE|WAYLAND_DISPLAY|\
+            QT_QPA_PLATFORMTHEME|QT_STYLE_OVERRIDE|QT_SCALE_FACTOR|QT_AUTO_SCREEN_SCALE_FACTOR|\
+            QT_SCREEN_SCALE_FACTORS|QT_FONT_DPI)
+                export "$setting"
+                ;;
+        esac
+    done < "/proc/$PPID/environ"
 
     RUN="/usr/bin/job-scheduler"
     echo Starting  "$RUN"
