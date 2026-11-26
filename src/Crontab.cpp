@@ -35,9 +35,9 @@ Crontab::Crontab(const QString &user)
       cronOwner(user),
       changed(false)
 {
-    QString str = getCrontab(user);
-    if (!str.isEmpty()) {
-        setup(str);
+    loadedText = getCrontab(user);
+    if (!loadedText.isEmpty()) {
+        setup(loadedText);
     }
     if (!estr.isEmpty()) {
         readOnlyReason = estr;
@@ -107,7 +107,14 @@ bool Crontab::putCrontab(const QString &text)
         estr = readOnlyReason;
         return false;
     }
-    estr = QLatin1String("");
+    const QString currentText = getCrontab(cronOwner);
+    if (!estr.isEmpty()) {
+        return false;
+    }
+    if (currentText != loadedText) {
+        estr = QObject::tr("%1 changed outside Job Scheduler. Reload the schedule before saving.").arg(cronOwner);
+        return false;
+    }
     if (isSystemCron(cronOwner)) {
         // Write to a temp file in the same directory (so the final rename is
         // an atomic same-filesystem replace) instead of truncating the live
@@ -209,6 +216,7 @@ bool Crontab::putCrontab(const QString &text)
         }
     }
 
+    loadedText = text;
     return true;
 }
 

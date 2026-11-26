@@ -1,6 +1,10 @@
 #include "Crontab.h"
 
 #include <QTest>
+#include <QFile>
+#include <QTemporaryDir>
+#include <QScopeGuard>
+#include "Clib.h"
 
 #include <memory>
 
@@ -14,6 +18,7 @@ private slots:
     void multiLineCommentPreservesInternalBlankLines();
     void commandWhitespaceSurvivesSave();
     void assignmentValuesSurviveSave();
+    void staleWriterCannotReplaceCrontab();
     void scopedVariablesPreventLossySave();
     void trailingAndStandaloneCommentsSurviveSave();
 };
@@ -119,6 +124,33 @@ void TstCrontab::trailingAndStandaloneCommentsSurviveSave()
     comments.setup(QStringLiteral("# disabled\n# @daily echo later\n"));
     QCOMPARE(comments.getComment(), QStringLiteral("disabled\n@daily echo later"));
     QVERIFY(comments.cronText().contains(QStringLiteral("# @daily echo later\n")));
+}
+
+void TstCrontab::staleWriterCannotReplaceCrontab()
+{
+    QTemporaryDir dir;
+    QVERIFY(dir.isValid());
+    const auto oldPath = qgetenv("PATH");
+    const auto restorePath = qScopeGuard([oldPath] { qputenv("PATH", oldPath); });
+    QFile installer(dir.filePath("crontab"));
+    QVERIFY(installer.open(QIODevice::WriteOnly));
+    installer.write("#!/bin/sh\nfixture=${0%/*}/table\n"
+                    "case $* in *-l) cat \"$fixture\" ;; *) for file do :; done; cp \"$file\" \"$fixture\" ;; esac\n");
+    installer.close();
+    QVERIFY(installer.setPermissions(QFile::ReadOwner | QFile::WriteOwner | QFile::ExeOwner));
+    QVERIFY(qputenv("PATH", dir.path().toUtf8() + ':' + oldPath));
+    QFile fixture(dir.filePath("table"));
+    QVERIFY(fixture.open(QIODevice::WriteOnly));
+    fixture.write("@daily echo initial\n");
+    fixture.close();
+
+    Crontab first(Clib::uName());
+    Crontab second(Clib::uName());
+    QVERIFY2(first.putCrontab("@daily echo external\n"), qPrintable(first.estr));
+    QVERIFY(!second.putCrontab("@daily echo stale\n"));
+    QVERIFY(second.estr.contains("Reload"));
+    QVERIFY(fixture.open(QIODevice::ReadOnly));
+    QCOMPARE(fixture.readAll(), QByteArray("@daily echo external\n"));
 }
 
 QTEST_GUILESS_MAIN(TstCrontab)

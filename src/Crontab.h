@@ -202,6 +202,7 @@ public:
     }
 
 private:
+    QString loadedText;
     QString trailingComments;
     QString readOnlyReason;
     QString cronOwner{};
