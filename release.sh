@@ -171,7 +171,7 @@ create_tag() {
 }
 
 # Update AUR package
-update_aur_package() {
+update_aur_package() (
     local version=$1
     local annotation=$2
 
@@ -222,12 +222,16 @@ update_aur_package() {
     sed -i '/makedepends=.*git/d' "$pkgbuild"
 
     # Download tarball and calculate checksum (with retry)
+    local download_dir
+    download_dir=$(mktemp -d)
+    trap 'rm -rf -- "$download_dir"' EXIT
+    local archive="$download_dir/source.tar.gz"
     local checksum=""
     local retries=5
     for i in $(seq 1 $retries); do
         print_step "Attempting to download tarball (attempt $i/$retries)..."
-        if curl -L --fail --silent --show-error "$tarball_url" -o "/tmp/${version}.tar.gz" 2>/dev/null; then
-            checksum=$(sha256sum "/tmp/${version}.tar.gz" | cut -d' ' -f1)
+        if curl -L --fail --silent --show-error "$tarball_url" -o "$archive" 2>/dev/null; then
+            checksum=$(sha256sum "$archive" | cut -d' ' -f1)
             if [ -n "$checksum" ]; then
                 print_success "Checksum calculated: ${checksum:0:16}..."
                 break
@@ -281,9 +285,7 @@ update_aur_package() {
         git -C "$AUR_DIR" show --stat HEAD
     fi
 
-    # Clean up downloaded tarball
-    rm -f "/tmp/${version}.tar.gz"
-}
+)
 
 # Push the AUR repo if it has commits the AUR doesn't
 push_aur_package() {
