@@ -89,27 +89,6 @@ QString Crontab::getCrontab(const QString &user)
     return ret;
 }
 
-QString Crontab::writeTempFile(const QString &text, const QString &tmp)
-{
-    QString fdir = QDir::tempPath() + "/job-scheduler-" + Clib::uName();
-    if (!QFileInfo::exists(fdir)) {
-        if (!QDir(fdir).mkdir(fdir)) {
-            estr = "can't create directory " + fdir;
-            return {};
-        }
-    }
-    QTemporaryFile f(fdir + "/" + tmp);
-    f.setAutoRemove(false);
-    if (!f.open()) {
-        estr = "can't open temporary file\n\n" + f.errorString();
-        return {};
-    }
-    QTextStream t(&f);
-    t << text;
-    qDebug() << "File Saved :" << f.fileName();
-    return f.fileName();
-}
-
 bool Crontab::putCrontab(const QString &text)
 {
     estr = QLatin1String("");
@@ -161,10 +140,23 @@ bool Crontab::putCrontab(const QString &text)
             return false;
         }
     } else {
-        QString fname = writeTempFile(text, cronOwner);
-        if (fname.isEmpty()) {
+        QTemporaryDir directory;
+        if (!directory.isValid()) {
+            estr = QStringLiteral("can't create temporary directory\n\n%1").arg(directory.errorString());
             return false;
         }
+        const QString fname = directory.filePath(QStringLiteral("crontab"));
+        QFile file(fname);
+        if (!file.open(QIODevice::WriteOnly)) {
+            estr = QStringLiteral("can't open temporary file\n\n%1").arg(file.errorString());
+            return false;
+        }
+
+        {
+            QTextStream stream(&file);
+            stream << text;
+        }
+        file.close();
 
         QProcess p;
         if (Clib::uId() == 0) {
@@ -190,7 +182,6 @@ bool Crontab::putCrontab(const QString &text)
             estr = "crontab update error\n\n" + err;
             return false;
         }
-        QFile::remove(fname);
     }
 
     return true;
