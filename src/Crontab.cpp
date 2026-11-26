@@ -278,13 +278,10 @@ void Crontab::setup(const QString &str)
 
                 comment = list2String(head);
             }
-            const QString variableLine = s.trimmed();
-            if (variableLine.contains(QRegularExpression(QStringLiteral("^\\S+\\s*=\\s*\\S*$")))) {
-                // Variable
-                QRegularExpression sep(QStringLiteral("\\s*=\\s*"));
-                QString name = variableLine.section(sep, 0, 0);
-                QString val = variableLine.section(sep, 1, 1);
-                variables.push_back(std::make_unique<Variable>(name, val, list2String(cmnt)));
+            static const QRegularExpression assignment(QStringLiteral(R"(^([^= \t]+)[ \t]*=[ \t]*(.*)$)"));
+            const auto match = assignment.match(s.trimmed());
+            if (match.hasMatch()) {
+                variables.push_back(std::make_unique<Variable>(match.captured(1), match.captured(2), list2String(cmnt)));
             } else {
                 // Command
                 static const QRegularExpression sep(QStringLiteral("[ \\t]+"));
