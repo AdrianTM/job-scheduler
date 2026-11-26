@@ -15,6 +15,7 @@ private slots:
     void namedSchedulesExpandCorrectly_data();
     void namedSchedulesExpandCorrectly();
     void dayOfMonthAndDayOfWeekMatchWithOr();
+    void preserveDayFieldSemantics();
     void dayOfMonthOnlyMatchesWhenDayOfWeekIsWild();
 };
 
@@ -125,6 +126,17 @@ void TstCronTime::dayOfMonthOnlyMatchesWhenDayOfWeekIsWild()
     QVERIFY(next.isValid());
     QCOMPARE(next.date(), QDate(2026, 7, 15));
     QCOMPARE(next.time(), QTime(0, 0));
+}
+
+void TstCronTime::preserveDayFieldSemantics()
+{
+    const QDateTime start(QDate(2026, 7, 1), QTime(0, 1));
+    CronTime stepped(QStringLiteral("0 0 */16 * mon"));
+    QCOMPARE(stepped.getNextTime(start).date(), QDate(2026, 8, 17));
+    QCOMPARE(stepped.toString(), QStringLiteral("0 0 */16 * 1"));
+    CronTime fullRange(QStringLiteral("0 0 1-31 * mon"));
+    QCOMPARE(fullRange.getNextTime(start).date(), QDate(2026, 7, 2));
+    QCOMPARE(fullRange.toString(), QStringLiteral("0 0 1-31 * 1"));
 }
 
 QTEST_GUILESS_MAIN(TstCronTime)

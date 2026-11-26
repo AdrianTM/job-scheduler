@@ -31,6 +31,10 @@ public:
 
 private:
     bool bValid;
+    QString originalDay;
+    QString originalWeek;
+    QBitArray originalDayBits;
+    QBitArray originalWeekBits;
 
     static QBitArray toBit(int start, int num, const QString &field, const QStringList &names = {});
     static QString toString(const QBitArray &bit, int start);

@@ -81,6 +81,13 @@ CronTime::CronTime(const QString &tstr)
         week[7] = true;
     }
 
+    originalDay = slist.at(2);
+    originalWeek = slist.at(4);
+    for (int i = 0; i < 7; ++i) {
+        originalWeek.replace(WeekNames.at(i), QString::number(i));
+    }
+    originalDayBits = day;
+    originalWeekBits = week;
     bValid = true;
 }
 
@@ -92,16 +99,11 @@ bool CronTime::isValid() const
 QString CronTime::toString(bool literal) const
 {
 
-    QString ret;
-    if (literal) {
-        ret = toString(minute, 0) + " " + toString(hour, 0) + " " + toString(day, 1) + " "
-              + toMonthLiteral(toString(month, 1)) + " " + toWeekLiteral(toString(week, 0));
-    } else {
-        ret = toString(minute, 0) + " " + toString(hour, 0) + " " + toString(day, 1) + " " + toString(month, 1) + " "
-              + toString(week, 0);
-    }
-
-    return ret;
+    const QString dom = day == originalDayBits ? originalDay : toString(day, 1);
+    const QString dow = week == originalWeekBits ? originalWeek : toString(week, 0);
+    const QString months = toString(month, 1);
+    return QStringList{toString(minute, 0), toString(hour, 0), dom,
+                       literal ? toMonthLiteral(months) : months, literal ? toWeekLiteral(dow) : dow}.join(' ');
 }
 
 QBitArray CronTime::toBit(int start, int num, const QString &field, const QStringList &names)
@@ -235,21 +237,10 @@ QDateTime CronTime::getNextTime(const QDateTime &dtime) const
 {
     QDateTime tm = dtime.addSecs(60 - dtime.time().second());
     QTime clear(0, 0);
-    // Standard cron semantics: when both day-of-month and day-of-week are
-    // restricted, the day matches if EITHER field matches. When only one is
-    // restricted (the other is "*"), only that field applies; since a "*"
-    // field always matches, AND of both fields covers those cases. These two
-    // flags depend only on the (const) bit arrays, so compute them once.
-    const bool dowRestricted = !isFill(week);
-    const bool bothDayFieldsRestricted = !isFill(day) && dowRestricted;
-
-    // Bail out early on schedules that can never fire. When day-of-week is
-    // unrestricted, a match depends solely on the day-of-month landing inside a
-    // selected month; if no selected day fits any selected month (e.g. "30 2 *",
-    // February 30th), spinning to maxIterations would only waste CPU before
-    // returning an invalid time. (When day-of-week is restricted, the OR rule
-    // means a weekday match can still fire, so the schedule is satisfiable.)
-    if (!dowRestricted) {
+    // Cron uses the spelling of the two day fields to choose OR versus AND.
+    // A stepped wildcard and an explicit range can select identical bits.
+    const bool bothDayFieldsRestricted = !originalDay.startsWith('*') && !originalWeek.startsWith('*');
+    if (!bothDayFieldsRestricted) {
         static constexpr int maxDaysInMonth[12] = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
         bool possible = false;
         for (int m = 0; m < 12 && !possible; ++m) {
