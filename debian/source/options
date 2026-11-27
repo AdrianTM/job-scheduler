@@ -15,3 +15,6 @@ tar-ignore = debian/debhelper-build-stamp
 tar-ignore = debian/files
 tar-ignore = debian/*.substvars
 tar-ignore = translations-desktop-file/build
+
+# CMake build trees and locally built Arch packages.
+tar-ignore = build-*
