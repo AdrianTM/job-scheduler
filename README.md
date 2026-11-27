@@ -92,3 +92,19 @@ job-scheduler/
 ├── build.sh             # Build script
 └── application.qrc       # Qt resource file
 ```
+
+## AppImage
+
+Download the x86-64 AppImage from a GitHub release’s **Assets**, make it executable with `chmod +x`, and launch it as your desktop user. The host supplies `crontab` and a running cron service. Switching to the root crontab uses the desktop polkit agent. Administrative actions reopen the AppImage with the host’s elevation tool and require working FUSE. Run it from a location that the administrator can access.
+
+To build locally on Debian 13 (trixie), install the build dependencies and run the packaging script:
+
+```sh
+sudo apt-get install \
+    ca-certificates git build-essential cmake ninja-build dpkg-dev curl file \
+    qt6-base-dev qt6-tools-dev qt6-tools-dev-tools qt6-svg-plugins qt6-translations-l10n \
+    qt6-wayland
+./make-appimage.sh
+```
+
+The script writes `build-appimage/job-scheduler-<version>-x86_64.AppImage` using the version in `debian/changelog`. GitHub Actions builds the same image and attaches it to each non-Arch release.

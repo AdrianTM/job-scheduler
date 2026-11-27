@@ -7,6 +7,8 @@
    as published by the Free Software Foundation; either version 2
    of the License, or (at your option) any later version.
 */
+#include "apppaths.h"
+
 #include <QApplication>
 #include <QLibraryInfo>
 #include <QLocale>
@@ -16,8 +18,16 @@
 #include "MainWindow.h"
 #include <unistd.h>
 
+#include <cstdio>
+#include <cstring>
+
 int main(int argc, char *argv[])
 {
+    if (argc == 2 && std::strcmp(argv[1], "--version") == 0) {
+        std::puts("job-scheduler " VERSION);
+        return EXIT_SUCCESS;
+    }
+
     if (qEnvironmentVariableIsEmpty("DISPLAY") && qEnvironmentVariableIsEmpty("WAYLAND_DISPLAY")
         && qEnvironmentVariableIsEmpty("QT_QPA_PLATFORM")) {
         qWarning("job-scheduler: no display available (DISPLAY and WAYLAND_DISPLAY are both unset); "
@@ -58,7 +68,7 @@ int main(int argc, char *argv[])
 
     QTranslator appTran;
     if (appTran.load(QApplication::applicationName() + "_" + QLocale::system().name(),
-                     "/usr/share/" + QApplication::applicationName() + "/locale")) {
+                     sharePath(QApplication::applicationName() + "/locale"))) {
         QApplication::installTranslator(&appTran);
     }
 

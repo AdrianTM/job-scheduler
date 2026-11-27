@@ -1,3 +1,5 @@
+#include "apppaths.h"
+
 #include "about.h"
 
 #include <QCoreApplication>
@@ -88,7 +90,7 @@ void displayAboutMsgBox(const QString &title, const QString &message, const QStr
         text->setReadOnly(true);
         QProcess proc;
         const QString appName = QFileInfo(QCoreApplication::applicationFilePath()).fileName();
-        const QString changelogPath = QStringLiteral("/usr/share/doc/") + appName + QStringLiteral("/changelog.gz");
+        const QString changelogPath = sharePath(QStringLiteral("doc/")) + appName + QStringLiteral("/changelog.gz");
         proc.start(QStringLiteral("zcat"), {changelogPath}, QIODevice::ReadOnly);
         if (proc.waitForStarted(3000) && proc.waitForFinished(3000)) {
             text->setText(proc.readAllStandardOutput());

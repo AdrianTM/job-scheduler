@@ -38,4 +38,4 @@ Makefile*
 
 # Exclude binary
 job-scheduler
-
+/build-appimage/

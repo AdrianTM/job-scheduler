@@ -188,6 +188,11 @@ else()
 endif()
 
 # Set compile definitions
+option(APPIMAGE_BUILD "Build the relocatable AppImage" OFF)
+if(APPIMAGE_BUILD)
+    target_compile_definitions(job-scheduler PRIVATE APPIMAGE_BUILD)
+endif()
+
 target_compile_definitions(job-scheduler PRIVATE
     QT_DEPRECATED_WARNINGS
     QT_DISABLE_DEPRECATED_BEFORE=0x060000

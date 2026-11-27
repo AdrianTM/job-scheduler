@@ -8,6 +8,8 @@
    of the License, or (at your option) any later version.
 */
 
+#include "apppaths.h"
+
 #include "MainWindow.h"
 
 #include <QApplication>
@@ -146,11 +148,29 @@ void MainWindow::changeUser()
 {
     saveCron();
     if (Clib::uId() != 0) {
-        if (!QProcess::startDetached(QStringLiteral("job-scheduler-launcher"), {})) {
+#ifdef APPIMAGE_BUILD
+        QString wayland = qEnvironmentVariable("WAYLAND_DISPLAY");
+        if (!wayland.isEmpty() && QDir::isRelativePath(wayland)) {
+            wayland = QDir(qEnvironmentVariable("XDG_RUNTIME_DIR")).filePath(wayland);
+        }
+        const QStringList args {qEnvironmentVariable("APPIMAGE"), QStringLiteral("--admin-session"),
+                                qEnvironmentVariable("DISPLAY"), qEnvironmentVariable("XAUTHORITY", QDir::home().filePath(".Xauthority")),
+                                wayland};
+        const bool started = QProcess::startDetached(QStringLiteral("pkexec"), args);
+#else
+        const bool started = QProcess::startDetached(QStringLiteral("job-scheduler-launcher"), {});
+#endif
+        if (!started) {
             QMessageBox::critical(this, tr("Job Scheduler"), tr("Failed to start job-scheduler-launcher."));
             return;
         }
     } else {
+#ifdef APPIMAGE_BUILD
+        bool validUid = false;
+        const auto uid = qEnvironmentVariable("PKEXEC_UID").toUInt(&validUid);
+        const auto *account = validUid ? getpwuid(uid) : nullptr;
+        const QString user = account ? QString::fromLocal8Bit(account->pw_name) : QString();
+#else
         QProcess proc;
         proc.start(QStringLiteral("logname"), {}, QIODevice::ReadOnly);
         if (!proc.waitForFinished()) {
@@ -158,12 +178,18 @@ void MainWindow::changeUser()
             return;
         }
         QString user = QString::fromUtf8(proc.readAllStandardOutput()).trimmed();
+#endif
         if (user.isEmpty()) {
             QMessageBox::critical(this, tr("Job Scheduler"), tr("Failed to determine the login user."));
             return;
         }
+#ifdef APPIMAGE_BUILD
+        const QString executable = qEnvironmentVariable("APPIMAGE");
+#else
+        const QString executable = QStringLiteral("job-scheduler");
+#endif
         if (!QProcess::startDetached(QStringLiteral("runuser"),
-                                     {QStringLiteral("-u"), user, QStringLiteral("job-scheduler")})) {
+                                     {QStringLiteral("-u"), user, executable})) {
             QMessageBox::critical(this, tr("Job Scheduler"), tr("Failed to start job-scheduler as %1.").arg(user));
             return;
         }
@@ -241,7 +267,7 @@ void MainWindow::createActions()
 
 void MainWindow::displayHelp()
 {
-    const QString helpPath = QStringLiteral("/usr/share/doc/job-scheduler/help.html");
+    const QString helpPath = sharePath(QStringLiteral("doc/job-scheduler/help.html"));
     displayHelpDoc(helpPath, tr("Job Scheduler"));
 }
 
@@ -446,7 +472,7 @@ void MainWindow::aboutJobScheduler()
                                  .arg(QStringLiteral("<a "
                                                      "href=\"https://github.com/mx-linux/job-scheduler\">https://"
                                                      "github.com/mx-linux/job-scheduler</a>")),
-                       QStringLiteral("/usr/share/doc/job-scheduler/license.html"),
+                       sharePath(QStringLiteral("doc/job-scheduler/license.html")),
                        tr("%1 License").arg(windowTitle()));
     show();
 }
