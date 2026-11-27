@@ -74,7 +74,7 @@ Build and install the Arch package:
 
 ```bash
 ./build.sh --arch
-sudo pacman -U job-scheduler-*.pkg.tar.zst
+sudo pacman -U build/arch/job-scheduler-*.pkg.tar.zst
 ```
 ```
 

@@ -3,6 +3,6 @@ host = https://www.transifex.com
 
 [o:anticapitalista:p:antix-development:r:job-scheduler-desktop]
 file_filter = po/job-scheduler-desktop_<lang>.po
-source_file = job-scheduler-desktop.pot
+source_file = pot/job-scheduler-desktop.pot
 source_lang = en
 type = po
